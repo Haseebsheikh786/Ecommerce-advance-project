@@ -18,17 +18,12 @@ import {
 } from "./pages/auth/authSlice";
 import { fetchLoggedInUserAsync } from "./pages/User/userSlice";
 import SignOut from "./pages/auth/signOut";
-import { positions, Provider } from "react-alert";
-import AlertTemplate from "react-alert-template-basic";
+ import { Button } from './components/ui/button'; // Adjust path based on your setup
 import Order from "./pages/Order/order";
 import Myprofile from "./pages/User/userProfile";
 import Myorders from "./pages/User/userOrder";
 
 function App() {
-  const options = {
-    timeout: 5000,
-    position: positions.BOTTOM_LEFT,
-  };
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
   const userChecked = useSelector(selectUserChecked);
@@ -44,10 +39,13 @@ function App() {
   }, [dispatch, user]);
   return (
     <>
+      <Button >
+            Learn React
+        </Button>
       {userChecked && (
-        <Provider template={AlertTemplate} {...options}>
           <BrowserRouter>
             <Navbar />
+            
             <Routes>
               <Route path="/" exact element={<ProductList />} />
               <Route
@@ -103,7 +101,6 @@ function App() {
               <Route path="/order-success/:id" exact element={<Order />} />
             </Routes>
           </BrowserRouter>
-        </Provider>
       )}
     </>
   );
@@ -115,3 +112,9 @@ export default App;
 // npm install --save react-alert react-alert-template-basic --force
 // https://mhnpd.github.io/react-loader-spinner/docs/intro/
 // stripe is ban in pakistan. i skip this lecture. in future, if you need then watch coder dost tutorial.
+
+// shadcn add method 
+// npm install tailwindcss-animate class-variance-authority clsx tailwind-merge lucide-react
+// npm install react-app-rewired customize-cra --save-dev
+// npm install react-app-rewire-alias --save-dev
+// add all the configurations files  

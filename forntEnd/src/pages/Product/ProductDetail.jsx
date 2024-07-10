@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductByIdAsync, selectProductById } from "./ProductSlice";
-import { useAlert } from "react-alert";
-import style from "./product.module.css";
+ import style from "./product.module.css";
 import { addToCartAsync, selectItems } from "../Cart/CartSlice";
 import { useParams } from "react-router-dom";
 
@@ -11,8 +10,7 @@ const ProductDetail = () => {
   const dispatch = useDispatch();
 
   const params = useParams();
-  const alert = useAlert();
-  const items = useSelector(selectItems);
+   const items = useSelector(selectItems);
   const handleCart = (e) => {
     e.preventDefault();
     if (items.findIndex((item) => item.product.id === product.id) < 0) {
@@ -20,9 +18,8 @@ const ProductDetail = () => {
         product: product.id,
         quantity: 1,
       }; 
-      dispatch(addToCartAsync({ item: newItem, alert }));
+      dispatch(addToCartAsync({ item: newItem }));
     } else {
-      alert.error("Item Already added");
     }
   };
 
