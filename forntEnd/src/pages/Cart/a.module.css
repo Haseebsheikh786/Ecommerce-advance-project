@@ -1,0 +1,141 @@
+.cartcontainer h1 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2rem;
+    margin: 1.4rem 0;
+}
+
+.cartcontainer {
+    width: 60%;
+    margin: 0 auto;
+    padding: 2vw;
+}
+
+.item {
+    box-shadow: rgba(238, 235, 235, 0.267) 0px 5px 15px;
+    display: flex;
+    margin: 1rem 0;
+    padding: 1.5vw;
+    background-color: rgb(56, 55, 55);
+}
+
+img {
+    width: 20%;
+}
+
+.itemdetails {
+    flex-grow: 1;
+    margin: .5rem 1rem;
+}
+
+.first {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.second {
+    display: flex;
+}
+
+.second label {
+    margin-top: .5rem;
+}
+
+.second select {
+    color: black;
+    margin-left: 9px;
+}
+
+.removeBtn {
+    position: absolute;
+    right: 24vw;
+    color: #f76055;
+    font-weight: bold;
+    margin-top: .5rem;
+}
+
+.subtotal {
+    display: flex;
+    flex-direction: column;
+    padding: 1vw;
+}
+
+.subtotal p {
+    margin: .5vw 0;
+    font-size: 1.1rem;
+}
+
+.subtotal span {
+    position: absolute;
+    right: 23vw;
+}
+
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.continueshopping {
+    color: rgb(91, 187, 112);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.continueshopping:hover {
+    color: rgb(92, 165, 108);
+}
+
+.checkout {
+    background-color: gray;
+    font-weight: 600;
+    width: 20vw;
+    font-size: 1.1rem;
+    padding: 1rem;
+    margin: 15px;
+    border-radius: 10px;
+}
+
+.checkout:hover {
+    background-color: rgb(94, 86, 86);
+}
+
+.EmptyCart {
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 7rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+    .cartcontainer h1 {
+        font-size: 1.2rem;
+    }
+
+    .checkout {
+        width: 40vw;
+    }
+
+    .cartcontainer {
+        width: 90%;
+        padding: 2vw;
+    }
+
+    img {
+        width: 28%;
+    }
+
+    .removeBtn {
+        right: 10vw;
+    }
+
+    .subtotal span {
+        right: 13vw;
+    }
+
+}

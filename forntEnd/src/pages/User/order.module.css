@@ -1,0 +1,140 @@
+.cartcontainer {
+    width: 60%;
+    margin: 1.5rem auto;
+    padding: 1rem 1.5rem;
+    box-shadow: rgba(238, 235, 235, 0.267) 0px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(46, 44, 44);
+}
+
+.cartcontainer h1 {
+    font-size: 2rem;
+    margin: 1rem;
+}
+
+
+.EmptyCart {
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 7rem;
+    margin-bottom: 1rem;
+}
+
+.item {
+    border: 1px solid rgb(97, 93, 93);
+    display: flex;
+    margin: .5rem 0;
+    padding: 1.5vw;
+}
+
+img {
+    width: 20%;
+}
+
+.itemdetails {
+    flex-grow: 1;
+    margin: .5rem 1rem;
+}
+
+.first {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.second {
+    display: flex;
+}
+
+
+.subtotal {
+    display: flex;
+    flex-direction: column;
+    padding: 1vw;
+}
+
+.subtotal p {
+    margin: .5vw 0;
+    font-size: 1.1rem;
+}
+
+.subtotal span {
+    position: absolute;
+    right: 24vw;
+}
+
+.shippingP {
+    padding: 1vw;
+}
+
+.shippingDetail {
+    border: 1px solid rgb(129, 102, 102);
+    margin: .5rem 0;
+    padding: 2vw;
+}
+
+
+.shippingDetail .shippingPhone {
+    position: absolute;
+    right: 24vw;
+}
+
+
+
+@media (max-width: 600px) {
+    .cartcontainer h1 {
+        font-size: 1.2rem;
+    }
+
+    .checkout {
+        width: 40vw;
+    }
+
+    .cartcontainer {
+        width: 90%;
+        padding: 2vw;
+    }
+
+    img {
+        width: 28%;
+    }
+
+    .removeBtn {
+        right: 10vw;
+    }
+
+    .subtotal span {
+        right: 10vw;
+    }
+
+    .shippingDetail .shippingPhone {
+        position: absolute;
+        right: 12vw;
+    }
+
+    .shippingP {
+        padding: 1vw 2vw;
+    }
+
+
+    .subtotal {
+        padding: 1vw 2vw;
+    }
+
+
+    .cartcontainer h1 {
+        font-size: 1rem;
+        margin: 1rem;
+        text-align: center;
+    }
+
+    .shippingDetail {
+        border: 1px solid rgb(129, 102, 102);
+        margin: .5rem 0;
+        padding: 1rem;
+    }
+
+}

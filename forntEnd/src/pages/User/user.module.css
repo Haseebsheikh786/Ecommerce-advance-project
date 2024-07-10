@@ -1,0 +1,75 @@
+.ItemContainer {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.item {
+    box-shadow: rgba(238, 235, 235, 0.267) 0px 5px 15px;
+    display: flex;
+    margin: 1rem 0;
+    padding: 1.5vw;
+    background-color: rgb(56, 55, 55);
+}
+
+.itemDetail h5,p{
+    padding: 6px 0;
+}
+
+.action{
+    display: flex;
+    flex-direction: column;
+    color: red;
+    font-weight: 600;
+    position: absolute;
+    right: 25vw;
+    padding: 1rem 0;
+}
+
+.action .removeBtn{
+    padding-bottom: 1rem;
+}
+
+.removeBtn:hover,.editBtn:hover{
+    color: rgb(204, 28, 28);
+}
+
+.p{
+    text-align: center;
+    color: white;
+}
+
+
+@media (max-width: 600px) {
+    .ItemContainer {
+        width: 100%;
+    }
+    
+    .item {
+        box-shadow: rgba(238, 235, 235, 0.267) 0px 5px 15px;
+        display: flex;
+        margin: 1rem 0;
+        padding: 1.5vw;
+        background-color: rgb(56, 55, 55);
+    }
+    
+    .itemDetail h5,p{
+        padding: 6px 0;
+        font-size: .8rem;
+    }
+    
+    .action{
+        display: flex;
+        flex-direction: column;
+        color: red;
+        font-weight: 600;
+        position: absolute;
+        right: 14vw;
+        padding: 1rem 0;
+    }
+    
+    .action .removeBtn{
+        padding-bottom: 1rem;
+    }
+    
+    
+}
