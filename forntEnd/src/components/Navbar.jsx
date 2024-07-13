@@ -4,9 +4,10 @@ import "./navbar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { selectItems } from "../pages/Cart/CartSlice";
-import { selectLoggedInUser } from "../pages/auth/authSlice";
+import {  Logout, selectUserInfo  } from "../pages/auth/authSlice";
+
 const Navbar = () => {
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectUserInfo);
   const items = useSelector(selectItems);
 
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -100,9 +101,12 @@ const Navbar = () => {
                 ? "activeStyle signOutButton"
                 : "inactiveStyle signOutButton"
             }
-            to="/signOut"
-            onClick={handleLinkClick}
+            onClick={() => {
+              dispatch(Logout());
+              navigate("/auth");
+            }}
           >
+            {" "}
             SignOut
           </NavLink>
         )}

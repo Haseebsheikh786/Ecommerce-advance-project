@@ -1,39 +1,147 @@
-export function createUser(userData) {
-  return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/auth/signup", {
-      method: "POST",
-      body: JSON.stringify(userData),
-      headers: { "content-type": "application/json" },
-    });
-    const data = await response.json();
-    // TODO: on server it will only return some info of user (not password)
-    resolve({ data });
-  });
+import axios from "axios";
+import { toast } from "react-toastify";
+
+export const axiosInstance = axios.create({
+  baseURL: "http://localhost:8080",
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  }, 
+});
+
+export async function Signup(data) {
+  try { 
+    const response = await axiosInstance.post("/register", data);
+    console.log("Response:", response); 
+
+    if (response.status === 201 && response.data) {
+      return response;
+    } else {
+      throw new Error("Invalid response from server");
+    }
+  } catch (error) {
+    toast(error.response.data.error);
+    console.log("Error:", error.response.data.error);
+    throw error;
+  }
 }
 
-export function signOut(userId) {
+export const Login = async (data) => {
+  try {
+    const response = await axiosInstance.post("/login", data);
+    console.log("Response:", response);
+
+    if (response.status === 200 && response.data) {
+      return response;
+    } else {
+      throw new Error("Invalid response from server");
+    }
+  } catch (error) {
+    toast(error.response.data.error);
+    console.log("Error:", error.response.data.error);
+    throw error;
+  }
+};
+
+export const logout = async () => {
+  const response = await axiosInstance.get("/logout");
+  return response;
+};
+
+axiosInstance.interceptors.response.use(
+  (config) => config,
+  async (error) => {
+    const originalReq = error.config;
+
+    if (
+      (error.response.status === 401 || error.response.status === 500) &&
+      originalReq &&
+      !originalReq._isRetry
+    ) {
+      originalReq._isRetry = true;
+
+      try {
+        const response = await axios.get(`http://localhost:8080/refresh`, {
+          withCredentials: true,
+        });
+
+        if (response.status === 200) {
+          return axiosInstance.request(originalReq);
+        } else {
+          window.location.href = "/login";
+        }
+      } catch (error) {
+        console.error("Error refreshing token:", error);
+        window.location.href = "/login";
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+export const emailVerification = async (data) => {
+  try {
+    const response = await axiosInstance.post("/verify-email", data);
+    console.log("Response:", response);
+
+    if (response.status === 200 && response.data) {
+      return response;
+    } else {
+      toast(response.data.error);
+      throw new Error("Invalid response from server");
+    }
+  } catch (error) {
+    toast(error.response.data.error);
+    console.log("Error:", error.response.data.error);
+    throw error;
+  }
+};
+
+export function ResendVerificationCode(data) {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("http://localhost:8080/auth/logout");
+      const response = await fetch("http://localhost:8080/resend-verification-code", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "content-type": "application/json" },
+      });
       if (response.ok) {
-        resolve({ data: "success" });
+        const data = await response.json();
+        resolve({ data });
+        toast("code sent successfully");
       } else {
         const error = await response.text();
+        toast(error);
         reject(error);
       }
     } catch (error) {
-      console.log(error);
+      toast(error);
       reject(error);
     }
   });
 }
+export async function resetPasswordRequest(data) {
+  try {
+    const response = await axios.post("http://localhost:8080/reset-password-request", data);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+}
+export async function verifyCode(data) {
+  try {
+    const response = await axios.post("http://localhost:8080/verify-code", data);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+}
 
-export function loginUser(loginInfo) {
+export function resetPassword(data) {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("http://localhost:8080/auth/login", {
+      const response = await fetch("http://localhost:8080/reset-password", {
         method: "POST",
-        body: JSON.stringify(loginInfo),
+        body: JSON.stringify(data),
         headers: { "content-type": "application/json" },
       });
       if (response.ok) {
@@ -48,70 +156,7 @@ export function loginUser(loginInfo) {
     }
   });
 }
-
-export function checkAuth() {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const response = await fetch("http://localhost:8080/auth/check");
-      if (response.ok) {
-        const data = await response.json();
-        resolve({ data });
-      } else {
-        const error = await response.text();
-        reject(error);
-      }
-    } catch (error) {
-      reject(error);
-    }
-
-    // TODO: on server it will only return some info of user (not password)
-  });
-}
-
-export function resetPasswordRequest(email) {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const response = await fetch(
-        "http://localhost:8080/auth/reset-password-request",
-        {
-          method: "POST",
-          body: JSON.stringify({ email }),
-          headers: { "content-type": "application/json" },
-        }
-      );
-      if (response.ok) {
-        const data = await response.json();
-        resolve({ data });
-      } else {
-        const error = await response.text();
-        reject(error);
-      }
-    } catch (error) {
-      reject(error);
-    }
-  });
-}
-
-export function resetPassword(data) {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const response = await fetch(
-        "http://localhost:8080/auth/reset-password",
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: { "content-type": "application/json" },
-        }
-      );
-      if (response.ok) {
-        const data = await response.json();
-        resolve({ data });
-      } else {
-        const error = await response.text();
-        reject(error);
-      }
-    } catch (error) {
-      reject(error);
-    }
-  });
-}
+export const GetLoginUser = async () => {
+  const response = await axiosInstance.get("/own");
+  return response;
+};

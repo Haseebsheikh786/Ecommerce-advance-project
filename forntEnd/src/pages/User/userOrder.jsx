@@ -6,12 +6,12 @@ import {
   selectUserOrders,
 } from "./userSlice";
 import style from "./order.module.css";
-import { selectLoggedInUser } from "../auth/authSlice";
+import { selectloginUser } from "../auth/authSlice";
 import { Link, Navigate } from "react-router-dom";
 export default function UserOrder() {
   const dispatch = useDispatch();
   const orders = useSelector(selectUserOrders);
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectloginUser);
 
   useEffect(() => {
     if (user) {

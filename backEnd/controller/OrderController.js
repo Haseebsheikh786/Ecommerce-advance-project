@@ -1,5 +1,5 @@
 const { Order } = require("../models/Order");
-const { User } = require("../models/User");
+const { User } = require("../models/UserModel");
 const { Product } = require("../models/Product");
 const { sendMail, invoiceTemplate } = require("../services/common");
 

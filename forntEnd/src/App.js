@@ -5,103 +5,90 @@ import Error from "./components/Error";
 import { ProductList } from "./pages/Product/productList";
 import ProductDetail from "./pages/Product/ProductDetail";
 import Login from "./pages/auth/Login";
-import Signup from "./pages/auth/Signup";
 import Cart from "./pages/Cart/Cart";
 import Checkout from "./pages/Checkout/Checkout";
 import Protected from "./components/Protected";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import {
-  checkAuthAsync,
-  selectLoggedInUser,
-  selectUserChecked,
-} from "./pages/auth/authSlice";
-import { fetchLoggedInUserAsync } from "./pages/User/userSlice";
-import SignOut from "./pages/auth/signOut";
- import { Button } from './components/ui/button'; // Adjust path based on your setup
+import { GetLoginUserAsync, selectloginUser } from "./pages/auth/authSlice";
 import Order from "./pages/Order/order";
 import Myprofile from "./pages/User/userProfile";
 import Myorders from "./pages/User/userOrder";
+import ForgetPassword from "./pages/auth/ForgetPassword";
+import EmailVerification from "./pages/auth/EmailVerification";
+import useAutoLogin from "./hooks/useAutoLogin";
 
 function App() {
   const dispatch = useDispatch();
-  const user = useSelector(selectLoggedInUser);
-  const userChecked = useSelector(selectUserChecked);
+  const user = useSelector(selectloginUser);
+  const loading = useAutoLogin();
 
   useEffect(() => {
-    dispatch(checkAuthAsync());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (user) {
-      dispatch(fetchLoggedInUserAsync());
+    if (!loading && user) {
+      dispatch(GetLoginUserAsync());
     }
-  }, [dispatch, user]);
-  return (
-    <>
-      <Button >
-            Learn React
-        </Button>
-      {userChecked && (
-          <BrowserRouter>
-            <Navbar />
-            
-            <Routes>
-              <Route path="/" exact element={<ProductList />} />
-              <Route
-                path="product-detail/:id"
-                exact
-                element={
-                  <Protected>
-                    <ProductDetail />
-                  </Protected>
-                }
-              />
-              <Route path="login" exact element={<Login />} />
-              <Route path="signup" exact element={<Signup />} />
-              <Route path="signOut" exact element={<SignOut />} />
-              <Route
-                path="cart"
-                exact
-                element={
-                  <Protected>
-                    <Cart />
-                  </Protected>
-                }
-              />
-              <Route
-                path="checkout"
-                exact
-                element={
-                  <Protected>
-                    <Checkout />
-                  </Protected>
-                }
-              />
+  }, [dispatch, user, loading]);
 
-              <Route path="*" exact element={<Error />} />
-              <Route
-                path="/profile"
-                exact
-                element={
-                  <Protected>
-                    <Myprofile />
-                  </Protected>
-                }
-              />
-              <Route
-                path="/orders"
-                exact
-                element={
-                  <Protected>
-                    <Myorders />
-                  </Protected>
-                }
-              />
-              <Route path="/order-success/:id" exact element={<Order />} />
-            </Routes>
-          </BrowserRouter>
-      )}
+  return loading ? null : (
+    <>
+      <BrowserRouter>
+        <Navbar />
+
+        <Routes>
+          <Route path="/" exact element={<ProductList />} />
+          <Route
+            path="product-detail/:id"
+            exact
+            element={
+              <Protected>
+                <ProductDetail />
+              </Protected>
+            }
+          />
+          <Route path="login" exact element={<Login />} />
+          <Route path="/forgot-password" element={<ForgetPassword />} />
+          <Route path="/verify-email" element={<EmailVerification />} />
+          <Route
+            path="cart"
+            exact
+            element={
+              <Protected>
+                <Cart />
+              </Protected>
+            }
+          />
+          <Route
+            path="checkout"
+            exact
+            element={
+              <Protected>
+                <Checkout />
+              </Protected>
+            }
+          />
+
+          <Route path="*" exact element={<Error />} />
+          <Route
+            path="/profile"
+            exact
+            element={
+              <Protected>
+                <Myprofile />
+              </Protected>
+            }
+          />
+          <Route
+            path="/orders"
+            exact
+            element={
+              <Protected>
+                <Myorders />
+              </Protected>
+            }
+          />
+          <Route path="/order-success/:id" exact element={<Order />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
@@ -113,8 +100,8 @@ export default App;
 // https://mhnpd.github.io/react-loader-spinner/docs/intro/
 // stripe is ban in pakistan. i skip this lecture. in future, if you need then watch coder dost tutorial.
 
-// shadcn add method 
+// shadcn add method
 // npm install tailwindcss-animate class-variance-authority clsx tailwind-merge lucide-react
 // npm install react-app-rewired customize-cra --save-dev
 // npm install react-app-rewire-alias --save-dev
-// add all the configurations files  
+// add all the configurations files

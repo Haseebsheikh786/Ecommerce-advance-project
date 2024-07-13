@@ -1,154 +1,199 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  loginUser,
-  checkAuth,
-  createUser,
-  signOut,
+  Login,
+  Signup,
+  logout,
+  emailVerification,
+  ResendVerificationCode,
+  GetLoginUser,
   resetPasswordRequest,
   resetPassword,
+  verifyCode,
 } from "./authApi";
 
 const initialState = {
-  loggedInUserToken: null, // this should only contain user identity => 'id'/'role'
-  status: "idle",
-  error: null,
-  userChecked: false,
-  mailSent: false,
-  passwordReset: false,
+  user: null,
+  userInfo: null,
+  isVerified: false,
+  isLoading: false,
+  isError: false,
+  isSuccess: false,
+  errorMessage: null,
 };
 
-export const createUserAsync = createAsyncThunk(
-  "user/createUser",
-  async (userData) => {
-    const response = await createUser(userData);
-    // The value we return becomes the `fulfilled` action payload
-    return response.data;
-  }
-);
-
-export const LoginUserAsync = createAsyncThunk(
-  "user/loginUser",
-  async (loginInfo, { rejectWithValue }) => {
+// Register user
+export const register = createAsyncThunk(
+  "auth/register",
+  async (user, thunkAPI) => {
     try {
-      const response = await loginUser(loginInfo);
-      return response.data;
+      const response = await Signup(user);
+      return response;
     } catch (error) {
-      console.log(error);
-      return rejectWithValue(error);
+      if (
+        error.response &&
+        error.response.status === 400 &&
+        error.response.data.error === "User already registered"
+      ) {
+        return thunkAPI.rejectWithValue("User already registered");
+      } else {
+        throw error;
+      }
     }
   }
 );
 
-export const signOutAsync = createAsyncThunk(
-  "user/signOut",
-  async ( ) => {
-      const response = await signOut( );
-      // The value we return becomes the `fulfilled` action payload
-      return response.data;
-  }
-);
-
-export const checkAuthAsync = createAsyncThunk("user/checkAuth", async () => {
+// Login user
+export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
   try {
-    const response = await checkAuth();
-    return response.data;
+    const response = await Login(user);
+    return response;
   } catch (error) {
-    console.log(error);
+    if (
+      error.response &&
+      error.response.status === 400 &&
+      error.response.data.error === "User is not verified"
+    ) {
+      return thunkAPI.rejectWithValue("User is not verified");
+    } else {
+      throw error;
+    }
   }
 });
 
-export const resetPasswordRequestAsync = createAsyncThunk(
-  "user/resetPasswordRequest",
-  async (email, { rejectWithValue }) => {
+export const Logout = createAsyncThunk("auth/logout", async () => {
+  const response = await logout();
+  return response.data;
+});
+
+export const emailVerificationAsync = createAsyncThunk(
+  "user/emailVerification",
+  async (data, { rejectWithValue }) => {
     try {
-      const response = await resetPasswordRequest(email);
+      const response = await emailVerification(data);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+export const ResendVerificationCodeAsync = createAsyncThunk(
+  "user/resendEmailVerificationCode",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await ResendVerificationCode(data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
     }
   }
 );
-
+export const resetPasswordRequestAsync = createAsyncThunk(
+  "user/resetPasswordRequest",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await resetPasswordRequest(data);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
 export const resetPasswordAsync = createAsyncThunk(
   "user/resetPassword",
   async (data, { rejectWithValue }) => {
     try {
       const response = await resetPassword(data);
-      return response.data;
+      return response;
     } catch (error) {
       return rejectWithValue(error);
     }
   }
 );
-export const counterSlice = createSlice({
-  name: "user",
+export const verifyCodeAsync = createAsyncThunk(
+  "user/verifyCode",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await verifyCode(data);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const GetLoginUserAsync = createAsyncThunk(
+  "auth/GetLoginUser",
+  async () => {
+    try {
+      const response = await GetLoginUser();
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const authSlice = createSlice({
+  name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setUser: (state, action) => {
+      state.user = action.payload;
+      state.isVerified = true;
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(createUserAsync.pending, (state) => {
+      .addCase(login.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload;
+        state.user = null;
+      })
+      .addCase(Logout.fulfilled, (state) => {
+        state.status = "idle";
+        state.user = null;
+        state.userInfo = null;
+      })
+      .addCase(emailVerificationAsync.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(createUserAsync.fulfilled, (state, action) => {
+      .addCase(emailVerificationAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.loggedInUserToken = action.payload;
+        state.isVerified = true;
+        state.user = action.payload;
       })
-      .addCase(LoginUserAsync.pending, (state) => {
+      .addCase(ResendVerificationCodeAsync.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(LoginUserAsync.fulfilled, (state, action) => {
+      .addCase(ResendVerificationCodeAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.loggedInUserToken = action.payload;
+        state.isVerified = true;
       })
-      .addCase(LoginUserAsync.rejected, (state, action) => {
-        state.status = "idle";
-        state.error = action.payload;
+
+      .addCase(GetLoginUserAsync.pending, (state) => {
+        state.isLoading = true;
       })
-      .addCase(signOutAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(signOutAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.loggedInUserToken = null;
-      })
-      .addCase(checkAuthAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(checkAuthAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.loggedInUserToken = action.payload;
-        state.userChecked = true;
-      })
-      .addCase(checkAuthAsync.rejected, (state, action) => {
-        state.status = "idle";
-        state.userChecked = true;
-      })
-      .addCase(resetPasswordRequestAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(resetPasswordRequestAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.mailSent = true;
-      })
-      .addCase(resetPasswordAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(resetPasswordAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.passwordReset = true;
-      })
-      .addCase(resetPasswordAsync.rejected, (state, action) => {
-        state.status = "idle";
-        state.error = action.payload;
+      .addCase(GetLoginUserAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isVerified = true;
+        state.userInfo = action.payload;
       });
   },
 });
 
-export const selectLoggedInUser = (state) => state.auth.loggedInUserToken;
-export const selectError = (state) => state.auth.error;
-export const selectUserChecked = (state) => state.auth.userChecked;
-export const selectMailSent = (state) => state.auth.mailSent;
-export const selectPasswordReset = (state) => state.auth.passwordReset;
+export const selectIsVerified = (state) => state.user.isVerified;
+export const selectUserInfo = (state) => state.user?.userInfo?.data;
+export const selectloginUser = (state) => state.user?.user?.data;
 
-export const { increment } = counterSlice.actions;
-export default counterSlice.reducer;
+export default authSlice.reducer;
+export const { setUser } = authSlice.actions;
