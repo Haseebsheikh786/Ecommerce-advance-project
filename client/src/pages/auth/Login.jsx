@@ -2,19 +2,13 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { login, register, selectloginUser } from "./authSlice";
-import { toast } from "react-toastify";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../../components/ui/card";
+import { Card, CardContent } from "../../components/ui/card";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { Button } from "../../components/ui/button";
 import image from "../../assets/images/Big_phone_with_cart.jpg";
+import image2 from "../../assets/images/White Modern Minimal E-Commerce Logo.png";
+
 const AuthPage = ({}) => {
   const [auth, setAuth] = useState(false);
   const [email, setEmail] = useState("");
@@ -33,28 +27,23 @@ const AuthPage = ({}) => {
     setLoading(true);
 
     if (auth) {
-      if (password !== confirmPassword) {
-        toast("Passwords do not match");
-        setLoading(false);
-      } else {
-        const obj = {
-          email,
-          password,
-          userName,
-        };
-        try {
-          const response = await dispatch(register(obj));
-          console.log(response);
-          if (response?.payload === "User already registered") {
-            console.log(response?.payload?.response?.data?.error);
-          } else {
-            navigate(`/verify-email?email=${email}`);
-          }
-        } catch (error) {
-          console.log("Error:", error);
+      const obj = {
+        email,
+        password,
+        userName,
+      };
+      try {
+        const response = await dispatch(register(obj));
+        console.log(response);
+        if (response?.payload === "User already registered") {
+          console.log(response?.payload?.response?.data?.error);
+        } else {
+          navigate(`/verify-email?email=${email}`);
         }
-        setLoading(false);
+      } catch (error) {
+        console.log("Error:", error);
       }
+      setLoading(false);
     } else {
       const obj = {
         email: email,
@@ -92,23 +81,12 @@ const AuthPage = ({}) => {
             class="lg:h-full xl:h-full 2xl:h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
           />
         </div>
-        <div class="flex flex-col items-center justify-center gap-5 h-screen">
+        <div class="flex flex-col items-center justify-center lg:h-screen mx-3 ">
           <div class="lg:hidden flex flex-col justify-end items-center">
-            <img
-              src={image}
-              alt="logo"
-              class="h-6"
-              v-if="!toggleMode.selectedMode"
-            />
-            <img
-              src={image}
-              alt="logo"
-              class="h-6"
-              v-if="!toggleMode.selectedMode"
-            />{" "}
+            <img src={image2} alt="logo" class="h-32 w-32" />
           </div>
           <div class="flex items-center justify-center w-full lg:w-7/12 ml-auto">
-            <Card>
+            <Card className="">
               <CardContent class="p-8">
                 <div class="mx-auto grid sm:w-[350px] gap-6">
                   <div class="grid gap-2 text-center">
@@ -116,7 +94,7 @@ const AuthPage = ({}) => {
                       {!auth ? "login to your account" : "Create new account"}
                     </h1>
                     <p class="text-balance text-muted-foreground">
-                      enter your credentials to {auth ? "Signup" : "login"}
+                      enter your credentials to {auth ? "signup" : "login"}
                     </p>
                   </div>
                   <form onSubmit={handleSubmit}>
@@ -159,18 +137,7 @@ const AuthPage = ({}) => {
                           onChange={(e) => setPassword(e.target.value)}
                         />
                       </div>
-                      {auth && (
-                        <div class="grid gap-2 relative">
-                          <Label>Confirm Password</Label>
-                          <Input
-                            id="password"
-                            type="password"
-                            placeholder="******"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                          />
-                        </div>
-                      )}
+
                       {!auth && (
                         <div class="">
                           <Label for="remember">

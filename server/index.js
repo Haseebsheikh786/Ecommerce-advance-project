@@ -21,6 +21,7 @@ app.use(
 
 app.use(express.static(path.resolve(__dirname, "build")));
 app.use(cookieParser());
+app.use(errorHandler);
 
 app.use(express.json());
 app.use("/", require("./routes/AuthRoute"));
@@ -30,7 +31,6 @@ app.use("/categories", require("./routes/CategoryRoute"));
 app.use("/cart", require("./routes/CartRoute"));
 app.use("/orders", require("./routes/OrderRoute"));
  
-app.use(errorHandler);
 
 dbConnect();
 
