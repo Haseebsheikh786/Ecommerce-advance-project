@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import {
-  Input,
-  Form,
-  FormGroup,
-  Label,
-  Container,
-  Button,
-  Spinner,
-} from "reactstrap";
 import { login, register, selectloginUser } from "./authSlice";
 import { toast } from "react-toastify";
-
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card";
+import { Input } from "../../components/ui/input";
+import { Label } from "../../components/ui/label";
+import { Button } from "../../components/ui/button";
+import image from "../../assets/images/Big_phone_with_cart.jpg";
 const AuthPage = ({}) => {
   const [auth, setAuth] = useState(false);
   const [email, setEmail] = useState("");
@@ -82,108 +84,136 @@ const AuthPage = ({}) => {
   return (
     <>
       {user?.Isverified && <Navigate to="/" replace={true}></Navigate>}
-      <Container className="my-5 authContainer">
-        <h2 className="text-center my-3">
-          {auth ? "Sign Up" : "Login "} {user?.email}
-        </h2>
-
-        <Form onSubmit={handleSubmit}>
-          {auth && (
-            <FormGroup className="col-">
-              <Label for="examplePassword" className=" mb-1">
-                Username
-              </Label>
-              <Input
-                id="examplePassword"
-                name="password"
-                placeholder="Enter username "
-                type="text"
-                value={userName}
-                onChange={(e) => setuserName(e.target.value)}
-                required
-              />
-            </FormGroup>
-          )}
-          <FormGroup className="col-">
-            <Label for="exampleEmail " className=" mb-1">
-              Email
-            </Label>
-            <Input
-              id="exampleEmail"
-              name="email"
-              placeholder="Enter Email"
-              type="email"
-              value={email}
-              required
-              onChange={(e) => setEmail(e.target.value)}
+      <div class="relative">
+        <div class="hidden lg:block relative lg:fixed w-full lg:w-5/12 min-h-screen inset-0">
+          <img
+            src={image}
+            alt="Image"
+            class="lg:h-full xl:h-full 2xl:h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          />
+        </div>
+        <div class="flex flex-col items-center justify-center gap-5 h-screen">
+          <div class="lg:hidden flex flex-col justify-end items-center">
+            <img
+              src={image}
+              alt="logo"
+              class="h-6"
+              v-if="!toggleMode.selectedMode"
             />
-          </FormGroup>
-          <FormGroup className="col-">
-            <Label for="examplePassword" className=" mb-1">
-              Password
-            </Label>
-            <Input
-              id="examplePassword"
-              name="password"
-              placeholder="Enter password "
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            {!auth && (
-              <p className="mt-1">
-                <a className="text-danger" href="/forgot-password">
-                  Forgot Password?
-                </a>
-              </p>
-            )}
-          </FormGroup>
-          {auth && (
-            <FormGroup className="col-">
-              <Label for="examplePassword" className=" mb-1">
-                Confirm Password
-              </Label>
-              <Input
-                id="examplePassword"
-                name="password"
-                placeholder="Enter password "
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            </FormGroup>
-          )}
-          <Button color="primary" type="submit" disabled={loading}>
-            {loading ? (
-              <Spinner color="white" size="sm">
-                {" "}
-                Loading...
-              </Spinner>
-            ) : (
-              "Submit"
-            )}{" "}
-          </Button>
-        </Form>
-        {!auth ? (
-          <p className="text-center my-2">
-            don't have an account?{" "}
-            <span className="text-danger pointer" onClick={() => setAuth(true)}>
-              Sign Up
-            </span>
-          </p>
-        ) : (
-          <p className="text-center my-2">
-            Already have an account?{" "}
-            <span
-              className="text-danger pointer"
-              onClick={() => setAuth(false)}
-            >
-              Login
-            </span>
-          </p>
-        )}
-      </Container>
+            <img
+              src={image}
+              alt="logo"
+              class="h-6"
+              v-if="!toggleMode.selectedMode"
+            />{" "}
+          </div>
+          <div class="flex items-center justify-center w-full lg:w-7/12 ml-auto">
+            <Card>
+              <CardContent class="p-8">
+                <div class="mx-auto grid sm:w-[350px] gap-6">
+                  <div class="grid gap-2 text-center">
+                    <h1 class="text-3xl font-semibold tracking-tight">
+                      {!auth ? "login to your account" : "Create new account"}
+                    </h1>
+                    <p class="text-balance text-muted-foreground">
+                      enter your credentials to {auth ? "Signup" : "login"}
+                    </p>
+                  </div>
+                  <form onSubmit={handleSubmit}>
+                    <div class="grid gap-4">
+                      {auth && (
+                        <div class="grid gap-2">
+                          <Label>Username</Label>
+                          <Input
+                            id="name"
+                            placeholder="username"
+                            type="text"
+                            auto-capitalize="none"
+                            auto-complete="email"
+                            auto-correct="off"
+                            value={userName}
+                            onChange={(e) => setuserName(e.target.value)}
+                          />
+                        </div>
+                      )}
+                      <div class="grid gap-2">
+                        <Label>Email</Label>
+                        <Input
+                          id="email"
+                          placeholder="name@example.com"
+                          type="email"
+                          auto-capitalize="none"
+                          auto-complete="email"
+                          auto-correct="off"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
+                      </div>
+                      <div class="grid gap-2 relative">
+                        <Label>Password</Label>
+                        <Input
+                          id="password"
+                          type="password"
+                          placeholder="******"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                        />
+                      </div>
+                      {auth && (
+                        <div class="grid gap-2 relative">
+                          <Label>Confirm Password</Label>
+                          <Input
+                            id="password"
+                            type="password"
+                            placeholder="******"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                          />
+                        </div>
+                      )}
+                      {!auth && (
+                        <div class="">
+                          <Label for="remember">
+                            <input
+                              type="checkbox"
+                              id="remember"
+                              name="remember"
+                              v-model="remember"
+                            />
+                            <span class="ml-1"> remember me </span>
+                          </Label>
+                        </div>
+                      )}
+                      <Button>login</Button>
+                    </div>
+                  </form>
+                  {!auth ? (
+                    <p className="text-center  ">
+                      don't have an account?{" "}
+                      <span
+                        className="text-danger cursor-pointer"
+                        onClick={() => setAuth(true)}
+                      >
+                        Sign Up
+                      </span>
+                    </p>
+                  ) : (
+                    <p className="text-center">
+                      Already have an account?{" "}
+                      <span
+                        className="text-danger cursor-pointer"
+                        onClick={() => setAuth(false)}
+                      >
+                        Login
+                      </span>
+                    </p>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

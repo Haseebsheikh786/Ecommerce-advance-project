@@ -8,8 +8,7 @@ import orderSlice from "../pages/Order/orderSlice";
 export const store = configureStore({
   reducer: {
     product: productReducer,
-    auth: authReducer,
-    user: userReducer,
+    user: authReducer,
     cart: CartSlice,
     order: orderSlice,
   },

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Error from "./components/Error";
@@ -21,6 +21,7 @@ import useAutoLogin from "./hooks/useAutoLogin";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(selectloginUser);
+  console.log(user, "user");
   const loading = useAutoLogin();
 
   useEffect(() => {
@@ -30,65 +31,73 @@ function App() {
   }, [dispatch, user, loading]);
 
   return loading ? null : (
+    <BrowserRouter>
+      <Layout />
+    </BrowserRouter>
+  );
+}
+
+function Layout() {
+  const location = useLocation();
+  const showNavbar = !['/login', '/forgot-password', '/verify-email'].includes(location.pathname);
+
+  return (
     <>
-      <BrowserRouter>
-        <Navbar />
+      {showNavbar && <Navbar />}
 
-        <Routes>
-          <Route path="/" exact element={<ProductList />} />
-          <Route
-            path="product-detail/:id"
-            exact
-            element={
-              <Protected>
-                <ProductDetail />
-              </Protected>
-            }
-          />
-          <Route path="login" exact element={<Login />} />
-          <Route path="/forgot-password" element={<ForgetPassword />} />
-          <Route path="/verify-email" element={<EmailVerification />} />
-          <Route
-            path="cart"
-            exact
-            element={
-              <Protected>
-                <Cart />
-              </Protected>
-            }
-          />
-          <Route
-            path="checkout"
-            exact
-            element={
-              <Protected>
-                <Checkout />
-              </Protected>
-            }
-          />
-
-          <Route path="*" exact element={<Error />} />
-          <Route
-            path="/profile"
-            exact
-            element={
-              <Protected>
-                <Myprofile />
-              </Protected>
-            }
-          />
-          <Route
-            path="/orders"
-            exact
-            element={
-              <Protected>
-                <Myorders />
-              </Protected>
-            }
-          />
-          <Route path="/order-success/:id" exact element={<Order />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" exact element={<ProductList />} />
+        <Route
+          path="product-detail/:id"
+          exact
+          element={
+            <Protected>
+              <ProductDetail />
+            </Protected>
+          }
+        />
+        <Route path="login" exact element={<Login />} />
+        <Route path="/forgot-password" element={<ForgetPassword />} />
+        <Route path="/verify-email" element={<EmailVerification />} />
+        <Route
+          path="cart"
+          exact
+          element={
+            <Protected>
+              <Cart />
+            </Protected>
+          }
+        />
+        <Route
+          path="checkout"
+          exact
+          element={
+            <Protected>
+              <Checkout />
+            </Protected>
+          }
+        />
+        <Route path="*" exact element={<Error />} />
+        <Route
+          path="/profile"
+          exact
+          element={
+            <Protected>
+              <Myprofile />
+            </Protected>
+          }
+        />
+        <Route
+          path="/orders"
+          exact
+          element={
+            <Protected>
+              <Myorders />
+            </Protected>
+          }
+        />
+        <Route path="/order-success/:id" exact element={<Order />} />
+      </Routes>
     </>
   );
 }
