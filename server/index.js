@@ -1,14 +1,18 @@
-const errorHandler = require("./middleware/errorHandler");
 const express = require("express");
+const dotenv = require("dotenv").config();
 const dbConnect = require("./database/index");
-const { PORT } = require("./config/index");
- const cors = require("cors");
- const app = express();
+const cors = require("cors");
 const morgan = require("morgan");
-
 const path = require("path");
-app.use(morgan("default"));
 const cookieParser = require("cookie-parser");
+const errorHandler = require("./middleware/errorHandler");
+
+const app = express();
+
+const port = process.env.PORT || 8000;
+
+app.use(cookieParser());
+
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -19,19 +23,21 @@ app.use(
   })
 );
 
+app.use(express.json());
+
+app.use(morgan("default"));
 app.use(express.static(path.resolve(__dirname, "build")));
-app.use(cookieParser());
+
 app.use(errorHandler);
 
-app.use(express.json());
 app.use("/", require("./routes/AuthRoute"));
 app.use("/products", require("./routes/ProductRoute"));
 app.use("/brands", require("./routes/BrandRoute"));
 app.use("/categories", require("./routes/CategoryRoute"));
 app.use("/cart", require("./routes/CartRoute"));
 app.use("/orders", require("./routes/OrderRoute"));
- 
 
 dbConnect();
-
-app.listen(PORT, console.log(`Backend is running on port: ${PORT}`));
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});

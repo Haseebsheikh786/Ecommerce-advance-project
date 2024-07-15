@@ -2,35 +2,35 @@ import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
-  Button,
-  Container,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Spinner,
-} from "reactstrap";
-import {
   resetPasswordAsync,
   resetPasswordRequestAsync,
-  selectUserInfo,
   verifyCodeAsync,
 } from "./authSlice";
-import { toast } from "react-toastify";
+import { Card, CardContent } from "../../components/ui/card";
+// import { Input } from "../../components/ui/input";
+import { Label } from "../../components/ui/label";
+import { Button } from "../../components/ui/button";
+import image from "../../assets/images/Big_phone_with_cart.jpg";
+import image2 from "../../assets/images/White Modern Minimal E-Commerce Logo.png";
+import { Input } from "reactstrap";
+import { useToast } from "../../components/ui/use-toast";
+import { LoaderCircle } from "lucide-react";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [auth, setAuth] = useState(false);
   const [email, setEmail] = useState("");
-  const [newPassword, setnewPassword] = useState("");
+  const [newPassword, setnewPassword] = useState(false);
   const [Password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
-  const [loading, setLoading] = useState(false);  
+  const [loading, setLoading] = useState(false);
   const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+  const { toast } = useToast();
 
   const handleInputChange = (index, event) => {
+    console.log(index, event);
     const input = event.target;
     const maxLength = parseInt(input.getAttribute("maxlength"));
     const currentLength = input.value.length;
@@ -61,18 +61,32 @@ const ForgetPassword = () => {
     const data = {
       email: email,
     };
+    if (!email) {
+      toast({
+        variant: "destructive",
+        title: " Uh oh!",
+        description: "Enter valid email address",
+      });
+      setLoading(false);
+      return;
+    }
     dispatch(resetPasswordRequestAsync(data))
       .then((response) => {
         if (response?.payload?.message === "Code sent successfully") {
           setAuth(true);
+          toast({
+            title: " Successful",
+            description: "Code sent successfully",
+          });
         } else {
-          toast(response?.payload?.response?.data?.error);
-          console.log(response?.payload?.response?.data?.error);
+          toast({
+            variant: "destructive",
+            title: " Uh oh!",
+            description: response?.payload?.response?.data?.error,
+          });
         }
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      })
+      .catch((error) => {})
       .finally(() => {
         setLoading(false);
       });
@@ -86,18 +100,32 @@ const ForgetPassword = () => {
       email: email,
       ResetPasswordCode: verificationCode,
     };
+    if (!verificationCode) {
+      toast({
+        variant: "destructive",
+        title: " Uh oh!",
+        description: "Enter verification code",
+      });
+      setLoading(false);
+      return;
+    }
     dispatch(verifyCodeAsync(data))
       .then((response) => {
         if (response?.payload?.message === "verify code successfully") {
           setnewPassword(true);
+          toast({
+            title: " Successful",
+            description: "verified successfully",
+          });
         } else {
-          toast(response?.payload?.response?.data?.error);
-          console.log(response?.payload?.response?.data?.error);
+          toast({
+            variant: "destructive",
+            title: " Uh oh!",
+            description: response?.payload?.response?.data?.error,
+          });
         }
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      })
+      .catch((error) => {})
       .finally(() => {
         setLoading(false);
       });
@@ -111,28 +139,44 @@ const ForgetPassword = () => {
       email: email,
       password: Password,
     };
-    if (Password !== confirmPassword) {
-      toast("Passwords do not match");
+    if (!Password || !confirmPassword) {
+      toast({
+        variant: "destructive",
+        title: " Uh oh!",
+        description: "Enter new password",
+      });
       setLoading(false);
       return;
     }
-
+    if (Password !== confirmPassword) {
+      toast("Passwords do not match");
+      toast({
+        variant: "destructive",
+        title: " Uh oh!",
+        description: "Password do not match",
+      });
+      setLoading(false);
+      return;
+    }
     dispatch(resetPasswordAsync(data))
       .then((response) => {
-        console.log(response);
         if (
           response?.payload?.data?.message === "password change successfully"
         ) {
-          toast("Successfully changed password.");
-          navigate("/auth");
+          toast({
+            title: " Successful",
+            description: "password change successfully",
+          });
+          navigate("/login");
         } else {
-          toast(response?.payload?.response?.data?.error);
-          console.log(response?.payload?.response?.data?.error);
+          toast({
+            variant: "destructive",
+            title: " Uh oh!",
+            description: response?.payload?.response?.data?.error,
+          });
         }
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      })
+      .catch((error) => {})
       .finally(() => {
         setLoading(false);
       });
@@ -143,118 +187,184 @@ const ForgetPassword = () => {
       {!newPassword ? (
         <>
           {!auth ? (
-            <Container className="my-5 authContainer">
-              <h2 className="my-3 text-center">Forgot Password</h2>
-              <Form onSubmit={handleSubmit}>
-                <FormGroup className="col-">
-                  <Label for="exampleEmail " className=" mb-1">
-                    Email
-                  </Label>
-                  <Input
-                    id="exampleEmail"
-                    name="email"
-                    placeholder="Enter your Email"
-                    type="email"
-                    value={email}
-                    required
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </FormGroup>
-                <Button color="primary" type="submit" disabled={loading}>
-                  {loading ? (
-                    <Spinner color="white" size="sm">
-                      {" "}
-                      Loading...
-                    </Spinner>
-                  ) : (
-                    "Submit"
-                  )}{" "}
-                </Button>
-              </Form>
-            </Container>
+            <div class="relative">
+              <div class="hidden lg:block relative lg:fixed w-full lg:w-5/12 min-h-screen inset-0">
+                <img
+                  src={image}
+                  alt="Image"
+                  class="lg:h-full xl:h-full 2xl:h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+                />
+              </div>
+              <div class="flex flex-col items-center justify-center lg:h-screen mx-3 ">
+                <div class="lg:hidden flex flex-col justify-end items-center">
+                  <img src={image2} alt="logo" class="h-32 w-32" />
+                </div>
+                <div class="flex items-center justify-center w-full lg:w-7/12 ml-auto">
+                  <Card className="">
+                    <CardContent class="p-8">
+                      <div class="mx-auto grid sm:w-[350px] gap-6">
+                        <div class="grid gap-2 text-center">
+                          <h1 class="text-3xl font-semibold tracking-tight">
+                            Forgot Password
+                          </h1>
+                          <p class="text-balance text-muted-foreground">
+                            enter your email to continue
+                          </p>
+                        </div>
+                        <form onSubmit={handleSubmit}>
+                          <div class="grid gap-4">
+                            <div class="grid gap-2">
+                              <Label>Email</Label>
+                              <Input
+                                id="email"
+                                placeholder="name@example.com"
+                                type="email"
+                                auto-capitalize="none"
+                                auto-complete="email"
+                                auto-correct="off"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                              />
+                            </div>
+                            <Button disabled={loading}>
+                              {loading && (
+                                <LoaderCircle class="mr-2 h-4 w-4 animate-spin" />
+                              )}
+                              submit
+                            </Button>
+                          </div>
+                        </form>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            </div>
           ) : (
-            <Container className="my-5 authContainer">
-              <h2 className="my-3 text-center">Verification</h2>
-              <p className="text-center">
-              Please enter the code sent to your email address.
-              </p>
-              <Form onSubmit={handleVerification}>
-                <FormGroup>
-                  <Label for="verificationCode" className="mx-1">
-                    Verification Code
-                  </Label>
-                  <div className="d-flex">
-                    {[0, 1, 2, 3].map((index) => (
-                      <Input
-                        key={index}
-                        className="w-25 mx-1"
-                        type="text"
-                        name={`code${index + 1}`}
-                        id={`code${index + 1}`}
-                        maxLength="1"
-                        innerRef={inputRefs[index]}
-                        onChange={(event) => handleInputChange(index, event)}
-                      />
-                    ))}
-                  </div>
-                </FormGroup>
-                <Button color="primary" type="submit" disabled={loading}>
-                  {loading ? (
-                    <Spinner color="white" size="sm">
-                      {" "}
-                      Loading...
-                    </Spinner>
-                  ) : (
-                    "Submit"
-                  )}{" "}
-                </Button>
-              </Form>
-            </Container>
+            <div class="relative">
+              <div class="hidden lg:block relative lg:fixed w-full lg:w-5/12 min-h-screen inset-0">
+                <img
+                  src={image}
+                  alt="Image"
+                  class="lg:h-full xl:h-full 2xl:h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+                />
+              </div>
+              <div class="flex flex-col items-center justify-center lg:h-screen mx-3 ">
+                <div class="lg:hidden flex flex-col justify-end items-center">
+                  <img src={image2} alt="logo" class="h-32 w-32" />
+                </div>
+                <div class="flex items-center justify-center w-full lg:w-7/12 ml-auto">
+                  <Card className="">
+                    <CardContent class="p-8">
+                      <div class="mx-auto grid sm:w-[350px] gap-6">
+                        <div class="grid gap-2 text-center">
+                          <h1 class="text-3xl font-semibold tracking-tight">
+                            Verification
+                          </h1>
+                          <p class="text-balance text-muted-foreground">
+                            Please enter the code sent to your email address.
+                          </p>
+                        </div>
+                        <form onSubmit={handleVerification}>
+                          <div class="grid gap-4">
+                            <div class="grid gap-2">
+                              <Label>Verification Code</Label>
+                              <div className="d-flex">
+                                {[0, 1, 2, 3].map((index) => (
+                                  <Input
+                                    key={index}
+                                    className="w-25 mx-1"
+                                    type="text"
+                                    name={`code${index + 1}`}
+                                    id={`code${index + 1}`}
+                                    maxLength="1"
+                                    innerRef={inputRefs[index]}
+                                    onChange={(event) =>
+                                      handleInputChange(index, event)
+                                    }
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                            <Button disabled={loading}>
+                              {loading && (
+                                <LoaderCircle class="mr-2 h-4 w-4 animate-spin" />
+                              )}
+                              submit
+                            </Button>
+                          </div>
+                        </form>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            </div>
           )}
         </>
       ) : (
-        <Container className="my-5 authContainer">
-          <h2 className="my-3 text-center">Enter your new password</h2>
-
-          <Form onSubmit={handleCHangePassword}>
-            <FormGroup className="col-">
-              <Label for="examplePassword" className=" mb-1">
-                Password
-              </Label>
-              <Input
-                id="examplePassword"
-                name="password"
-                placeholder="Enter password "
-                type="password"
-                value={Password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </FormGroup>
-            <FormGroup className="col-">
-              <Label for="examplePassword" className=" mb-1">
-                Confirm Password
-              </Label>
-              <Input
-                id="examplePassword"
-                name="password"
-                placeholder="Enter password "
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            </FormGroup>
-            <Button color="primary" type="submit" disabled={loading}>
-              {loading ? (
-                <Spinner color="white" size="sm">
-                  {" "}
-                  Loading...
-                </Spinner>
-              ) : (
-                "Submit"
-              )}{" "}
-            </Button>
-          </Form>
-        </Container>
+        <div class="relative">
+          <div class="hidden lg:block relative lg:fixed w-full lg:w-5/12 min-h-screen inset-0">
+            <img
+              src={image}
+              alt="Image"
+              class="lg:h-full xl:h-full 2xl:h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+            />
+          </div>
+          <div class="flex flex-col items-center justify-center lg:h-screen mx-3 ">
+            <div class="lg:hidden flex flex-col justify-end items-center">
+              <img src={image2} alt="logo" class="h-32 w-32" />
+            </div>
+            <div class="flex items-center justify-center w-full lg:w-7/12 ml-auto">
+              <Card className="">
+                <CardContent class="p-8">
+                  <div class="mx-auto grid sm:w-[350px] gap-6">
+                    <div class="grid gap-2 text-center">
+                      <h1 class="text-3xl font-semibold tracking-tight">
+                        Enter your new password
+                      </h1>
+                      <p class="text-balance text-muted-foreground">
+                        Please enter your new credentials to continue.
+                      </p>
+                    </div>
+                    <form onSubmit={handleCHangePassword}>
+                      <div class="grid gap-4">
+                        <div class="grid gap-2">
+                          <Label>Password</Label>
+                          <Input
+                            id="examplePassword"
+                            name="password"
+                            placeholder="******"
+                            type="password"
+                            value={Password}
+                            onChange={(e) => setPassword(e.target.value)}
+                          />
+                        </div>
+                        <div class="grid gap-2">
+                          <Label>Confirm Password</Label>
+                          <Input
+                            id="examplePassword"
+                            name="password"
+                            placeholder="******"
+                            type="password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                          />
+                        </div>
+                        <Button disabled={loading}>
+                          {loading && (
+                            <LoaderCircle class="mr-2 h-4 w-4 animate-spin" />
+                          )}
+                          submit
+                        </Button>
+                      </div>
+                    </form>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

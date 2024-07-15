@@ -29,104 +29,12 @@ const Navbar = () => {
   const handleLinkClick = () => {
     setIsNavOpen(false);
   };
+  const handleDarkMode = () => {
+    document.body.classList.toggle("dark");
+  };
 
   return (
     <>
-      {/* <nav className="navbar">
-        <div className="logo">
-          <NavLink className="inactiveStyle" to="/" onClick={handleLinkClick}>
-            Ecommerce
-          </NavLink>
-        </div>
-
-        <div className={`nav-links ${isNavOpen ? "active" : ""}`}>
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? "activeStyle" : "inactiveStyle"
-            }
-            to="/"
-            onClick={handleLinkClick}
-          >
-            Products
-          </NavLink>
-          <NavLink
-            to="/profile"
-            onClick={handleLinkClick}
-            className={({ isActive }) =>
-              isActive ? "activeStyle" : "inactiveStyle"
-            }
-          >
-            My Profile
-          </NavLink>
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? "activeStyle" : "inactiveStyle"
-            }
-            to="/orders"
-            onClick={handleLinkClick}
-          >
-            My Orders
-          </NavLink>
-          <NavLink
-            to="cart"
-            onClick={handleLinkClick}
-            className={({ isActive }) =>
-              isActive ? "activeStyle logInButton" : "inactiveStyle logInButton"
-            }
-          >
-            <AiOutlineShoppingCart className="icon" />
-            {items.length > 0 && (
-              <span className="iconNumber">{items.length}</span>
-            )}
-          </NavLink>
-          {!user ? (
-            <>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive
-                    ? "activeStyle logInButton"
-                    : "inactiveStyle logInButton"
-                }
-                to="/login"
-                onClick={handleLinkClick}
-              >
-                Login
-              </NavLink>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive
-                    ? "activeStyle signUpButton"
-                    : "inactiveStyle signUpButton"
-                }
-                to="/signup"
-                onClick={handleLinkClick}
-              >
-                Signup
-              </NavLink>
-            </>
-          ) : (
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                  ? "activeStyle signOutButton"
-                  : "inactiveStyle signOutButton"
-              }
-              onClick={() => {
-                dispatch(Logout());
-                navigate("/auth");
-              }}
-            >
-              {" "}
-              SignOut
-            </NavLink>
-          )}
-        </div>
-        <div className="burger" onClick={toggleNav}>
-          <div className="line1"></div>
-          <div className="line2"></div>
-          <div className="line3"></div>
-        </div>
-      </nav> */}
       <nav
         class="mx-auto h-[65px] flex max-w-full items-center justify-between p-2 px-4"
         aria-label="Global"
@@ -153,7 +61,10 @@ const Navbar = () => {
               </span>
             )}
           </NavLink>
-          <Button class=" md:mt-0 mx-2 transition-colors flex items-center justify-center duration-300 ease-in-out p-1 rounded-md hover:scale-105 hover:bg-accent hover:text-accent-foreground w-9 h-9">
+          <Button
+            onClick={handleDarkMode}
+            class=" md:mt-0 mx-2 transition-colors flex items-center justify-center duration-300 ease-in-out p-1 rounded-md hover:scale-105 hover:bg-accent hover:text-accent-foreground w-9 h-9"
+          >
             <svg
               viewBox="0 0 15 15"
               width="1.2em"
@@ -173,18 +84,20 @@ const Navbar = () => {
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>
-                {!user && (
-                  <AvatarImage
-                    src="https://tse1.explicit.bing.net/th?id=OIP.GHGGLYe7gDfZUzF_tElxiQHaHa&pid=Api&P=0&h=220"
-                    alt="@radix-vue"
-                  />
-                )}
+                <AvatarImage
+                  src={
+                    !user
+                      ? "https://tse1.explicit.bing.net/th?id=OIP.GHGGLYe7gDfZUzF_tElxiQHaHa&pid=Api&P=0&h=220"
+                      : ""
+                  }
+                  alt="@radix-vue"
+                />
                 <AvatarFallback>{user?.userName[0]}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <NavLink to="/profile">
-                <DropdownMenuItem class="cursor-pointer my-2">
+                <DropdownMenuItem class="cursor-pointer my-2 hover:bg-muted">
                   <div class="space-x-2 flex justify-betwee items-center cursor-pointer">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -205,7 +118,7 @@ const Navbar = () => {
                 </DropdownMenuItem>
               </NavLink>
               <NavLink to="/orders">
-                <DropdownMenuItem class="cursor-pointer my-2">
+                <DropdownMenuItem class="cursor-pointer my-2 hover:bg-muted">
                   <div class="space-x-2 flex justify-betwee items-center cursor-pointer">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -231,7 +144,7 @@ const Navbar = () => {
               </NavLink>
               {!user ? (
                 <NavLink to="/login">
-                  <DropdownMenuItem class="cursor-pointer my-2">
+                  <DropdownMenuItem class="cursor-pointer my-2 hover:bg-muted">
                     <div class="space-x-2 flex justify-betwee items-center cursor-pointer">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -253,7 +166,7 @@ const Navbar = () => {
                 </NavLink>
               ) : (
                 <DropdownMenuItem
-                  class="cursor-pointer"
+                  class="cursor-pointer hover:bg-muted"
                   onClick={() => {
                     dispatch(Logout());
                   }}

@@ -6,13 +6,13 @@ export const axiosInstance = axios.create({
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
-  }, 
+  },
 });
 
 export async function Signup(data) {
-  try { 
+  try {
     const response = await axiosInstance.post("/register", data);
-    console.log("Response:", response); 
+    console.log("Response:", response);
 
     if (response.status === 201 && response.data) {
       return response;
@@ -29,16 +29,12 @@ export async function Signup(data) {
 export const Login = async (data) => {
   try {
     const response = await axiosInstance.post("/login", data);
-    console.log("Response:", response);
-
     if (response.status === 200 && response.data) {
       return response;
     } else {
       throw new Error("Invalid response from server");
     }
   } catch (error) {
-    toast(error.response.data.error);
-    console.log("Error:", error.response.data.error);
     throw error;
   }
 };
@@ -99,11 +95,14 @@ export const emailVerification = async (data) => {
 export function ResendVerificationCode(data) {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("http://localhost:8080/resend-verification-code", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "content-type": "application/json" },
-      });
+      const response = await fetch(
+        "http://localhost:8080/resend-verification-code",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: { "content-type": "application/json" },
+        }
+      );
       if (response.ok) {
         const data = await response.json();
         resolve({ data });
@@ -121,7 +120,10 @@ export function ResendVerificationCode(data) {
 }
 export async function resetPasswordRequest(data) {
   try {
-    const response = await axios.post("http://localhost:8080/reset-password-request", data);
+    const response = await axios.post(
+      "http://localhost:8080/reset-password-request",
+      data
+    );
     return response.data;
   } catch (error) {
     return error;
@@ -129,7 +131,10 @@ export async function resetPasswordRequest(data) {
 }
 export async function verifyCode(data) {
   try {
-    const response = await axios.post("http://localhost:8080/verify-code", data);
+    const response = await axios.post(
+      "http://localhost:8080/verify-code",
+      data
+    );
     return response.data;
   } catch (error) {
     return error;

@@ -1,15 +1,15 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import {
-  Input,
-  Form,
-  FormGroup,
-  Label,
-  Container,
-  Button,
-  Spinner,
-} from "reactstrap";
+import { Input } from "reactstrap";
+import { Card, CardContent } from "../../components/ui/card";
+// import { Input } from "../../components/ui/input";
+import { Label } from "../../components/ui/label";
+import { Button } from "../../components/ui/button";
+import image from "../../assets/images/Big_phone_with_cart.jpg";
+import image2 from "../../assets/images/White Modern Minimal E-Commerce Logo.png";
+import { LoaderCircle } from "lucide-react";
+import { useToast } from "../../components/ui/use-toast";
 import {
   ResendVerificationCodeAsync,
   emailVerificationAsync,
@@ -19,15 +19,15 @@ import {
 
 const EmailVerification = () => {
   const user = useSelector(selectUserInfo);
-  const user2 = useSelector(selectloginUser);
-  console.log(user, user2);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const email = searchParams.get("email");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [verificationCode, setVerificationCode] = useState("");
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const { toast } = useToast();
 
   const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const handleInputChange = (index, event) => {
@@ -53,7 +53,7 @@ const EmailVerification = () => {
       .join("");
     setVerificationCode(newVerificationCode);
   };
-  const handleVerification = (e) => {
+  const handleVerification = async (e) => {
     e.preventDefault();
     setLoading(true);
 
@@ -62,15 +62,32 @@ const EmailVerification = () => {
       verificationCode: verificationCode,
     };
 
-    dispatch(emailVerificationAsync(obj))
-      .then(() => {
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setLoading(false);
+    if (!verificationCode) {
+      toast({
+        variant: "destructive",
+        title: " Uh oh!",
+        description: "Enter verification code",
       });
+      setError(true);
+      setLoading(false);
+      return;
+    }
+
+    const response = await dispatch(emailVerificationAsync(obj));
+    if (
+      response.payload?.response?.data?.error === "Invalid verification code"
+    ) {
+      toast({
+        variant: "destructive",
+        title: " Uh oh!",
+        description: "Invalid verification code",
+      });
+      setLoading(false);
+      return;
+    }
+    setLoading(false);
   };
+
   const ResendCode = () => {
     setLoading(true);
 
@@ -80,56 +97,86 @@ const EmailVerification = () => {
 
     dispatch(ResendVerificationCodeAsync(obj))
       .then(() => {
+        toast({
+          title: "Successful",
+          description: "Code sent successfully",
+        });
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        toast({
+          variant: "destructive",
+          title: " Uh oh!",
+          description: "something went wrong",
+        });
         setLoading(false);
       });
   };
   return (
     <>
       {user && <Navigate to="/" replace={true}></Navigate>}
-      <Container className="my-5 authContainer">
-        <h2 className="my-3 text-center">Verification</h2>
-        <p>Email: {email}</p>
-
-        <p className="text-center">Enter the code sent to your email address</p>
-        <Form onSubmit={handleVerification}>
-          <FormGroup>
-            <Label for="verificationCode" className="mx-1">
-              Verification Code
-            </Label>
-            <div className="d-flex">
-              {[0, 1, 2, 3].map((index) => (
-                <Input
-                  key={index}
-                  className="w-25 mx-1"
-                  type="text"
-                  name={`code${index + 1}`}
-                  id={`code${index + 1}`}
-                  maxLength="1"
-                  innerRef={inputRefs[index]}
-                  onChange={(event) => handleInputChange(index, event)}
-                />
-              ))}
-            </div>
-          </FormGroup>
-          <p onClick={ResendCode}>
-            <a className="text-danger pointer">Resend Code</a>
-          </p>
-          <Button color="primary" type="submit" disabled={loading}>
-            {loading ? (
-              <Spinner color="white" size="sm">
-                {" "}
-                Loading...
-              </Spinner>
-            ) : (
-              "Submit"
-            )}{" "}
-          </Button>
-        </Form>
-      </Container>
+      <div class="relative">
+        <div class="hidden lg:block relative lg:fixed w-full lg:w-5/12 min-h-screen inset-0">
+          <img
+            src={image}
+            alt="Image"
+            class="lg:h-full xl:h-full 2xl:h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          />
+        </div>
+        <div class="flex flex-col items-center justify-center lg:h-screen mx-3 ">
+          <div class="lg:hidden flex flex-col justify-end items-center">
+            <img src={image2} alt="logo" class="h-32 w-32" />
+          </div>
+          <div class="flex items-center justify-center w-full lg:w-7/12 ml-auto">
+            <Card className="">
+              <CardContent class="p-8">
+                <div class="mx-auto grid sm:w-[350px] gap-6">
+                  <div class="grid gap-2 text-center">
+                    <h1 class="text-3xl font-semibold tracking-tight">
+                      Verification
+                    </h1>
+                    <p class="text-balance text-muted-foreground">
+                      Please enter the code sent to your email address.
+                    </p>
+                  </div>
+                  <form onSubmit={handleVerification}>
+                    <div class="grid gap-4">
+                      <div class="grid gap-2">
+                        <Label>Verification Code</Label>
+                        <div className="d-flex">
+                          {[0, 1, 2, 3].map((index) => (
+                            <Input
+                              key={index}
+                              className="w-25 mx-1"
+                              type="text"
+                              name={`code${index + 1}`}
+                              id={`code${index + 1}`}
+                              maxLength="1"
+                              innerRef={inputRefs[index]}
+                              onChange={(event) =>
+                                handleInputChange(index, event)
+                              }
+                            />
+                          ))}
+                        </div>
+                        <a onClick={ResendCode} className="text-danger cursor-pointer">
+                          Resend Code
+                        </a>
+                      </div>
+                      <Button disabled={loading}>
+                        {loading && (
+                          <LoaderCircle class="mr-2 h-4 w-4 animate-spin" />
+                        )}
+                        submit
+                      </Button>
+                    </div>
+                  </form>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

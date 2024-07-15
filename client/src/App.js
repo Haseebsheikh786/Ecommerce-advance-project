@@ -17,6 +17,7 @@ import Myorders from "./pages/User/userOrder";
 import ForgetPassword from "./pages/auth/ForgetPassword";
 import EmailVerification from "./pages/auth/EmailVerification";
 import useAutoLogin from "./hooks/useAutoLogin";
+import ToastLayout from './components/ToastLayout'; // Adjust the import path based on your structure
 
 function App() {
   const dispatch = useDispatch();
@@ -32,7 +33,10 @@ function App() {
 
   return loading ? null : (
     <BrowserRouter>
+    <ToastLayout>
+
       <Layout />
+    </ToastLayout>
     </BrowserRouter>
   );
 }

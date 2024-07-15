@@ -8,14 +8,17 @@ import { Label } from "../../components/ui/label";
 import { Button } from "../../components/ui/button";
 import image from "../../assets/images/Big_phone_with_cart.jpg";
 import image2 from "../../assets/images/White Modern Minimal E-Commerce Logo.png";
+import { LoaderCircle } from "lucide-react";
+import { useToast } from "../../components/ui/use-toast";
 
 const AuthPage = ({}) => {
   const [auth, setAuth] = useState(false);
   const [email, setEmail] = useState("");
   const [userName, setuserName] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const { toast } = useToast();
 
   const user = useSelector(selectloginUser);
   const navigate = useNavigate();
@@ -23,6 +26,7 @@ const AuthPage = ({}) => {
   const location = useLocation(); // Get the current location
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     setLoading(true);
 
@@ -32,41 +36,77 @@ const AuthPage = ({}) => {
         password,
         userName,
       };
+      if (!email || !password || !userName) {
+        toast({
+          variant: "destructive",
+          title: " Uh oh!",
+          description: "All fields are required",
+        });
+        setError(true);
+        setLoading(false);
+        return;
+      }
       try {
         const response = await dispatch(register(obj));
-        console.log(response);
         if (response?.payload === "User already registered") {
-          console.log(response?.payload?.response?.data?.error);
+          toast({
+            variant: "destructive",
+            title: " Uh oh!",
+            description: "User already registered",
+          });
         } else {
           navigate(`/verify-email?email=${email}`);
         }
       } catch (error) {
-        console.log("Error:", error);
+        toast({
+          variant: "destructive",
+          title: " Uh oh!",
+          description: "Something went wrong",
+        });
       }
       setLoading(false);
+      setError(false);
     } else {
       const obj = {
         email: email,
         password: password,
       };
+      if (!email || !password) {
+        toast({
+          variant: "destructive",
+          title: " Uh oh!",
+          description: "All fields are required",
+        });
+        setError(true);
+        setLoading(false);
+        return;
+      }
       try {
         const response = await dispatch(login(obj));
-        console.log(response);
-
-        if (response?.payload === "User is not verified") {
+         if (response?.payload === "User is not verified") {
+          toast({
+            variant: "destructive",
+            title: " Uh oh!",
+            description: "User is not verified",
+          });
           navigate(`/verify-email?email=${email}`);
         } else {
           if (location.state && location.state.from) {
             navigate(location.state.from);
-          } else {
-            console.log(response?.payload?.response?.data?.error);
-            navigate("/");
+          } else if (
+            response.error.message === "Request failed with status code 400"
+          ) {
+            toast({
+              variant: "destructive",
+              title: " Uh oh!",
+              description: "Email or password is not valid",
+            });
           }
         }
       } catch (error) {
-        console.log("Error:", error);
       }
       setLoading(false);
+      setError(false);
     }
   };
 
@@ -136,6 +176,11 @@ const AuthPage = ({}) => {
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                         />
+                        {!auth && (
+                          <a className="text-danger" href="/forgot-password">
+                            Forgot Password?
+                          </a>
+                        )}
                       </div>
 
                       {!auth && (
@@ -151,7 +196,12 @@ const AuthPage = ({}) => {
                           </Label>
                         </div>
                       )}
-                      <Button>login</Button>
+                      <Button disabled={loading}>
+                        {loading && (
+                          <LoaderCircle class="mr-2 h-4 w-4 animate-spin" />
+                        )}
+                        submit
+                      </Button>
                     </div>
                   </form>
                   {!auth ? (
