@@ -7,10 +7,11 @@ import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { Button } from "../../components/ui/button";
 import image from "../../assets/images/Big_phone_with_cart.jpg";
+import DarkImage from "../../assets/images/tormarch9.jpg";
 import image2 from "../../assets/images/White Modern Minimal E-Commerce Logo.png";
 import { LoaderCircle } from "lucide-react";
 import { useToast } from "../../components/ui/use-toast";
-
+import ValidationIcon from "../../components/ValidationIcon";
 const AuthPage = ({}) => {
   const [auth, setAuth] = useState(false);
   const [email, setEmail] = useState("");
@@ -65,7 +66,6 @@ const AuthPage = ({}) => {
         });
       }
       setLoading(false);
-      setError(false);
     } else {
       const obj = {
         email: email,
@@ -83,13 +83,14 @@ const AuthPage = ({}) => {
       }
       try {
         const response = await dispatch(login(obj));
-         if (response?.payload === "User is not verified") {
+        if (response?.payload === "User is not verified") {
           toast({
             variant: "destructive",
             title: " Uh oh!",
             description: "User is not verified",
           });
           navigate(`/verify-email?email=${email}`);
+          setError(false);
         } else {
           if (location.state && location.state.from) {
             navigate(location.state.from);
@@ -103,10 +104,8 @@ const AuthPage = ({}) => {
             });
           }
         }
-      } catch (error) {
-      }
+      } catch (error) {}
       setLoading(false);
-      setError(false);
     }
   };
 
@@ -118,7 +117,7 @@ const AuthPage = ({}) => {
           <img
             src={image}
             alt="Image"
-            class="lg:h-full xl:h-full 2xl:h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+            class="lg:h-full xl:h-full 2xl:h-full w-full object-cover  "
           />
         </div>
         <div class="flex flex-col items-center justify-center lg:h-screen mx-3 ">
@@ -141,7 +140,13 @@ const AuthPage = ({}) => {
                     <div class="grid gap-4">
                       {auth && (
                         <div class="grid gap-2">
-                          <Label>Username</Label>
+                          {error && !userName ? (
+                            <Label class="text-red-600">
+                              Username <ValidationIcon />
+                            </Label>
+                          ) : (
+                            <Label>Username</Label>
+                          )}
                           <Input
                             id="name"
                             placeholder="username"
@@ -155,7 +160,13 @@ const AuthPage = ({}) => {
                         </div>
                       )}
                       <div class="grid gap-2">
-                        <Label>Email</Label>
+                        {error && !email ? (
+                          <Label class="text-red-600">
+                            Email <ValidationIcon />
+                          </Label>
+                        ) : (
+                          <Label>Email</Label>
+                        )}
                         <Input
                           id="email"
                           placeholder="name@example.com"
@@ -168,7 +179,13 @@ const AuthPage = ({}) => {
                         />
                       </div>
                       <div class="grid gap-2 relative">
-                        <Label>Password</Label>
+                        {error && !password ? (
+                          <Label class="text-red-600">
+                            Password <ValidationIcon />
+                          </Label>
+                        ) : (
+                          <Label>Password</Label>
+                        )}
                         <Input
                           id="password"
                           type="password"
@@ -209,7 +226,13 @@ const AuthPage = ({}) => {
                       don't have an account?{" "}
                       <span
                         className="text-danger cursor-pointer"
-                        onClick={() => setAuth(true)}
+                        onClick={() => {
+                          setAuth(true);
+                          setError(false);
+                          setEmail("");
+                          setuserName("");
+                          setPassword("");
+                        }}
                       >
                         Sign Up
                       </span>
@@ -219,8 +242,15 @@ const AuthPage = ({}) => {
                       Already have an account?{" "}
                       <span
                         className="text-danger cursor-pointer"
-                        onClick={() => setAuth(false)}
+                        onClick={() => {
+                          setAuth(false);
+                          setError(false);
+                          setEmail("");
+                          setuserName("");
+                          setPassword("");
+                        }}
                       >
+                        {" "}
                         Login
                       </span>
                     </p>

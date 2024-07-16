@@ -16,6 +16,7 @@ import {
   selectUserInfo,
   selectloginUser,
 } from "./authSlice";
+import ValidationIcon from "../../components/ValidationIcon";
 
 const EmailVerification = () => {
   const user = useSelector(selectUserInfo);
@@ -142,7 +143,13 @@ const EmailVerification = () => {
                   <form onSubmit={handleVerification}>
                     <div class="grid gap-4">
                       <div class="grid gap-2">
-                        <Label>Verification Code</Label>
+                        {error && !verificationCode ? (
+                          <Label class="text-red-600">
+                            Verification Code <ValidationIcon />
+                          </Label>
+                        ) : (
+                          <Label>Verification Code</Label>
+                        )}{" "}
                         <div className="d-flex">
                           {[0, 1, 2, 3].map((index) => (
                             <Input
@@ -159,7 +166,10 @@ const EmailVerification = () => {
                             />
                           ))}
                         </div>
-                        <a onClick={ResendCode} className="text-danger cursor-pointer">
+                        <a
+                          onClick={ResendCode}
+                          className="text-danger cursor-pointer"
+                        >
                           Resend Code
                         </a>
                       </div>

@@ -15,6 +15,7 @@ import image2 from "../../assets/images/White Modern Minimal E-Commerce Logo.png
 import { Input } from "reactstrap";
 import { useToast } from "../../components/ui/use-toast";
 import { LoaderCircle } from "lucide-react";
+import ValidationIcon from "../../components/ValidationIcon";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const ForgetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const { toast } = useToast();
 
@@ -68,6 +70,7 @@ const ForgetPassword = () => {
         description: "Enter valid email address",
       });
       setLoading(false);
+      setError(true);
       return;
     }
     dispatch(resetPasswordRequestAsync(data))
@@ -78,6 +81,7 @@ const ForgetPassword = () => {
             title: " Successful",
             description: "Code sent successfully",
           });
+          setError(false);
         } else {
           toast({
             variant: "destructive",
@@ -107,6 +111,7 @@ const ForgetPassword = () => {
         description: "Enter verification code",
       });
       setLoading(false);
+      setError(true);
       return;
     }
     dispatch(verifyCodeAsync(data))
@@ -117,6 +122,7 @@ const ForgetPassword = () => {
             title: " Successful",
             description: "verified successfully",
           });
+          setError(false);
         } else {
           toast({
             variant: "destructive",
@@ -146,6 +152,7 @@ const ForgetPassword = () => {
         description: "Enter new password",
       });
       setLoading(false);
+      setError(true);
       return;
     }
     if (Password !== confirmPassword) {
@@ -167,6 +174,7 @@ const ForgetPassword = () => {
             title: " Successful",
             description: "password change successfully",
           });
+          setError(false);
           navigate("/login");
         } else {
           toast({
@@ -214,7 +222,13 @@ const ForgetPassword = () => {
                         <form onSubmit={handleSubmit}>
                           <div class="grid gap-4">
                             <div class="grid gap-2">
-                              <Label>Email</Label>
+                              {error && !email ? (
+                                <Label class="text-red-600">
+                                  Email <ValidationIcon />
+                                </Label>
+                              ) : (
+                                <Label>Email</Label>
+                              )}
                               <Input
                                 id="email"
                                 placeholder="name@example.com"
@@ -268,7 +282,13 @@ const ForgetPassword = () => {
                         <form onSubmit={handleVerification}>
                           <div class="grid gap-4">
                             <div class="grid gap-2">
-                              <Label>Verification Code</Label>
+                              {error && !verificationCode ? (
+                                <Label class="text-red-600">
+                                  Verification Code <ValidationIcon />
+                                </Label>
+                              ) : (
+                                <Label>Verification Code</Label>
+                              )}
                               <div className="d-flex">
                                 {[0, 1, 2, 3].map((index) => (
                                   <Input
@@ -330,7 +350,13 @@ const ForgetPassword = () => {
                     <form onSubmit={handleCHangePassword}>
                       <div class="grid gap-4">
                         <div class="grid gap-2">
-                          <Label>Password</Label>
+                          {error && !Password ? (
+                            <Label class="text-red-600">
+                              Password <ValidationIcon />
+                            </Label>
+                          ) : (
+                            <Label>Password</Label>
+                          )}
                           <Input
                             id="examplePassword"
                             name="password"
@@ -341,7 +367,13 @@ const ForgetPassword = () => {
                           />
                         </div>
                         <div class="grid gap-2">
-                          <Label>Confirm Password</Label>
+                          {error && !confirmPassword ? (
+                            <Label class="text-red-600">
+                              Confirm Password <ValidationIcon />
+                            </Label>
+                          ) : (
+                            <Label>Confirm Password</Label>
+                          )}
                           <Input
                             id="examplePassword"
                             name="password"
