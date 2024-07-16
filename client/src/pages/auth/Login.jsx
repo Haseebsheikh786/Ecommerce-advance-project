@@ -7,11 +7,12 @@ import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { Button } from "../../components/ui/button";
 import image from "../../assets/images/Big_phone_with_cart.jpg";
-import DarkImage from "../../assets/images/tormarch9.jpg";
 import image2 from "../../assets/images/White Modern Minimal E-Commerce Logo.png";
+import darkImage from "../../assets/images/White Modern Minimal E-Commerce Logo (1).png";
 import { LoaderCircle } from "lucide-react";
 import { useToast } from "../../components/ui/use-toast";
 import ValidationIcon from "../../components/ValidationIcon";
+import { selectedMode } from "../../app/toggleSlice";
 const AuthPage = ({}) => {
   const [auth, setAuth] = useState(false);
   const [email, setEmail] = useState("");
@@ -19,6 +20,8 @@ const AuthPage = ({}) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const themeMode = useSelector(selectedMode);
+
   const { toast } = useToast();
 
   const user = useSelector(selectloginUser);
@@ -121,10 +124,14 @@ const AuthPage = ({}) => {
           />
         </div>
         <div class="flex flex-col items-center justify-center lg:h-screen mx-3 ">
-          <div class="lg:hidden flex flex-col justify-end items-center">
-            <img src={image2} alt="logo" class="h-32 w-32" />
+          <div class="lg:hidden flex flex-col justify-end items-center mt-3">
+            {themeMode ? (
+              <img src={image2} alt="logo" class="h-32 w-32" />
+            ) : (
+              <img src={darkImage} alt="logo" class="h-32 w-32" />
+            )}
           </div>
-          <div class="flex items-center justify-center w-full lg:w-7/12 ml-auto">
+          <div class="flex items-center justify-center w-full lg:w-7/12 ml-auto mb4">
             <Card className="">
               <CardContent class="p-8">
                 <div class="mx-auto grid sm:w-[350px] gap-6">

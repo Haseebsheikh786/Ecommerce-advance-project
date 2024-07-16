@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import "./navbar.css";
-import { useDispatch, useSelector } from "react-redux";
+ import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { selectItems } from "../pages/Cart/CartSlice";
 import { Logout, selectUserInfo } from "../pages/auth/authSlice";

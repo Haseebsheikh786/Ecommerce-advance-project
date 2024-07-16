@@ -8,6 +8,8 @@ import { Label } from "../../components/ui/label";
 import { Button } from "../../components/ui/button";
 import image from "../../assets/images/Big_phone_with_cart.jpg";
 import image2 from "../../assets/images/White Modern Minimal E-Commerce Logo.png";
+import darkImage from "../../assets/images/White Modern Minimal E-Commerce Logo (1).png";
+
 import { LoaderCircle } from "lucide-react";
 import { useToast } from "../../components/ui/use-toast";
 import {
@@ -17,6 +19,7 @@ import {
   selectloginUser,
 } from "./authSlice";
 import ValidationIcon from "../../components/ValidationIcon";
+import { selectedMode } from "../../app/toggleSlice";
 
 const EmailVerification = () => {
   const user = useSelector(selectUserInfo);
@@ -24,6 +27,8 @@ const EmailVerification = () => {
   const searchParams = new URLSearchParams(location.search);
   const email = searchParams.get("email");
   const navigate = useNavigate();
+  const themeMode = useSelector(selectedMode);
+
   const dispatch = useDispatch();
   const [verificationCode, setVerificationCode] = useState("");
   const [loading, setLoading] = useState(false);
@@ -126,7 +131,11 @@ const EmailVerification = () => {
         </div>
         <div class="flex flex-col items-center justify-center lg:h-screen mx-3 ">
           <div class="lg:hidden flex flex-col justify-end items-center">
-            <img src={image2} alt="logo" class="h-32 w-32" />
+            {themeMode ? (
+              <img src={image2} alt="logo" class="h-32 w-32" />
+            ) : (
+              <img src={darkImage} alt="logo" class="h-32 w-32" />
+            )}{" "}
           </div>
           <div class="flex items-center justify-center w-full lg:w-7/12 ml-auto">
             <Card className="">

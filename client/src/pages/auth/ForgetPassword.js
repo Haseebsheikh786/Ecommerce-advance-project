@@ -12,10 +12,13 @@ import { Label } from "../../components/ui/label";
 import { Button } from "../../components/ui/button";
 import image from "../../assets/images/Big_phone_with_cart.jpg";
 import image2 from "../../assets/images/White Modern Minimal E-Commerce Logo.png";
+import darkImage from "../../assets/images/White Modern Minimal E-Commerce Logo (1).png";
+
 import { Input } from "reactstrap";
 import { useToast } from "../../components/ui/use-toast";
 import { LoaderCircle } from "lucide-react";
 import ValidationIcon from "../../components/ValidationIcon";
+import { selectedMode } from "../../app/toggleSlice";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
@@ -30,6 +33,7 @@ const ForgetPassword = () => {
   const [error, setError] = useState(false);
   const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const { toast } = useToast();
+  const themeMode = useSelector(selectedMode);
 
   const handleInputChange = (index, event) => {
     console.log(index, event);
@@ -205,7 +209,11 @@ const ForgetPassword = () => {
               </div>
               <div class="flex flex-col items-center justify-center lg:h-screen mx-3 ">
                 <div class="lg:hidden flex flex-col justify-end items-center">
-                  <img src={image2} alt="logo" class="h-32 w-32" />
+                  {themeMode ? (
+                    <img src={image2} alt="logo" class="h-32 w-32" />
+                  ) : (
+                    <img src={darkImage} alt="logo" class="h-32 w-32" />
+                  )}{" "}
                 </div>
                 <div class="flex items-center justify-center w-full lg:w-7/12 ml-auto">
                   <Card className="">
@@ -265,8 +273,11 @@ const ForgetPassword = () => {
               </div>
               <div class="flex flex-col items-center justify-center lg:h-screen mx-3 ">
                 <div class="lg:hidden flex flex-col justify-end items-center">
-                  <img src={image2} alt="logo" class="h-32 w-32" />
-                </div>
+                {themeMode ? (
+              <img src={image2} alt="logo" class="h-32 w-32" />
+            ) : (
+              <img src={darkImage} alt="logo" class="h-32 w-32" />
+            )}                </div>
                 <div class="flex items-center justify-center w-full lg:w-7/12 ml-auto">
                   <Card className="">
                     <CardContent class="p-8">
@@ -333,8 +344,11 @@ const ForgetPassword = () => {
           </div>
           <div class="flex flex-col items-center justify-center lg:h-screen mx-3 ">
             <div class="lg:hidden flex flex-col justify-end items-center">
+            {themeMode ? (
               <img src={image2} alt="logo" class="h-32 w-32" />
-            </div>
+            ) : (
+              <img src={darkImage} alt="logo" class="h-32 w-32" />
+            )}            </div>
             <div class="flex items-center justify-center w-full lg:w-7/12 ml-auto">
               <Card className="">
                 <CardContent class="p-8">
