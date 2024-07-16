@@ -126,7 +126,7 @@ const EmailVerification = () => {
           <img
             src={image}
             alt="Image"
-            class="lg:h-full xl:h-full 2xl:h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+            class="lg:h-full xl:h-full 2xl:h-full w-full object-cover  "
           />
         </div>
         <div class="flex flex-col items-center justify-center lg:h-screen mx-3 ">
