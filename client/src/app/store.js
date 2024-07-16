@@ -4,12 +4,15 @@ import authReducer from "../pages/auth/authSlice";
 import userReducer from "../pages/User/userSlice";
 import CartSlice from "../pages/Cart/CartSlice";
 import orderSlice from "../pages/Order/orderSlice";
+import toggleSlice from "./toggleSlice";
 
 export const store = configureStore({
   reducer: {
     product: productReducer,
-    user: authReducer,
+    auth: authReducer,
+    user: userReducer,
     cart: CartSlice,
     order: orderSlice,
+    toggleMode: toggleSlice,
   },
 });

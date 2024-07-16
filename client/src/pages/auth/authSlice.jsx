@@ -44,7 +44,7 @@ export const register = createAsyncThunk(
 
 // Login user
 export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
-  try {
+  try { 
     const response = await Login(user);
     return response;
   } catch (error) {
@@ -191,9 +191,9 @@ export const authSlice = createSlice({
   },
 });
 
-export const selectIsVerified = (state) => state.user.isVerified;
-export const selectUserInfo = (state) => state.user?.userInfo?.data;
-export const selectloginUser = (state) => state.user?.user?.data;
+export const selectIsVerified = (state) => state.auth.isVerified;
+export const selectUserInfo = (state) => state.auth?.userInfo?.data;
+export const selectloginUser = (state) => state.auth?.user?.data;
 
 export default authSlice.reducer;
 export const { setUser } = authSlice.actions;
