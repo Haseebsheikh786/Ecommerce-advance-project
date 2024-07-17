@@ -53,7 +53,8 @@ export function fetchProductsByFilters(filter, sort, pagination, admin) {
     );
     const data = await response.json();
     const totalItems = await response.headers.get("X-Total-Count");
-    resolve({ data: { products: data, totalItems: +totalItems } });
+    console.log(totalItems, "total in api");
+    resolve({ data: { products: data.docs, totalItems: data.totalDocs } });
   });
 }
 
