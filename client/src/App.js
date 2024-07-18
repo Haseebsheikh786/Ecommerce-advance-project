@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Error from "./components/Error";
-import { ProductList } from "./pages/Product/productList";
+import ProductList from "./pages/Product/productList";
 import ProductDetail from "./pages/Product/ProductDetail";
 import Login from "./pages/auth/Login";
 import Cart from "./pages/Cart/Cart";
@@ -17,7 +17,7 @@ import Myorders from "./pages/User/userOrder";
 import ForgetPassword from "./pages/auth/ForgetPassword";
 import EmailVerification from "./pages/auth/EmailVerification";
 import useAutoLogin from "./hooks/useAutoLogin";
-import ToastLayout from './components/ToastLayout'; // Adjust the import path based on your structure
+import ToastLayout from "./components/ToastLayout"; // Adjust the import path based on your structure
 
 function App() {
   const dispatch = useDispatch();
@@ -33,17 +33,21 @@ function App() {
 
   return loading ? null : (
     <BrowserRouter>
-    <ToastLayout>
+      <ToastLayout>
+        <div className="bg-mute">
 
-      <Layout />
-    </ToastLayout>
+          <Layout />
+        </div>
+      </ToastLayout>
     </BrowserRouter>
   );
 }
 
 function Layout() {
   const location = useLocation();
-  const showNavbar = !['/login', '/forgot-password', '/verify-email'].includes(location.pathname);
+  const showNavbar = !["/login", "/forgot-password", "/verify-email"].includes(
+    location.pathname
+  );
 
   return (
     <>

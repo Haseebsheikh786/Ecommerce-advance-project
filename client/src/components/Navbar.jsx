@@ -24,7 +24,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        class="mx-auto h-[65px] flex max-w-full items-center justify-between p-2"
+        class="mx-auto h-[65px] flex max-w-full items-center justify-between p-2 bg-muted"
         aria-label="Global"
       >
         <NavLink to="/">
