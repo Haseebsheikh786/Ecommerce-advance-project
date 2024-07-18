@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Separator } from "../../components/ui/separator";
 import {
   Pagination,
@@ -16,40 +15,114 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
   SheetFooter,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "../../components/ui/sheet";
-const listenNowAlbums = [
+import { useState, Fragment, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  fetchProductsByFiltersAsync,
+  fetchBrandsAsync,
+  fetchCategoriesAsync,
+  selectAllProducts,
+  selectTotalItems,
+  selectBrands,
+  selectCategories,
+  selectProductListStatus,
+} from "./ProductSlice";
+import { ITEMS_PER_PAGE } from "../../app/constants";
+// import Pagination from "../../components/Common/Pagination";
+import { FidgetSpinner, Vortex } from "react-loader-spinner";
+
+import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
+import {
+  FunnelIcon,
+  MinusIcon,
+  PlusIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import { Squares2X2Icon } from "@heroicons/react/20/solid";
+import { Link } from "react-router-dom";
+const sortOptions = [
   {
-    name: "React Rendezvous",
-    artist: "Ethan Byte",
-    cover:
-      "https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=300&dpr=2&q=80",
+    name: "Price: Low to High",
+    sort: "price",
+    order: "asc",
+    current: false,
   },
   {
-    name: "Async Awakenings",
-    artist: "Nina Netcode",
-    cover:
-      "https://images.unsplash.com/photo-1468817814611-b7edf94b5d60?w=300&dpr=2&q=80",
-  },
-  {
-    name: "The Art of Reusability",
-    artist: "Lena Logic",
-    cover:
-      "https://images.unsplash.com/photo-1528143358888-6d3c7f67bd5d?w=300&dpr=2&q=80",
-  },
-  {
-    name: "Stateful Symphony",
-    artist: "Beth Binary",
-    cover:
-      "https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80",
+    name: "Price: High to Low",
+    sort: "price",
+    order: "desc",
+    current: false,
   },
 ];
 
 const ProductList = () => {
+  const dispatch = useDispatch();
+  const Status = useSelector(selectProductListStatus);
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const products = useSelector(selectAllProducts);
+  const brands = useSelector(selectBrands);
+  const categories = useSelector(selectCategories);
+  const filters = [
+    {
+      id: "category",
+      name: "Category",
+      options: categories,
+    },
+    {
+      id: "brand",
+      name: "Brands",
+      options: brands,
+    },
+  ];
+
+  const totalItems = useSelector(selectTotalItems);
+  const [filter, setFilter] = useState({});
+  const [sort, setSort] = useState({});
+  const [page, setPage] = useState(1);
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+  const handleFilter = (e, section, option) => {
+    const newFilter = { ...filter };
+    if (e.target.checked) {
+      if (newFilter[section.id]) {
+        newFilter[section.id].push(option.value);
+      } else {
+        newFilter[section.id] = [option.value];
+      }
+    } else {
+      const index = newFilter[section.id].findIndex(
+        (el) => el === option.value
+      );
+      newFilter[section.id].splice(index, 1);
+    }
+    setFilter(newFilter);
+  };
+
+  const handleSort = (e, option) => {
+    const sort = { _sort: option.sort, _order: option.order };
+    setSort(sort);
+  };
+
+  const handlePage = (page) => {
+    setPage(page);
+  };
+
+  useEffect(() => {
+    const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
+    dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
+  }, [dispatch, filter, sort, page]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [totalItems, sort]);
+
+  useEffect(() => {
+    dispatch(fetchBrandsAsync());
+    dispatch(fetchCategoriesAsync());
+  }, []);
   return (
     <>
       <div className=" my-4 pt-3 mx-4">
@@ -102,11 +175,16 @@ const ProductList = () => {
                 <Separator className="mb-4 mt-3" />
                 <div className="relative">
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8">
-                    {listenNowAlbums.map((album, index) => (
-                      <div key={index} className={cn("space-y-3")}>
+                    {products.map((album, index) => (
+                      <Link
+                        key={album.id}
+                        to={`product-detail/${album.id}`}
+                        className={cn("space-y-3")}
+                      >
                         <div className="rounded-md">
                           <img
-                            src={album.cover}
+                            src={album.thumbnail}
+                            // src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=300&dpr=2&q=80"
                             alt={album.name}
                             width={250}
                             height={330}
@@ -118,35 +196,42 @@ const ProductList = () => {
                         </div>
                         <div className="space-y-1 text-sm">
                           <h3 className="font-medium leading-none">
-                            {album.name}
+                            {album.title}
                           </h3>
                           <p className="text-xs text-muted-foreground">
-                            {album.artist}
+                            {album.price}
                           </p>
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   </div>
                   <Pagination className="flex justify-end pt-3">
                     <PaginationContent>
-                      <PaginationItem class="">
+                      <PaginationItem
+                        onClick={(e) => handlePage(page > 1 ? page - 1 : page)}
+                      >
                         <PaginationPrevious href="#" />
                       </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink href="#">1</PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink href="#" isActive>
-                          2
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink href="#">3</PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationEllipsis />
-                      </PaginationItem>
-                      <PaginationItem>
+                      {Array.from({ length: totalPages }).map((el, index) => (
+                        <PaginationItem
+                          onClick={(e) => handlePage(index + 1)}
+                          aria-current="page"
+                        >
+                          {index + 1 === page ? (
+                            <PaginationLink isActive>
+                              {" "}
+                              {index + 1}
+                            </PaginationLink>
+                          ) : (
+                            <PaginationLink> {index + 1}</PaginationLink>
+                          )}
+                        </PaginationItem>
+                      ))}
+                      <PaginationItem
+                        onClick={(e) =>
+                          handlePage(page < totalPages ? page + 1 : page)
+                        }
+                      >
                         <PaginationNext href="#" />
                       </PaginationItem>
                     </PaginationContent>
@@ -586,127 +671,6 @@ const Filters = () => {
 //           </main>
 //         </div>
 //       </div>
-//     </>
-//   );
-// };
-
-// const MobileFilter = ({
-//   filters,
-//   mobileFiltersOpen,
-//   setMobileFiltersOpen,
-//   handleFilter,
-// }) => {
-//   return (
-//     <>
-//       <Transition.Root show={mobileFiltersOpen} as={Fragment}>
-//         <Dialog
-//           as="div"
-//           className="relative z-40 lg:hidden"
-//           onClose={setMobileFiltersOpen}
-//         >
-//           <Transition.Child
-//             as={Fragment}
-//             enter="transition-opacity ease-linear duration-300"
-//             enterFrom="opacity-0"
-//             enterTo="opacity-100"
-//             leave="transition-opacity ease-linear duration-300"
-//             leaveFrom="opacity-100"
-//             leaveTo="opacity-0"
-//           >
-//             <div className="fixed inset-0 bg-white bg-opacity-25" />
-//           </Transition.Child>
-
-//           <div className="fixed inset-0 z-40 flex">
-//             <Transition.Child
-//               as={Fragment}
-//               enter="transition ease-in-out duration-300 transform"
-//               enterFrom="translate-x-full"
-//               enterTo="translate-x-0"
-//               leave="transition ease-in-out duration-300 transform"
-//               leaveFrom="translate-x-0"
-//               leaveTo="translate-x-full"
-//             >
-//               <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-black py-4 pb-12 shadow-xl">
-//                 <div className="flex items-center justify-between px-4">
-//                   <h2 className="text-lg font-medium text-white-900">
-//                     Filters
-//                   </h2>
-//                   <button
-//                     type="button"
-//                     className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-black p-2 text-white-400"
-//                     onClick={() => setMobileFiltersOpen(false)}
-//                   >
-//                     <span className="sr-only">Close menu</span>
-//                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-//                   </button>
-//                 </div>
-//                 <form className="mt-4 border-t border-gray-200">
-//                   {filters.map((section) => (
-//                     <Disclosure
-//                       as="div"
-//                       key={section.id}
-//                       className="border-t border-gray-200 px-4 py-6"
-//                     >
-//                       {({ open }) => (
-//                         <>
-//                           <h3 className="-mx-2 -my-3 flow-root">
-//                             <Disclosure.Button className="flex w-full items-center justify-between bg-black px-2 py-3 text-white-400 hover:text-white-500">
-//                               <span className="font-medium text-white-900">
-//                                 {section.name}
-//                               </span>
-//                               <span className="ml-6 flex items-center">
-//                                 {open ? (
-//                                   <MinusIcon
-//                                     className="h-5 w-5"
-//                                     aria-hidden="true"
-//                                   />
-//                                 ) : (
-//                                   <PlusIcon
-//                                     className="h-5 w-5"
-//                                     aria-hidden="true"
-//                                   />
-//                                 )}
-//                               </span>
-//                             </Disclosure.Button>
-//                           </h3>
-//                           <Disclosure.Panel className="pt-6">
-//                             <div className="space-y-6">
-//                               {section.options.map((option, optionIdx) => (
-//                                 <div
-//                                   key={option.value}
-//                                   className="flex items-center"
-//                                 >
-//                                   <input
-//                                     id={`filter-mobile-${section.id}-${optionIdx}`}
-//                                     name={`${section.id}[]`}
-//                                     defaultValue={option.value}
-//                                     type="checkbox"
-//                                     defaultChecked={option.checked}
-//                                     onChange={(e) =>
-//                                       handleFilter(e, section, option)
-//                                     }
-//                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-//                                   />
-//                                   <label
-//                                     htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-//                                     className="ml-3 min-w-0 flex-1 text-white-500"
-//                                   >
-//                                     {option.label}
-//                                   </label>
-//                                 </div>
-//                               ))}
-//                             </div>
-//                           </Disclosure.Panel>
-//                         </>
-//                       )}
-//                     </Disclosure>
-//                   ))}
-//                 </form>
-//               </Dialog.Panel>
-//             </Transition.Child>
-//           </div>
-//         </Dialog>
-//       </Transition.Root>
 //     </>
 //   );
 // };
