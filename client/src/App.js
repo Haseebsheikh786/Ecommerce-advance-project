@@ -16,6 +16,7 @@ import Myprofile from "./pages/User/userProfile";
 import Myorders from "./pages/User/userOrder";
 import ForgetPassword from "./pages/auth/ForgetPassword";
 import EmailVerification from "./pages/auth/EmailVerification";
+import DownloadApp from "./components/downloadApp";
 import useAutoLogin from "./hooks/useAutoLogin";
 import ToastLayout from "./components/ToastLayout"; // Adjust the import path based on your structure
 
@@ -35,7 +36,6 @@ function App() {
     <BrowserRouter>
       <ToastLayout>
         <div className="bg-mute">
-
           <Layout />
         </div>
       </ToastLayout>
@@ -45,9 +45,12 @@ function App() {
 
 function Layout() {
   const location = useLocation();
-  const showNavbar = !["/login", "/forgot-password", "/verify-email"].includes(
-    location.pathname
-  );
+  const showNavbar = ![
+    "/login",
+    "/forgot-password",
+    "/verify-email",
+    "/download-app",
+  ].includes(location.pathname);
 
   return (
     <>
@@ -64,6 +67,7 @@ function Layout() {
             </Protected>
           }
         />
+        <Route path="download-app" exact element={<DownloadApp />} />
         <Route path="login" exact element={<Login />} />
         <Route path="/forgot-password" element={<ForgetPassword />} />
         <Route path="/verify-email" element={<EmailVerification />} />

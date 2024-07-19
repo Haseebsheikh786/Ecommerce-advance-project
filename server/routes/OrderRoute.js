@@ -9,12 +9,12 @@ const {
   fetchAllOrders,
 } = require("../controller/OrderController");
 const { isAuth } = require("../services/common");
+const validateToken = require("../middleware/ValidateTokenHandler");
 const router = express.Router();
-
-router.post("/", isAuth(), createOrder);
-router.get("/own", isAuth(), fetchOrdersByUser);
-router.get("/", isAuth(), fetchAllOrders);
-router.delete("/:id", isAuth(), deleteOrder);
-router.patch("/:id", isAuth(), updateOrder);
+router.post("/", validateToken, createOrder);
+router.get("/own", validateToken, fetchOrdersByUser);
+router.get("/", validateToken, fetchAllOrders);
+router.delete("/:id", validateToken, deleteOrder);
+router.patch("/:id", validateToken, updateOrder);
 
 module.exports = router;

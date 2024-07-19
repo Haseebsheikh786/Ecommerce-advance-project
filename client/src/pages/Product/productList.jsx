@@ -64,13 +64,7 @@ const ProductList = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const products = useSelector(selectAllProducts);
   const brands = useSelector(selectBrands);
-  const categories = useSelector(selectCategories);
   const filters = [
-    {
-      id: "category",
-      name: "Category",
-      options: categories,
-    },
     {
       id: "brand",
       name: "Brands",
@@ -129,7 +123,7 @@ const ProductList = () => {
         <div className="">
           <div className="grid lg:grid-cols-5">
             <div className="border py-6 hidden lg:block">
-              <Filters />
+              <FilterComponent handleFilter={handleFilter} filters={filters} />
             </div>
             <div className="border lg:col-span-4 border-l">
               <div className=" px-4 pt-4 pb-4 lg:px-8">
@@ -163,7 +157,10 @@ const ProductList = () => {
                       </Button>
                     </SheetTrigger>
                     <SheetContent>
-                      <Filters />
+                      <FilterComponent
+                        handleFilter={handleFilter}
+                        filters={filters}
+                      />
                       <SheetFooter>
                         <SheetClose asChild>
                           {/* <Button type="submit">Close</Button> */}
@@ -248,7 +245,7 @@ const ProductList = () => {
 
 export default ProductList;
 
-const Filters = () => {
+const FilterComponent = ({ filters, handleFilter }) => {
   const [showSorting, setShowSorting] = useState(true);
   const [showPriceRange, setShowPriceRange] = useState(true);
   const [showBrands, setShowBrands] = useState(true);
@@ -431,22 +428,29 @@ const Filters = () => {
             </svg>
           )}
         </div>
-        <div
-          className={`transition-all duration-200 ease-in-out ${
-            showBrands
-              ? "max-h-40 opacity-100"
-              : "max-h-0 opacity-0 overflow-hidden"
-          }`}
-        >
-          <div className="my-2 flex items-center space-x-2">
-            <input type="checkbox" />
-            <span className="text-sm">Apple</span>
+        {filters.map((filter, product) => (
+          <div
+            className={`transition-all duration-200 ease-in-out ${
+              showBrands
+                ? "max-h-40 opacity-100"
+                : "max-h-0 opacity-0 overflow-hidden"
+            }`}
+          >
+            <div className="my-2 flex items-center space-x-2">
+              <input type="checkbox" />
+              {/* <input
+                          id={filter-${section.id}-${optionIdx}}
+                          name={${section.id}[]}
+                          defaultValue={option.value}
+                          type="checkbox"
+                          defaultChecked={option.checked}
+                          onChange={(e) => handleFilter(e, section, option)}
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        /> */}
+              <span className="text-sm">{filter.label}</span>
+            </div>
           </div>
-          <div className="my-2 flex items-center space-x-2">
-            <input type="checkbox" />
-            <span className="text-sm">Samsung</span>
-          </div>
-        </div>
+        ))}
       </div>
 
       <Separator className="my-4" />

@@ -7,12 +7,14 @@ const {
   updateProduct,
 } = require("../controller/ProductController");
 
-const { isAuth } = require("../services/common");
+// const { isAuth } = require("../services/common");
+const validateToken = require("../middleware/ValidateTokenHandler");
 const router = express.Router();
+ 
 
-router.post("/", isAuth(), createProduct);
+router.post("/",validateToken  , createProduct);
 router.get("/", fetchAllProducts);
-router.get("/:id", isAuth(), fetchProductById);
-router.patch("/:id", isAuth(), updateProduct);
+router.get("/:id", validateToken, fetchProductById);
+router.patch("/:id", validateToken, updateProduct);
 
 module.exports = router;

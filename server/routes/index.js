@@ -8,6 +8,7 @@ const {
   fetchProductById,
   updateProduct,
 } = require("../controller/ProductController");
+const validateToken = require("../middleware/ValidateTokenHandler");
 
 const { fetchBrands, createBrand } = require("../controller/BrandController");
 
@@ -49,10 +50,10 @@ const router = express.Router();
 // Product
 
 router
-  .post("/products", isAuth(), createProduct)
+  .post("/products", validateToken, createProduct)
   .get("/products", fetchAllProducts)
-  .get("/products/:id", isAuth(), fetchProductById)
-  .patch("/products/:id", isAuth(), updateProduct);
+  .get("/products/:id", validateToken, fetchProductById)
+  .patch("/products/:id", validateToken, updateProduct);
 
 // Brand
 router.get("/brands", fetchBrands).post("/brands", createBrand);
@@ -65,28 +66,28 @@ router
   .post("/auth/signup", createUser)
   .post("/auth/login", passport.authenticate("local"), loginUser)
   .get("/auth/logout", logout)
-  .get("/auth/check", isAuth(), checkAuth)
+  .get("/auth/check", validateToken, checkAuth)
   .post("/auth/reset-password-request", resetPasswordRequest)
   .post("/auth/reset-password", resetPassword);
 
 // User
 router
-  .get("/users/own", isAuth(), fetchUserById)
-  .patch("/users/:id", isAuth(), updateUser);
+  .get("/users/own", validateToken, fetchUserById)
+  .patch("/users/:id", validateToken, updateUser);
 
 // Cart
 router
-  .post("/cart/", isAuth(), addToCart)
-  .get("/cart/", isAuth(), fetchCartByUser)
-  .delete("/cart/:id", isAuth(), deleteFromCart)
-  .patch("/cart/:id", isAuth(), updateCart);
+  .post("/cart/", validateToken, addToCart)
+  .get("/cart/", validateToken, fetchCartByUser)
+  .delete("/cart/:id", validateToken, deleteFromCart)
+  .patch("/cart/:id", validateToken, updateCart);
 
 // Order
 router
-  .post("/orders/", isAuth(), createOrder)
-  .get("/orders/own", isAuth(), fetchOrdersByUser)
-  .delete("/orders/:id", isAuth(), deleteOrder)
-  .patch("/orders/:id", isAuth(), updateOrder)
-  .get("/orders", isAuth(), fetchAllOrders);
+  .post("/orders/", validateToken, createOrder)
+  .get("/orders/own", validateToken, fetchOrdersByUser)
+  .delete("/orders/:id", validateToken, deleteOrder)
+  .patch("/orders/:id", validateToken, updateOrder)
+  .get("/orders", validateToken, fetchAllOrders);
 
 module.exports = router;
