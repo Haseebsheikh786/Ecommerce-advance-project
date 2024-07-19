@@ -34,6 +34,26 @@ exports.fetchAllProducts = async (req, res) => {
       category: { $in: req.query.category.split(",") },
     });
   }
+
+  // Apply title search if provided
+  if (req.query.title) {
+    const titleRegex = new RegExp(req.query.title, "i");
+    query = query.find({ title: { $regex: titleRegex } });
+    totalProductsQuery = totalProductsQuery.find({
+      title: { $regex: titleRegex },
+    });
+  }
+
+  // Apply price range filter if minPrice and maxPrice are provided
+  if (req.query.minPrice && req.query.maxPrice) {
+    const minPrice = parseFloat(req.query.minPrice);
+    const maxPrice = parseFloat(req.query.maxPrice);
+    query = query.find({ price: { $gte: minPrice, $lte: maxPrice } });
+    totalProductsQuery = totalProductsQuery.find({
+      price: { $gte: minPrice, $lte: maxPrice },
+    });
+  }
+
   if (req.query.brand) {
     query = query.find({ brand: { $in: req.query.brand.split(",") } });
     totalProductsQuery = totalProductsQuery.find({
@@ -46,7 +66,6 @@ exports.fetchAllProducts = async (req, res) => {
   }
 
   const totalDocs = await totalProductsQuery.count().exec();
-  console.log({ totalDocs });
 
   if (req.query._page && req.query._limit) {
     const pageSize = req.query._limit;
