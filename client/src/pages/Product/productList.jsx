@@ -21,7 +21,16 @@ import {
 import { ITEMS_PER_PAGE } from "../../app/constants";
 import PaginationComponent from "../../components/Common/Pagination";
 import { Link } from "react-router-dom";
-
+import { LoaderCircle } from "lucide-react";
+const priceRanges = [
+  { label: "Below Rs. 15,000", minPrice: 0, maxPrice: 15000 },
+  { label: "Rs. 15,000 - Rs. 25,000", minPrice: 15000, maxPrice: 25000 },
+  { label: "Rs. 25,000 - Rs. 40,000", minPrice: 25000, maxPrice: 40000 },
+  { label: "Rs. 40,000 - Rs. 60,000", minPrice: 40000, maxPrice: 60000 },
+  { label: "Rs. 60,000 - Rs. 80,000", minPrice: 60000, maxPrice: 80000 },
+  { label: "Rs. 80,000 - Rs. 100,000", minPrice: 80000, maxPrice: 100000 },
+  { label: "Above 150,000", minPrice: 150000, maxPrice: Infinity },
+];
 const ProductList = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
@@ -29,7 +38,11 @@ const ProductList = () => {
   const totalItems = useSelector(selectTotalItems);
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState({});
+  const [search, setSearch] = useState(null);
   const [page, setPage] = useState(1);
+  const [selectedPriceRange, setSelectedPriceRange] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
   const [sortOptions, setSortOptions] = useState([
     { name: "Price: Low to High", sort: "price", order: "asc", current: false },
     {
@@ -89,14 +102,43 @@ const ProductList = () => {
       );
     }
   };
+
+  const handlePriceRangeChange = (range) => {
+    if (
+      selectedPriceRange.minPrice === range.minPrice &&
+      selectedPriceRange.maxPrice === range.maxPrice
+    ) {
+      setSelectedPriceRange({});
+    } else {
+      setSelectedPriceRange({
+        minPrice: range.minPrice,
+        maxPrice: range.maxPrice,
+      });
+    }
+  };
+
   const handlePage = (page) => {
     setPage(page);
   };
 
   useEffect(() => {
-    const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
-    dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
-  }, [dispatch, filter, sort, page]);
+    const fetchProducts = async () => {
+      setIsLoading(true);
+      const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
+      await dispatch(
+        fetchProductsByFiltersAsync({
+          filter,
+          sort,
+          pagination,
+          search,
+          selectedPriceRange,
+        })
+      );
+      setIsLoading(false);
+    };
+
+    fetchProducts();
+  }, [dispatch, filter, sort, page, search, selectedPriceRange]);
 
   useEffect(() => {
     setPage(1);
@@ -117,6 +159,11 @@ const ProductList = () => {
                 sort={sort}
                 handleSort={handleSort}
                 sortOptions={sortOptions}
+                search={search}
+                setSearch={setSearch}
+                selectedPriceRange={selectedPriceRange}
+                handlePriceRangeChange={handlePriceRangeChange}
+                isLoading={isLoading}
               />
             </div>
             <div className="border lg:col-span-4 border-l">
@@ -157,6 +204,10 @@ const ProductList = () => {
                         sort={sort}
                         handleSort={handleSort}
                         sortOptions={sortOptions}
+                        search={search}
+                        setSearch={setSearch}
+                        selectedPriceRange={selectedPriceRange}
+                        handlePriceRangeChange={handlePriceRangeChange}
                       />
 
                       <SheetFooter>
@@ -217,21 +268,36 @@ const ProductList = () => {
 
 export default ProductList;
 
-const FilterComponent = ({ handleFilter, brands, handleSort, sortOptions }) => {
+const FilterComponent = ({
+  handleFilter,
+  brands,
+  handleSort,
+  sortOptions,
+  search,
+  setSearch,
+  selectedPriceRange,
+  handlePriceRangeChange,
+  isLoading,
+}) => {
   const [showSorting, setShowSorting] = useState(true);
   const [showPriceRange, setShowPriceRange] = useState(true);
   const [showBrands, setShowBrands] = useState(true);
   return (
     <>
-      <div className="px-7">
+      <div className="px-7 relative">
         <div className="flex justify-between items-center cursor-pointer">
           <h2 className="text-lg font-semibold tracking-tight">Search</h2>
         </div>
         <Input
-          type="search"
-          className="mt-2"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          type="text"
+          className="mt-2  "
           placeholder="search product....."
         />
+        {isLoading && (
+          <LoaderCircle class="absolute top-12 right-10 h-4 w-4 animate-spin" />
+        )}
       </div>
 
       <Separator className="my-4" />
@@ -336,34 +402,21 @@ const FilterComponent = ({ handleFilter, brands, handleSort, sortOptions }) => {
               : "max-h-0 opacity-0 overflow-hidden"
           }`}
         >
-          <div className="my-2 flex items-center space-x-2">
-            <input type="checkbox" />
-            <span className="text-sm">Below Rs. 15,000</span>
-          </div>
-          <div className="my-2 flex items-center space-x-2">
-            <input type="checkbox" />
-            <span className="text-sm">Rs. 15,000 - Rs. 25,000</span>
-          </div>
-          <div className="my-2 flex items-center space-x-2">
-            <input type="checkbox" />
-            <span className="text-sm">Rs. 25,000 - Rs. 40,000</span>
-          </div>
-          <div className="my-2 flex items-center space-x-2">
-            <input type="checkbox" />
-            <span className="text-sm">Rs. 40,000 - Rs. 60,000</span>
-          </div>
-          <div className="my-2 flex items-center space-x-2">
-            <input type="checkbox" />
-            <span className="text-sm">Rs. 60,000 - Rs. 80,000</span>
-          </div>
-          <div className="my-2 flex items-center space-x-2">
-            <input type="checkbox" />
-            <span className="text-sm">Rs. 80,000 - Rs. 100,000</span>
-          </div>
-          <div className="my-2 flex items-center space-x-2">
-            <input type="checkbox" />
-            <span className="text-sm">Above 150,000</span>
-          </div>
+          {priceRanges.map((range, index) => (
+            <div key={index} className="my-2 flex items-center space-x-2">
+              <input
+                type="checkbox"
+                checked={
+                  selectedPriceRange &&
+                  selectedPriceRange.minPrice === range.minPrice &&
+                  selectedPriceRange.maxPrice === range.maxPrice
+                }
+                onChange={() => handlePriceRangeChange(range)}
+                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+              />
+              <span className="text-sm">{range.label}</span>
+            </div>
+          ))}
         </div>
       </div>
 

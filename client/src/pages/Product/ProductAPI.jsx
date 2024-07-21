@@ -5,7 +5,6 @@ export const fetchProductById = async (id) => {
   return response;
 };
 
-
 export function fetchCategories() {
   return new Promise(async (resolve) => {
     const response = await fetch("http://localhost:8080/categories");
@@ -21,11 +20,14 @@ export function fetchBrands() {
     resolve({ data });
   });
 }
-export function fetchProductsByFilters(filter, sort, pagination, admin) {
-  // filter = {"category":["smartphone","laptops"]}
-  // sort = {_sort:"price",_order="desc"}
-  // pagination = {_page:1,_limit=10}
-
+export function fetchProductsByFilters(
+  filter,
+  sort,
+  pagination,
+  search,
+  selectedPriceRange,
+  admin
+) {
   let queryString = "";
   for (let key in filter) {
     const categoryValues = filter[key];
@@ -41,9 +43,31 @@ export function fetchProductsByFilters(filter, sort, pagination, admin) {
     queryString += `${key}=${pagination[key]}&`;
   }
 
+  // // Handle search
+  if (search) {
+    queryString += `title=${search}&`;
+  }
+
+  // Add price range parameters
+   if (selectedPriceRange) {
+    if (selectedPriceRange.minPrice !== undefined) {
+      queryString += `minPrice=${selectedPriceRange.minPrice}&`;
+    }
+    if (selectedPriceRange.maxPrice !== undefined) {
+      queryString += `maxPrice=${selectedPriceRange.maxPrice}&`;
+    }
+  }
+
   if (admin) {
     queryString += `admin=true`;
   }
+
+  // Remove the trailing '&' if it exists
+  if (queryString.endsWith("&")) {
+    queryString = queryString.slice(0, -1);
+  }
+
+  // queryString = queryString.slice(0, -1);
 
   return new Promise(async (resolve) => {
     //TODO: we will not hard-code server URL here
@@ -52,7 +76,6 @@ export function fetchProductsByFilters(filter, sort, pagination, admin) {
     );
     const data = await response.json();
     const totalItems = await response.headers.get("X-Total-Count");
-    console.log(totalItems, "total in api");
     resolve({ data: { products: data.docs, totalItems: data.totalDocs } });
   });
 }

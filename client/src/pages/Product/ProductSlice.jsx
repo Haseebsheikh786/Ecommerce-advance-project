@@ -12,7 +12,7 @@ const initialState = {
   products: [],
   brands: [],
   categories: [],
- status: "idle",
+  status: "idle",
   selectedProduct: null,
 };
 
@@ -41,11 +41,13 @@ export const fetchCategoriesAsync = createAsyncThunk(
 );
 export const fetchProductsByFiltersAsync = createAsyncThunk(
   "product/fetchProductsByFilters",
-  async ({ filter, sort, pagination, admin }) => {
+  async ({ filter, sort, pagination, search, selectedPriceRange, admin }) => {
     const response = await fetchProductsByFilters(
       filter,
       sort,
       pagination,
+      search,
+      selectedPriceRange,
       admin
     );
     // The value we return becomes the `fulfilled` action payload
