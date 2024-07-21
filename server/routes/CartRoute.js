@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.post("/", validateToken, addToCart);
 router.get("/", validateToken, fetchCartByUser);
-router.delete("/:id", validateToken, deleteFromCart);
-router.patch("/:id", validateToken, updateCart);
+router.delete("/:id", deleteFromCart);
+router.post("/:id", validateToken, updateCart);
 
 module.exports = router;

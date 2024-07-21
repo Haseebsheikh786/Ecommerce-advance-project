@@ -48,7 +48,7 @@ const Navbar = () => {
               />
             </svg>{" "}
             {items.length > 0 && (
-              <span className="absolute text-muted text-sm bottom-4 left-3">
+              <span className="absolute text-sm bottom-6 left-5  ">
                 {items.length}
               </span>
             )}
