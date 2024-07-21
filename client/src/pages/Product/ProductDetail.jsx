@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductByIdAsync, selectProductById } from "./ProductSlice";
 import style from "./product.module.css";
@@ -7,14 +7,28 @@ import { useParams } from "react-router-dom";
 import { CardTitle, Card } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
 import { useMediaQuery } from "react-responsive";
-
+const colors = [
+  { name: "black", bgColor: "bg-black" },
+  { name: "white", bgColor: "bg-white" },
+  { name: "blue", bgColor: "bg-primary" },
+  // Add more colors as needed
+];
 const ProductDetail = () => {
   const product = useSelector(selectProductById);
   const dispatch = useDispatch();
-
   const params = useParams();
   const items = useSelector(selectItems);
   const isSmallScreen = useMediaQuery({ query: "(max-width: 640px)" });
+  const [memory, setMemory] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
+
+  const handleMemory = (value) => {
+    setMemory(value);
+  };
+
+  const handleColorClick = (color) => {
+    setSelectedColor(color.name);
+  };
 
   const handleCart = (e) => {
     e.preventDefault();
@@ -61,43 +75,37 @@ const ProductDetail = () => {
                 />
               </div>
 
-              <div class="my-6">
-                <span class="font-semibold">Color:</span>
-                <div class="flex items-center mt-2">
-                  <span class="w-10 h-10 rounded-full bg-black border-2 border-destructive mr-2 cursor-pointer"></span>
-                  <span class="w-10 h-10 rounded-full bg-white border-2 mr-2 cursor-pointer"></span>
-                  <span class="w-10 h-10 rounded-full bg-primary border-2 cursor-pointer"></span>
+              <div className="my-6">
+                <span className="font-semibold">Color:</span>
+                <div className="flex items-center mt-2">
+                  {colors.map((color) => (
+                    <span
+                      key={color.name}
+                      className={`w-10 h-10 rounded-full cursor-pointer border-2 ${
+                        color.bgColor
+                      } ${
+                        selectedColor === color.name
+                          ? "border-red-600 w-12 h-12"
+                          : ""
+                      } mr-2`}
+                      onClick={() => handleColorClick(color)}
+                    ></span>
+                  ))}
                 </div>
               </div>
-
               <div class="my-6">
                 <span class="font-semibold">Memory</span>
-                <div class="flex items-center space-x-2 mt-2">
-                  <Button
-                    size={isSmallScreen ? "sm" : "default"}
-                    variant="outline"
-                  >
-                    32
-                  </Button>
-                  <Button
-                    size={isSmallScreen ? "sm" : "default"}
-                    variant="outline"
-                  >
-                    64
-                  </Button>
-                  <Button
-                    size={isSmallScreen ? "sm" : "default"}
-                    variant="outline"
-                  >
-                    128
-                  </Button>
-                 
-                  <Button
-                    size={isSmallScreen ? "sm" : "default"}
-                    variant="outline"
-                  >
-                    512
-                  </Button>
+                <div className="flex items-center space-x-2 mt-2">
+                  {["32", "64", "128", "512"].map((value) => (
+                    <Button
+                      key={value}
+                      size={isSmallScreen ? "sm" : "default"}
+                      variant={memory === value ? "default" : "outline"}
+                      onClick={() => handleMemory(value)}
+                    >
+                      {value}
+                    </Button>
+                  ))}
                 </div>
               </div>
 

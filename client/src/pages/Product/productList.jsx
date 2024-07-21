@@ -152,7 +152,7 @@ const ProductList = () => {
       <div className=" my-4 pt-3 mx-4">
         <div className="">
           <div className="grid lg:grid-cols-5">
-            <div className="border py-6 hidden lg:block">
+            <div className="border shadow py-6 hidden lg:block">
               <FilterComponent
                 handleFilter={handleFilter}
                 brands={brands}
@@ -166,7 +166,7 @@ const ProductList = () => {
                 isLoading={isLoading}
               />
             </div>
-            <div className="border lg:col-span-4 border-l">
+            <div className="border shadow ml-4 lg:col-span-4 border-l">
               <div className=" px-4 pt-4 pb-4 lg:px-8">
                 <div className="flex justify-between items-center">
                   <div>
@@ -208,6 +208,7 @@ const ProductList = () => {
                         setSearch={setSearch}
                         selectedPriceRange={selectedPriceRange}
                         handlePriceRangeChange={handlePriceRangeChange}
+                        isLoading={isLoading}
                       />
 
                       <SheetFooter>
@@ -470,6 +471,7 @@ const FilterComponent = ({
                 type="checkbox"
                 defaultChecked={brand.checked}
                 onChange={(e) => handleFilter(e, brand)}
+                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
               />
               <span className="text-sm">{brand.label}</span>
             </div>
