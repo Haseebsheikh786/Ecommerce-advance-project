@@ -53,27 +53,29 @@ const ProductList = () => {
     },
   ]);
 
-  const handleFilter = (e, brand) => {
+  const handleFilter = (brand) => {
     const newFilter = { ...filter };
 
-    if (e.target.checked) {
-      if (newFilter.brand) {
-        newFilter.brand.push(brand.value);
-      } else {
-        newFilter.brand = [brand.value];
-      }
-    } else {
-      const index = newFilter.brand.findIndex((el) => el === brand.value);
-      newFilter.brand.splice(index, 1);
+    // Check if the brand is currently selected
+    const isSelected = newFilter.brand?.includes(brand.value);
 
+    if (isSelected) {
+      // If it's selected, deselect it
+      newFilter.brand = newFilter.brand.filter(
+        (value) => value !== brand.value
+      );
       if (newFilter.brand.length === 0) {
         delete newFilter.brand;
       }
+    } else {
+      // Otherwise, select it
+      newFilter.brand = [...(newFilter.brand || []), brand.value];
     }
+
     setFilter(newFilter);
   };
 
-  const handleSort = (e, selectedOption) => {
+  const handleSort = (selectedOption) => {
     // Check if the clicked option is already selected
     const isCurrentlySelected = selectedOption.current;
 
@@ -102,19 +104,12 @@ const ProductList = () => {
       );
     }
   };
-
   const handlePriceRangeChange = (range) => {
-    if (
-      selectedPriceRange.minPrice === range.minPrice &&
-      selectedPriceRange.maxPrice === range.maxPrice
-    ) {
-      setSelectedPriceRange({});
-    } else {
-      setSelectedPriceRange({
-        minPrice: range.minPrice,
-        maxPrice: range.maxPrice,
-      });
-    }
+    setSelectedPriceRange((prev) =>
+      prev.minPrice === range.minPrice && prev.maxPrice === range.maxPrice
+        ? {}
+        : { minPrice: range.minPrice, maxPrice: range.maxPrice }
+    );
   };
 
   const handlePage = (page) => {
@@ -156,6 +151,7 @@ const ProductList = () => {
               <FilterComponent
                 handleFilter={handleFilter}
                 brands={brands}
+                filter={filter}
                 sort={sort}
                 handleSort={handleSort}
                 sortOptions={sortOptions}
@@ -201,6 +197,7 @@ const ProductList = () => {
                       <FilterComponent
                         handleFilter={handleFilter}
                         brands={brands}
+                        filter={filter}
                         sort={sort}
                         handleSort={handleSort}
                         sortOptions={sortOptions}
@@ -272,6 +269,7 @@ export default ProductList;
 const FilterComponent = ({
   handleFilter,
   brands,
+  filter,
   handleSort,
   sortOptions,
   search,
@@ -345,11 +343,15 @@ const FilterComponent = ({
           }`}
         >
           {sortOptions.map((option, index) => (
-            <div key={index} className="my-2 flex items-center space-x-2">
+            <div
+              key={index}
+              className="my-2 flex items-center space-x-2 cursor-default"
+              onClick={() => handleSort(option)}
+            >
               <input
                 type="checkbox"
                 checked={option.current}
-                onChange={(e) => handleSort(e, option)}
+                readOnly
                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
               />
               <span className="text-sm">{option.name}</span>
@@ -404,7 +406,11 @@ const FilterComponent = ({
           }`}
         >
           {priceRanges.map((range, index) => (
-            <div key={index} className="my-2 flex items-center space-x-2">
+            <div
+              key={index}
+              className="my-2 flex items-center space-x-2 cursor-default"
+              onClick={() => handlePriceRangeChange(range)}
+            >
               <input
                 type="checkbox"
                 checked={
@@ -412,7 +418,7 @@ const FilterComponent = ({
                   selectedPriceRange.minPrice === range.minPrice &&
                   selectedPriceRange.maxPrice === range.maxPrice
                 }
-                onChange={() => handlePriceRangeChange(range)}
+                readOnly
                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
               />
               <span className="text-sm">{range.label}</span>
@@ -459,18 +465,21 @@ const FilterComponent = ({
         </div>
         {brands.map((brand, index) => (
           <div
+            key={index}
             className={`transition-all duration-200 ease-in-out ${
               showBrands
                 ? "max-h-40 opacity-100"
                 : "max-h-0 opacity-0 overflow-hidden"
             }`}
           >
-            <div className="my-2 flex items-center space-x-2">
+            <div
+              className="my-2 flex items-center space-x-2 cursor-default"
+              onClick={() => handleFilter(brand)}
+            >
               <input
-                defaultValue={brand.value}
                 type="checkbox"
-                defaultChecked={brand.checked}
-                onChange={(e) => handleFilter(e, brand)}
+                checked={filter.brand?.includes(brand.value) || false}
+                readOnly
                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
               />
               <span className="text-sm">{brand.label}</span>
