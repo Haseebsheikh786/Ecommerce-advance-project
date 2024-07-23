@@ -41,6 +41,8 @@ const ProductDetail = () => {
       const newItem = {
         product: product.id,
         quantity: 1,
+        color: selectedColor,
+        memory: memory,
       };
       dispatch(addToCartAsync({ item: newItem }));
       toast({

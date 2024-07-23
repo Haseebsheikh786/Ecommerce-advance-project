@@ -22,6 +22,7 @@ import { ITEMS_PER_PAGE } from "../../app/constants";
 import PaginationComponent from "../../components/Common/Pagination";
 import { Link } from "react-router-dom";
 import { LoaderCircle } from "lucide-react";
+import { Skeleton } from "../../components/ui/skeleton";
 const priceRanges = [
   { label: "Below Rs. 15,000", minPrice: 0, maxPrice: 15000 },
   { label: "Rs. 15,000 - Rs. 25,000", minPrice: 15000, maxPrice: 25000 },
@@ -217,44 +218,58 @@ const ProductList = () => {
                   </Sheet>
                 </div>
                 <Separator className="mb-4 mt-3" />
-                <div className="relative">
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8">
-                    {products.map((album, index) => (
-                      <Link
-                        key={album.id}
-                        to={`product-detail/${album.id}`}
-                        className={cn("space-y-3")}
-                      >
-                        <div className="rounded-md">
-                          <img
-                            src={album.thumbnail}
-                            // src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=300&dpr=2&q=80"
-                            alt={album.name}
-                            width={250}
-                            height={330}
-                            className={cn(
-                              "h-auto w-auto object-cover transition-all hover:scale-105",
-                              "aspect-square"
-                            )}
-                          />
-                        </div>
-                        <div className="space-y-1 text-sm">
-                          <h3 className="font-medium leading-none">
-                            {album.title}
-                          </h3>
-                          <p className="text-xs text-muted-foreground">
-                            {album.price}
-                          </p>
-                        </div>
-                      </Link>
-                    ))}
+                {!isLoading ? (
+                  <div className="relative">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8">
+                      {products.map((album, index) => (
+                        <Link
+                          key={album.id}
+                          to={`product-detail/${album.id}`}
+                          className={cn("space-y-3")}
+                        >
+                          <div className="rounded-md">
+                            <img
+                              src={album.thumbnail}
+                              // src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=300&dpr=2&q=80"
+                              alt={album.name}
+                              width={250}
+                              height={330}
+                              className={cn(
+                                "h-auto w-auto object-cover transition-all hover:scale-105",
+                                "aspect-square"
+                              )}
+                            />
+                          </div>
+                          <div className="space-y-1 text-sm">
+                            <h3 className="font-medium leading-none">
+                              {album.title}
+                            </h3>
+                            <p className="text-xs text-muted-foreground">
+                              {album.price}
+                            </p>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                    <PaginationComponent
+                      totalItems={totalItems}
+                      page={page}
+                      handlePage={handlePage}
+                    />
                   </div>
-                  <PaginationComponent
-                    totalItems={totalItems}
-                    page={page}
-                    handlePage={handlePage}
-                  />
-                </div>
+                ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8">
+                      {Array.from({ length: 8 }).map((_, index) => (
+                        <div key={index} className="space-y-3 animate-pulse ">
+                          <div className="rounded-md bg-gray-200 h-44 "></div>
+                          <div className="space-y-1  text-sm">
+                            <div className="h-4 bg-gray-200 rounded"></div>
+                            <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                )}
               </div>
             </div>
           </div>
@@ -366,9 +381,7 @@ const FilterComponent = ({
           onClick={() => setShowPriceRange(!showPriceRange)}
           className="flex justify-between items-center cursor-pointer"
         >
-          <h2 className="text-lg font-semibold tracking-tight">
-            PRICE RANGE
-          </h2>
+          <h2 className="text-lg font-semibold tracking-tight">PRICE RANGE</h2>
           {showPriceRange ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
