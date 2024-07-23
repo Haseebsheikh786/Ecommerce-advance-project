@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
- import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { selectItems } from "../pages/Cart/CartSlice";
 import { Logout, selectUserInfo } from "../pages/auth/authSlice";
@@ -15,6 +15,7 @@ import {
 import lightImage from "../assets/images/White Modern Minimal E-Commerce Logo.png";
 import darkImage from "../assets/images/White Modern Minimal E-Commerce Logo (1).png";
 import { selectedMode, toggleSelectedMode } from "../app/toggleSlice";
+import { Separator } from "./ui/separator";
 const Navbar = () => {
   const user = useSelector(selectUserInfo);
   const themeMode = useSelector(selectedMode);
@@ -23,10 +24,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav
-        class="mx-auto h-[65px] flex max-w-full items-center justify-between p-2 bg-mute"
-        aria-label="Global"
-      >
+      <nav className={`h-[65px] flex max-w-full items-center justify-between p-2 ${themeModei ? 'bg-zinc-50' : ''}`}>
         <NavLink to="/">
           {themeMode ? (
             <img src={lightImage} alt="logo" class="h-24 w-24" />

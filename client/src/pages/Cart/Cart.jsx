@@ -19,6 +19,7 @@ import {
   updateCartAsync,
   selectCartLoaded,
 } from "./CartSlice";
+import { useToast } from "../../components/ui/use-toast";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -65,6 +66,8 @@ const cartItemsData = [
 
 const ShoppingCart = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+
   const dispatch = useDispatch();
   const items = useSelector(selectItems);
   const [quantities, setQuantities] = useState(
@@ -98,6 +101,10 @@ const ShoppingCart = () => {
       setIsLoading(true);
       try {
         await dispatch(deleteItemFromCartAsync(itemToDelete.id));
+        toast({
+          title: " Successful",
+          description: "item deleted successfully",
+        });
       } finally {
         setIsLoading(false);
         setShowAlertDialog(false);
@@ -110,8 +117,8 @@ const ShoppingCart = () => {
     <>
       {items.length > 0 ? (
         <>
-          <div className="flex justify-center items-center mx-4">
-            <Card className="w-full sm:w-[600px] sm:mx-auto px-3 sm:px-4 py-8 my-10">
+          <div className="flex justify-center items-center mx-4 my-4">
+            <Card className="w-full sm:w-[600px] sm:mx-auto px-3 sm:px-4 py-8  ">
               <CardTitle className="text-3xl mb-10 text-center">
                 Shopping Cart
               </CardTitle>

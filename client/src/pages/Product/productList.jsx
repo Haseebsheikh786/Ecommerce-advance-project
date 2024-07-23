@@ -162,7 +162,7 @@ const ProductList = () => {
                 isLoading={isLoading}
               />
             </div>
-            <div className="border shadow ml-4 lg:col-span-4 border-l">
+            <div className="border shadow sm:ml-4 lg:col-span-4 border-l">
               <div className=" px-4 pt-4 pb-4 lg:px-8">
                 <div className="flex justify-between items-center">
                   <div>
@@ -282,7 +282,7 @@ const FilterComponent = ({
   const [showPriceRange, setShowPriceRange] = useState(true);
   const [showBrands, setShowBrands] = useState(true);
   return (
-    <>
+    <div className="sm:h-full h-screen overflow-auto">
       <div className="px-7 relative">
         <div className="flex justify-between items-center cursor-pointer">
           <h2 className="text-lg font-semibold tracking-tight">Search</h2>
@@ -367,7 +367,7 @@ const FilterComponent = ({
           className="flex justify-between items-center cursor-pointer"
         >
           <h2 className="text-lg font-semibold tracking-tight">
-            SET YOUR PRICE RANGE
+            PRICE RANGE
           </h2>
           {showPriceRange ? (
             <svg
@@ -489,6 +489,6 @@ const FilterComponent = ({
       </div>
 
       <Separator className="my-4" />
-    </>
+    </div>
   );
 };

@@ -7,6 +7,9 @@ import { useParams } from "react-router-dom";
 import { CardTitle, Card } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
 import { useMediaQuery } from "react-responsive";
+
+import { useToast } from "../../components/ui/use-toast";
+
 const colors = [
   { name: "black", bgColor: "bg-black" },
   { name: "white", bgColor: "bg-white" },
@@ -16,6 +19,8 @@ const colors = [
 const ProductDetail = () => {
   const product = useSelector(selectProductById);
   const dispatch = useDispatch();
+  const { toast } = useToast();
+
   const params = useParams();
   const items = useSelector(selectItems);
   const isSmallScreen = useMediaQuery({ query: "(max-width: 640px)" });
@@ -38,7 +43,16 @@ const ProductDetail = () => {
         quantity: 1,
       };
       dispatch(addToCartAsync({ item: newItem }));
+      toast({
+        title: " Successful",
+        description: "item added successfully",
+      });
     } else {
+      toast({
+        variant: "destructive",
+        title: " Uh oh!",
+        description: "item already added ",
+      });
     }
   };
 
@@ -49,7 +63,7 @@ const ProductDetail = () => {
   return (
     <>
       {product && (
-        <Card class="sm:mx-5 sm:p-4 py-4 px-2">
+        <Card class=" sm:p-4 py-4 px-2">
           <div class="flex flex-col lg:flex-row">
             <div class="w-full lg:w-1/2 p-4 hidden lg:flex">
               <img
