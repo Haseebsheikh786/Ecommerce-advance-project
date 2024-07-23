@@ -24,7 +24,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className={`h-[65px] flex max-w-full items-center justify-between p-2 ${themeModei ? 'bg-zinc-50' : ''}`}>
+      <nav className={`h-[65px] flex max-w-full items-center justify-between p-2 ${themeMode ? 'bg-zinc-50' : ''}`}>
         <NavLink to="/">
           {themeMode ? (
             <img src={lightImage} alt="logo" class="h-24 w-24" />
