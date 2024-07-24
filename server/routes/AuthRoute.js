@@ -1,7 +1,7 @@
 const express = require("express");
 const {
   Register,
-  VerifyEmail,
+  VerifyEmail,  
   ResendVerificationCode,
   login,
   Logout,
@@ -11,6 +11,7 @@ const {
   resetPassword,
   VerifyResetPasswordCode,
   ProtectedRoute,
+  updateUser,
 } = require("../controller/AuthController");
 const validateToken = require("../middleware/ValidateTokenHandler");
 
@@ -26,4 +27,5 @@ router.get("/protected", validateToken, ProtectedRoute);
 router.post("/reset-password-request", resetPasswordRequest);
 router.post("/verify-code", VerifyResetPasswordCode);
 router.post("/reset-password", resetPassword);
+router.post("/user/:id", validateToken, updateUser);
 module.exports = router;

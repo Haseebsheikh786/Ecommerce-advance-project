@@ -7,9 +7,11 @@ import {
 } from "../Cart/CartSlice";
 import { Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { updateUserAsync, selectUserInfo } from "../User/userSlice";
+import { updateUserAsync } from "../User/userSlice";
 import { useState } from "react";
 import { createOrderAsync, selectCurrentOrder } from "../Order/orderSlice";
+import { GetLoginUserAsync, Logout, selectUserInfo } from "../auth/authSlice";
+
 function Checkout() {
   const dispatch = useDispatch();
   const {
@@ -19,6 +21,7 @@ function Checkout() {
     formState: { errors },
   } = useForm();
   const user = useSelector(selectUserInfo);
+  console.log(user,"user");
   const currentOrder = useSelector(selectCurrentOrder);
 
   const items = useSelector(selectItems);
@@ -80,6 +83,7 @@ function Checkout() {
                     addresses: [...user.addresses, data],
                   })
                 );
+                dispatch(GetLoginUserAsync());
                 reset();
               })}
             >

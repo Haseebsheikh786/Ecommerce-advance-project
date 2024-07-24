@@ -1,12 +1,9 @@
 import style from "./user.module.css";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  selectUserInfo,
-  updateUserAsync,
-  fetchLoggedInUserAsync,
-} from "./userSlice";
+import { updateUserAsync } from "./userSlice";
 import { useForm } from "react-hook-form";
+import { GetLoginUserAsync, selectUserInfo } from "../auth/authSlice";
 
 export default function UserProfile() {
   const dispatch = useDispatch();
@@ -36,10 +33,11 @@ export default function UserProfile() {
     setValue("street", address.street);
   };
 
-  const handleEdit = (addressUpdate, index) => {
+  const handleEdit = async (addressUpdate, index) => {
     const newUser = { ...userInfo, addresses: [...userInfo.addresses] }; // for shallow copy issue
     newUser.addresses.splice(index, 1, addressUpdate);
-    dispatch(updateUserAsync(newUser));
+    await dispatch(updateUserAsync(newUser));
+    await dispatch(GetLoginUserAsync());
     setSelectedEditIndex(-1);
   };
 
@@ -47,6 +45,7 @@ export default function UserProfile() {
     const newUser = { ...userInfo, addresses: [...userInfo.addresses] }; // for shallow copy issue
     newUser.addresses.splice(index, 1);
     dispatch(updateUserAsync(newUser));
+    dispatch(GetLoginUserAsync());
   };
 
   const handleAdd = (address) => {
@@ -55,26 +54,21 @@ export default function UserProfile() {
       addresses: [...userInfo.addresses, address],
     };
     dispatch(updateUserAsync(newUser));
+    dispatch(GetLoginUserAsync());
     setShowAddAddressForm(false);
   };
   useEffect(() => {
     if (userInfo) {
-      dispatch(fetchLoggedInUserAsync(userInfo.id));
+      dispatch(GetLoginUserAsync());
     }
-  }, [
-    dispatch,
-    setSelectedEditIndex,
-    setShowAddAddressForm,
-    updateUserAsync,
-    userInfo,
-  ]);
+  }, [dispatch, setSelectedEditIndex, setShowAddAddressForm, updateUserAsync]);
   return (
     <div>
       {userInfo && (
         <div className="mx-auto mt-12 bg-black max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className=" ">
             <h1 className="text-4xl my-3 font-bold tracking-tight text-white-600">
-              Name: {userInfo.name ? userInfo.name : "New User"}
+              Name: {userInfo.userName ? userInfo.userName : "New User"}
             </h1>
             <h3 className="text-xl my-5 font-bold tracking-tight text-red-400">
               email address : {userInfo.email}
@@ -247,7 +241,7 @@ export default function UserProfile() {
               </form>
             ) : null}
 
-             <p className={style.p}>Your Addresses</p>
+            <p className={style.p}>Your Addresses</p>
             {userInfo.addresses.map((address, index) => (
               <div>
                 {selectedEditIndex === index ? (

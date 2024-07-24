@@ -163,5 +163,11 @@ export function resetPassword(data) {
 }
 export const GetLoginUser = async () => {
   const response = await axiosInstance.get("/own");
+  console.log(response);
   return response;
 };
+
+export function updateUser(update) {
+    const response = axiosInstance.post(`/user/${update._id}`, update);
+    return response;
+}

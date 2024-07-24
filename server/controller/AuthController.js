@@ -1,16 +1,16 @@
 const { sendMail } = require("../constants");
-const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const RefreshToken = require("../models/Token");
 const jwt = require("jsonwebtoken");
-const asyncHandler = require("express-async-handler"); 
+const asyncHandler = require("express-async-handler");
+const { User } = require("../models/UserModel");
 
 const Register = asyncHandler(async (req, res) => {
-  const { email, password, userName } = req.body;   
+  const { email, password, userName } = req.body;
 
   if (!email || !password || !userName) {
     res.status(400).json({ error: "All fields are mandatory" });
-    throw new Error("All fields are mandatory"); 
+    throw new Error("All fields are mandatory");
   }
 
   const userAvailable = await User.findOne({ email });
@@ -34,7 +34,7 @@ const Register = asyncHandler(async (req, res) => {
     await user.save();
     const subject = "Verify Email";
     const html = `<p>Your verification code is ${verificationCode}</p>`;
-     const response = await sendMail({ to: email, subject, html });
+    const response = await sendMail({ to: email, subject, html });
     res.status(201).json({
       _id: user.id,
       email: user.email,
@@ -84,7 +84,7 @@ const VerifyEmail = asyncHandler(async (req, res) => {
     process.env.REFRESH_TOKEN_SECRET,
     {
       expiresIn: "7d",
-    } 
+    }
   );
   try {
     await RefreshToken.updateOne(
@@ -148,9 +148,10 @@ const login = asyncHandler(async (req, res) => {
   if (!email || !password) {
     res.status(400).json({ error: "All fields are mandatory", auth });
     throw new Error("All fields are mandatory");
-  }0
+  }
+  0;
   const user = await User.findOne({ email });
-console.log(user,"user");
+  console.log(user, "user");
   if (!user) {
     res.status(400).json({ error: "User not found", auth });
     throw new Error("User not found");
@@ -209,14 +210,12 @@ console.log(user,"user");
     maxAge: 1000 * 60 * 60 * 24,
     httpOnly: true,
   });
-  res
-    .status(200)
-    .json({
-      email,
-      _id: user._id,
-      Isverified: user.Isverified,
-      userName: user.userName,
-    });
+  res.status(200).json({
+    email,
+    _id: user._id,
+    Isverified: user.Isverified,
+    userName: user.userName,
+  });
 });
 
 const Logout = asyncHandler(async (req, res) => {
@@ -243,6 +242,7 @@ const loginUser = asyncHandler(async (req, res) => {
       email: userAvailable.email,
       Isverified: userAvailable.Isverified,
       userName: userAvailable.userName,
+      addresses: userAvailable.addresses,
     });
   } catch (err) {
     res.status(404).json({ message: err.message });
@@ -293,7 +293,7 @@ const refresh = asyncHandler(async (req, res) => {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
     });
-
+ 
     res.cookie("refreshToken", refreshToken, {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
@@ -309,10 +309,10 @@ const refresh = asyncHandler(async (req, res) => {
 const resetPasswordRequest = asyncHandler(async (req, res) => {
   try {
     const email = req.body.email;
-    const user = await User.findOne({ email: email }); 
+    const user = await User.findOne({ email: email });
     if (user) {
       const verificationCode = Math.floor(
-        1000 + Math.random() * 9000 
+        1000 + Math.random() * 9000
       ).toString();
       user.ResetPasswordCode = verificationCode;
       await user.save();
@@ -381,6 +381,18 @@ const ProtectedRoute = asyncHandler(async (req, res) => {
     console.log(e);
   }
 });
+const updateUser = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await User.findByIdAndUpdate(id, req.body, { new: true });
+    res.status(200).json(user);
+    console.log("user updated successfully");
+  } catch (err) {
+    res.status(400).json(err);
+    console.log("user not updated error");
+  }
+});
+
 module.exports = {
   Register,
   VerifyEmail,
@@ -393,4 +405,5 @@ module.exports = {
   VerifyResetPasswordCode,
   resetPassword,
   ProtectedRoute,
+  updateUser,
 };

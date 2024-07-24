@@ -9,6 +9,7 @@ import {
   resetPasswordRequest,
   resetPassword,
   verifyCode,
+  updateUser,
 } from "./authApi";
 
 const initialState = {
@@ -44,7 +45,7 @@ export const register = createAsyncThunk(
 
 // Login user
 export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
-  try { 
+  try {
     const response = await Login(user);
     return response;
   } catch (error) {
@@ -133,6 +134,14 @@ export const GetLoginUserAsync = createAsyncThunk(
   }
 );
 
+export const updateUserAsync = createAsyncThunk(
+  "auth/update",
+  async (update) => {
+    const response = await updateUser(update);
+    return response.data;
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -186,6 +195,13 @@ export const authSlice = createSlice({
       .addCase(GetLoginUserAsync.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isVerified = true;
+        state.userInfo = action.payload;
+      })
+      .addCase(updateUserAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateUserAsync.fulfilled, (state, action) => {
+        state.status = "idle";
         state.userInfo = action.payload;
       });
   },
