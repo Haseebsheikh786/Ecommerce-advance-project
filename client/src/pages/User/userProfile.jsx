@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateUserAsync } from "./userSlice";
 import { useForm } from "react-hook-form";
-import { GetLoginUserAsync, selectUserInfo } from "../auth/authSlice";
+import {
+  GetLoginUserAsync,
+  selectUserInfo,
+  updateUserAsync,
+} from "../auth/authSlice";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -65,7 +68,6 @@ export default function UserProfile() {
     const newUser = { ...userInfo, addresses: [...userInfo.addresses] }; // for shallow copy issue
     newUser.addresses.splice(itemToDelete, 1);
     await dispatch(updateUserAsync(newUser));
-    await dispatch(GetLoginUserAsync());
     try {
       toast({
         title: " Successful",
@@ -82,7 +84,7 @@ export default function UserProfile() {
     if (userInfo) {
       dispatch(GetLoginUserAsync());
     }
-  }, [dispatch, updateUserAsync, showDialog]);
+  }, [dispatch, updateUserAsync]);
   return (
     <>
       <Card className="my-8 mx-4">

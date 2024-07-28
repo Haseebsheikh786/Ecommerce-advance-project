@@ -12,7 +12,7 @@ import {
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserAsync } from "../../pages/User/userSlice";
+import { updateUserAsync } from "../../pages/auth/authSlice";
 import { useToast } from "../../components/ui/use-toast";
 export function Address({
   showDialog,

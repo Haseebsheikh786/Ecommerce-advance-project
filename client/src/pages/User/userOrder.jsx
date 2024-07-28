@@ -127,7 +127,7 @@ export default function UserOrder() {
               {orders?.map((order, index) => (
                 <TableRow>
                   <TableCell>
-                    {new Date(order.createdAt).toLocaleDateString(se)}
+                    {new Date(order.createdAt).toLocaleDateString()}
                   </TableCell>
 
                   <TableCell className="flex space-x-2">

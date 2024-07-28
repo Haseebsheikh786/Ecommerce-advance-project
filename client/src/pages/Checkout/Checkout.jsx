@@ -54,8 +54,7 @@ function Checkout() {
   );
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
   const [selectedAddress, setSelectedAddress] = useState(null);
-  const [paymentMethod, setPaymentMethod] = useState("cash");
-  const [isLoading, setIsLoading] = useState(false);
+   const [isLoading, setIsLoading] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [quantities, setQuantities] = useState(
     items.map((item) => item.quantity)

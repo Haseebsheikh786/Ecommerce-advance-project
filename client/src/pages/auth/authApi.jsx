@@ -168,6 +168,6 @@ export const GetLoginUser = async () => {
 };
 
 export function updateUser(update) {
-    const response = axiosInstance.post(`/user/${update._id}`, update);
-    return response;
+  const response = axiosInstance.post(`/user/${update._id}`, update);
+  return response;
 }

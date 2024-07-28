@@ -138,7 +138,7 @@ export const updateUserAsync = createAsyncThunk(
   "auth/update",
   async (update) => {
     const response = await updateUser(update);
-    return response.data;
+    return response;
   }
 );
 
