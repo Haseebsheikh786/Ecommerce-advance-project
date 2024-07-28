@@ -19,6 +19,7 @@ import EmailVerification from "./pages/auth/EmailVerification";
 import DownloadApp from "./components/downloadApp";
 import useAutoLogin from "./hooks/useAutoLogin";
 import ToastLayout from "./components/ToastLayout"; // Adjust the import path based on your structure
+import { fetchItemsByUserIdAsync } from "./pages/Cart/CartSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function App() {
   useEffect(() => {
     if (!loading && user) {
       dispatch(GetLoginUserAsync());
+      dispatch(fetchItemsByUserIdAsync());
     }
   }, [dispatch, user, loading]);
 
