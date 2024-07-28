@@ -4,7 +4,8 @@ const { Product } = require("../models/Product");
 const { sendMail, invoiceTemplate } = require("../services/common");
 
 exports.fetchOrdersByUser = async (req, res) => {
-  const { id } = req.user;
+  const { id } = req.params;
+  console.log(id,"id");
   try {
     const orders = await Order.find({ user: id });
     res.status(200).json(orders);
@@ -12,7 +13,7 @@ exports.fetchOrdersByUser = async (req, res) => {
     res.status(400).json(err);
   }
 };
-
+ 
 exports.createOrder = async (req, res) => {
   const order = new Order(req.body);
   for (let item of order.items) {

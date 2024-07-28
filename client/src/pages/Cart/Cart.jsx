@@ -34,36 +34,7 @@ import {
 import { LoaderCircle } from "lucide-react";
 // import Modal from "../../components/Common/Modal";
 
-const cartItemsData = [
-  {
-    name: "Artwork Tee",
-    color: "Mint",
-    size: "Medium",
-    status: "In stock",
-    price: "$32.00",
-    image:
-      "https://tse2.mm.bing.net/th?id=OIP.tLotgCDtzgTdwJcTiXWRCwHaEK&pid=Api&P=0&h=220",
-  },
-  {
-    name: "Basic Tee",
-    color: "Charcoal",
-    size: "Large",
-    status: "Will ship in 7-8 years",
-    price: "$32.00",
-    image:
-      "https://tse1.mm.bing.net/th?id=OIP.TRNXjrKQXvevPz7MTXWbtgHaFj&pid=Api&P=0&h=220",
-  },
-  {
-    name: "Basic Tee",
-    color: "Sienna",
-    size: "Large",
-    status: "In stock",
-    price: "$32.00",
-    image:
-      "https://tse2.mm.bing.net/th?id=OIP.avb9nDfw3kq7NOoP0grM4wHaEK&pid=Api&P=0&h=220",
-  },
-];
-
+ 
 const ShoppingCart = () => {
   const navigate = useNavigate();
   const { toast } = useToast();

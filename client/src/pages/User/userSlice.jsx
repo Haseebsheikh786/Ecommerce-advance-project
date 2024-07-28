@@ -6,14 +6,15 @@ import {
 } from "./userAPI";
 
 const initialState = {
-  userInfo: null,
+  orders: null,
   status: "idle",
 };
 
 export const fetchLoggedInUserOrderAsync = createAsyncThunk(
   "user/fetchLoggedInUserOrders",
-  async () => {
-    const response = await fetchLoggedInUserOrders();
+  async (id) => {
+    const response = await fetchLoggedInUserOrders(id);
+    console.log(response.data);
     // The value we return becomes the `fulfilled` action payload
     return response.data;
   }
@@ -41,7 +42,7 @@ export const userSlice = createSlice({
       .addCase(fetchLoggedInUserOrderAsync.fulfilled, (state, action) => {
         state.status = "idle";
         // this info can be different or more from logged-in User info
-        state.userInfo.orders = action.payload;
+        state.orders = action.payload;
       })
       .addCase(updateUserAsync.pending, (state) => {
         state.status = "loading";
@@ -53,7 +54,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const selectUserOrders = (state) => state.user.userInfo.orders;
+export const selectUserOrders = (state) => state.user.orders;
 
 export const { increment } = userSlice.actions;
 

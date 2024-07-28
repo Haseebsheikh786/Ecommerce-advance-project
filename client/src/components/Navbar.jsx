@@ -102,7 +102,7 @@ const Navbar = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <NavLink to="/profile">
-                <DropdownMenuItem class="cursor-pointer my-2 hover:bg-muted">
+                <DropdownMenuItem class="cursor-pointer py-2 hover:bg-muted border-b">
                   <div class="space-x-2 flex justify-betwee items-center cursor-pointer">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +123,7 @@ const Navbar = () => {
                 </DropdownMenuItem>
               </NavLink>
               <NavLink to="/orders">
-                <DropdownMenuItem class="cursor-pointer my-2 hover:bg-muted">
+                <DropdownMenuItem class="cursor-pointer py-2 border-b hover:bg-muted">
                   <div class="space-x-2 flex justify-betwee items-center cursor-pointer">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -148,7 +148,7 @@ const Navbar = () => {
                 </DropdownMenuItem>
               </NavLink>
               <NavLink to="/download-app">
-                <DropdownMenuItem class="cursor-pointer my-2 hover:bg-muted">
+                <DropdownMenuItem class="cursor-pointer border-b py-2 hover:bg-muted">
                   <div class="space-x-2 flex justify-betwee items-center cursor-pointer">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -174,7 +174,7 @@ const Navbar = () => {
               </NavLink>
               {!user ? (
                 <NavLink to="/login">
-                  <DropdownMenuItem class="cursor-pointer my-2 hover:bg-muted">
+                  <DropdownMenuItem class="cursor-pointer py-2 hover:bg-muted">
                     <div class="space-x-2 flex justify-betwee items-center cursor-pointer">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -196,7 +196,7 @@ const Navbar = () => {
                 </NavLink>
               ) : (
                 <DropdownMenuItem
-                  class="cursor-pointer hover:bg-muted"
+                  class="cursor-pointer hover:bg-muted py-2"
                   onClick={() => {
                     dispatch(Logout());
                   }}

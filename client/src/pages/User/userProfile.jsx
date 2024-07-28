@@ -1,440 +1,237 @@
-import style from "./user.module.css";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUserAsync } from "./userSlice";
 import { useForm } from "react-hook-form";
 import { GetLoginUserAsync, selectUserInfo } from "../auth/authSlice";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../../components/ui/dropdown-menu";
 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../../components/ui/alert-dialog";
+import { LoaderCircle } from "lucide-react";
+
+import { useToast } from "../../components/ui/use-toast";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../../components/ui/table";
+import { Button } from "../../components/ui/button";
+import { Address } from "../../components/Common/Address";
 export default function UserProfile() {
   const dispatch = useDispatch();
+  const { toast } = useToast();
   const userInfo = useSelector(selectUserInfo);
-  const [selectedEditIndex, setSelectedEditIndex] = useState(-1);
-  const [showAddAddressForm, setShowAddAddressForm] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
+  const [showAlertDialog, setShowAlertDialog] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
+  const [editAbleData, setEditAbleData] = useState({});
 
-  //TODO: We will add payment section when we work on backend.
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setValue,
-    formState: { errors },
-  } = useForm();
-
-  const handleEditForm = (index) => {
-    setSelectedEditIndex(index);
-    const address = userInfo.addresses[index];
-    setValue("name", address.name);
-    setValue("email", address.email);
-    setValue("city", address.city);
-    setValue("state", address.state);
-    setValue("pinCode", address.pinCode);
-    setValue("phone", address.phone);
-    setValue("street", address.street);
+  const handleRemove = (item) => {
+    setItemToDelete(item);
+    setShowAlertDialog(true);
+  };
+  const editHandler = (item, index) => {
+    setItemToDelete(index);
+    setEditAbleData(item);
+    setShowDialog(true);
   };
 
-  const handleEdit = async (addressUpdate, index) => {
+  const confirmDelete = async () => {
     const newUser = { ...userInfo, addresses: [...userInfo.addresses] }; // for shallow copy issue
-    newUser.addresses.splice(index, 1, addressUpdate);
+    newUser.addresses.splice(itemToDelete, 1);
     await dispatch(updateUserAsync(newUser));
     await dispatch(GetLoginUserAsync());
-    setSelectedEditIndex(-1);
+    try {
+      toast({
+        title: " Successful",
+        description: "address deleted successfully",
+      });
+    } finally {
+      setIsLoading(false);
+      setShowAlertDialog(false);
+      setItemToDelete(null);
+    }
   };
 
-  const handleRemove = (e, index) => {
-    const newUser = { ...userInfo, addresses: [...userInfo.addresses] }; // for shallow copy issue
-    newUser.addresses.splice(index, 1);
-    dispatch(updateUserAsync(newUser));
-    dispatch(GetLoginUserAsync());
-  };
-
-  const handleAdd = (address) => {
-    const newUser = {
-      ...userInfo,
-      addresses: [...userInfo.addresses, address],
-    };
-    dispatch(updateUserAsync(newUser));
-    dispatch(GetLoginUserAsync());
-    setShowAddAddressForm(false);
-  };
   useEffect(() => {
     if (userInfo) {
       dispatch(GetLoginUserAsync());
     }
-  }, [dispatch, setSelectedEditIndex, setShowAddAddressForm, updateUserAsync]);
+  }, [dispatch, updateUserAsync, showDialog]);
   return (
-    <div>
-      {userInfo && (
-        <div className="mx-auto mt-12 bg-black max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className=" ">
-            <h1 className="text-4xl my-3 font-bold tracking-tight text-white-600">
-              Name: {userInfo.userName ? userInfo.userName : "New User"}
-            </h1>
-            <h3 className="text-xl my-5 font-bold tracking-tight text-red-400">
-              email address : {userInfo.email}
-            </h3>
-          </div>
-
-          <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-            <button
-              onClick={(e) => {
-                setShowAddAddressForm(true);
-                setSelectedEditIndex(-1);
-              }}
-              type="submit"
-              className="rounded-md my-3 bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Add New Address
-            </button>
-            {showAddAddressForm ? (
-              <form
-                className="bg-black px-5 py-12 mt-12"
-                noValidate
-                onSubmit={handleSubmit((data) => {
-                  console.log(data);
-                  handleAdd(data);
-                  reset();
-                })}
-              >
-                <div className="space-y-12">
-                  <div className="border-b border-gray-900/10 pb-12">
-                    <h2 className="text-xl font-semibold leading-7 text-white">
-                      Personal Information
-                    </h2>
-                    <p className="mt-1 text-sm leading-6 text-white">
-                      Use a permanent address where you can receive mail.
-                    </p>
-
-                    <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                      <div className="sm:col-span-3">
-                        <label
-                          htmlFor="name"
-                          className="block text-sm font-medium leading-6 text-white"
-                        >
-                          Full name
-                        </label>
-                        <div className="mt-2">
-                          <input
-                            type="text"
-                            {...register("name", {
-                              required: "name is required",
-                            })}
-                            id="name"
-                            className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          />
-                          {errors.name && (
-                            <p className="text-red-500">
-                              {errors.name.message}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="sm:col-span-3">
-                        <label
-                          htmlFor="email"
-                          className="block text-sm font-medium leading-6 text-white"
-                        >
-                          Email address
-                        </label>
-                        <div className="mt-2">
-                          <input
-                            id="email"
-                            {...register("email", {
-                              required: "email is required",
-                            })}
-                            type="email"
-                            className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          />
-                          {errors.email && (
-                            <p className="text-red-500">
-                              {errors.email.message}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="sm:col-span-3">
-                        <label
-                          htmlFor="phone"
-                          className="block text-sm font-medium leading-6 text-white"
-                        >
-                          Phone
-                        </label>
-                        <div className="mt-2">
-                          <input
-                            id="phone"
-                            {...register("phone", {
-                              required: "phone is required",
-                            })}
-                            type="tel"
-                            className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          />
-                          {errors.phone && (
-                            <p className="text-red-500">
-                              {errors.phone.message}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="sm:col-span-3">
-                        <label
-                          htmlFor="street-address"
-                          className="block text-sm font-medium leading-6 text-white"
-                        >
-                          Street address
-                        </label>
-                        <div className="mt-2">
-                          <input
-                            type="text"
-                            {...register("street", {
-                              required: "street is required",
-                            })}
-                            id="street"
-                            className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          />
-                          {errors.street && (
-                            <p className="text-red-500">
-                              {errors.street.message}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="sm:col-span-3">
-                        <label
-                          htmlFor="city"
-                          className="block text-sm font-medium leading-6 text-white"
-                        >
-                          City
-                        </label>
-                        <div className="mt-2">
-                          <input
-                            type="text"
-                            {...register("city", {
-                              required: "city is required",
-                            })}
-                            id="city"
-                            autoComplete="address-level2"
-                            className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          />
-                          {errors.city && (
-                            <p className="text-red-500">
-                              {errors.city.message}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-1 flex items-center justify-end gap-x-6">
-                    <button
-                      type="submit"
-                      className="rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    >
-                      Add Address
-                    </button>
-                  </div>
-                </div>
-              </form>
-            ) : null}
-
-            <p className={style.p}>Your Addresses</p>
-            {userInfo.addresses.map((address, index) => (
-              <div>
-                {selectedEditIndex === index ? (
-                  <form
-                    className="bg-black px-5 py-12 mt-2"
-                    noValidate
-                    onSubmit={handleSubmit((data) => {
-                      console.log(data);
-                      handleEdit(data, index);
-                      reset();
-                    })}
-                  >
-                    <div className="space-y-12">
-                      <div className="border-b border-gray-900/10 pb-12">
-                        <h2 className="text-xl font-semibold leading-7 text-white">
-                          Personal Information
-                        </h2>
-                        <p className="mt-1 text-sm leading-6 text-white">
-                          Use a permanent address where you can receive mail.
-                        </p>
-
-                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                          <div className="sm:col-span-3">
-                            <label
-                              htmlFor="name"
-                              className="block text-sm font-medium leading-6 text-white"
-                            >
-                              Full name
-                            </label>
-                            <div className="mt-2">
-                              <input
-                                type="text"
-                                {...register("name", {
-                                  required: "name is required",
-                                })}
-                                id="name"
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                              />
-                              {errors.name && (
-                                <p className="text-red-500">
-                                  {errors.name.message}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-
-                          <div className="sm:col-span-3">
-                            <label
-                              htmlFor="email"
-                              className="block text-sm font-medium leading-6 text-white"
-                            >
-                              Email address
-                            </label>
-                            <div className="mt-2">
-                              <input
-                                id="email"
-                                {...register("email", {
-                                  required: "email is required",
-                                })}
-                                type="email"
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                              />
-                              {errors.email && (
-                                <p className="text-red-500">
-                                  {errors.email.message}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-
-                          <div className="sm:col-span-3">
-                            <label
-                              htmlFor="phone"
-                              className="block text-sm font-medium leading-6 text-white"
-                            >
-                              Phone
-                            </label>
-                            <div className="mt-2">
-                              <input
-                                id="phone"
-                                {...register("phone", {
-                                  required: "phone is required",
-                                })}
-                                type="tel"
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                              />
-                              {errors.phone && (
-                                <p className="text-red-500">
-                                  {errors.phone.message}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-
-                          <div className="sm:col-span-3">
-                            <label
-                              htmlFor="street-address"
-                              className="block text-sm font-medium leading-6 text-white"
-                            >
-                              Street address
-                            </label>
-                            <div className="mt-2">
-                              <input
-                                type="text"
-                                {...register("street", {
-                                  required: "street is required",
-                                })}
-                                id="street"
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                              />
-                              {errors.street && (
-                                <p className="text-red-500">
-                                  {errors.street.message}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-
-                          <div className="sm:col-span-3">
-                            <label
-                              htmlFor="city"
-                              className="block text-sm font-medium leading-6 text-white"
-                            >
-                              City
-                            </label>
-                            <div className="mt-2">
-                              <input
-                                type="text"
-                                {...register("city", {
-                                  required: "city is required",
-                                })}
-                                id="city"
-                                autoComplete="address-level2"
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                              />
-                              {errors.city && (
-                                <p className="text-red-500">
-                                  {errors.city.message}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="mt-6 flex items-center justify-end gap-x-6">
-                        <button
-                          onClick={(e) => setSelectedEditIndex(-1)}
-                          type="submit"
-                          className="rounded-md px-3 py-2 text-sm font-semibold text-grey shadow-sm hover:bg-grey-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          type="submit"
-                          className="rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        >
-                          Edit Address
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                ) : null}
-                <div className={style.ItemContainer}>
-                  <div className={style.item}>
-                    <div className={style.itemDetail}>
-                      <h5>{address.name}</h5>
-                      <p>{address.phone}</p>
-                      <p>
-                        {address.street} , {address.city}
-                      </p>
-                    </div>
-                    <div className={style.action}>
-                      <button
-                        onClick={(e) => handleRemove(e, index)}
-                        className={style.removeBtn}
-                      >
-                        Remove
-                      </button>
-                      <button
-                        onClick={(e) => handleEditForm(index)}
-                        className={style.editBtn}
-                      >
-                        Edit
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+    <>
+      <Card className="my-8 mx-4">
+        <div className="flex justify-between items-center ">
+          <CardHeader>
+            <CardTitle>{userInfo?.userName}</CardTitle>
+            <CardDescription>{userInfo?.email}</CardDescription>
+          </CardHeader>
+          <Button
+            className="mx-4"
+            size="sm"
+            onClick={() => setShowDialog(true)}
+          >
+            Add Address
+          </Button>
         </div>
-      )}
-    </div>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="">Name</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Phone</TableHead>
+                <TableHead>Street</TableHead>
+                <TableHead>City</TableHead>
+                <TableHead>zip</TableHead>
+                <TableHead>options</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {userInfo?.addresses.map((address, index) => (
+                <TableRow>
+                  <TableCell className="">{address.name}</TableCell>
+                  <TableCell className="">{address.email}</TableCell>
+                  <TableCell className="">{address.phone}</TableCell>
+                  <TableCell className="">{address.city}</TableCell>
+                  <TableCell className="">{address.street}</TableCell>
+                  <TableCell className="">{address.zip}</TableCell>
+                  <TableCell class="border-b cursor-pointer">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger as-child>
+                        <div class="cursor-pointer">
+                          <svg
+                            width="15"
+                            height="15"
+                            viewBox="0 0 15 15"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-4 w-4"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M3.625 7.5C3.625 8.12132 3.12132 8.625 2.5 8.625C1.87868 8.625 1.375 8.12132 1.375 7.5C1.375 6.87868 1.87868 6.375 2.5 6.375C3.12132 6.375 3.625 6.87868 3.625 7.5ZM8.625 7.5C8.625 8.12132 8.12132 8.625 7.5 8.625C6.87868 8.625 6.375 8.12132 6.375 7.5C6.375 6.87868 6.87868 6.375 7.5 6.375C8.12132 6.375 8.625 6.87868 8.625 7.5ZM12.5 8.625C13.1213 8.625 13.625 8.12132 13.625 7.5C13.625 6.87868 13.1213 6.375 12.5 6.375C11.8787 6.375 11.375 6.87868 11.375 7.5C11.375 8.12132 11.8787 8.625 12.5 8.625Z"
+                              fill="currentColor"
+                            ></path>
+                          </svg>
+                        </div>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-36">
+                        <DropdownMenuItem
+                          onClick={() => editHandler(address, index)}
+                          class="cursor-pointer hover:bg-muted  p-2 border-b"
+                        >
+                          <button
+                            class="flex space-x-1 items-center"
+                            v-if="permissions.includes('edit_cottages')"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke-width="1.5"
+                              stroke="currentColor"
+                              class="w-4 h-4 mt-1"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+                              />
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                              />
+                            </svg>
+                            <span>edit </span>
+                          </button>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          class="cursor-pointer hover:bg-muted p-2"
+                          onClick={() => handleRemove(index)}
+                        >
+                          <button class="flex space-x-1 text-destructive  ">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke-width="1.5"
+                              stroke="currentColor"
+                              class="w-4 h-4 mt-1"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                              />
+                            </svg>
+                            <span> delete</span>
+                          </button>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+      <Address
+        showDialog={showDialog}
+        setShowDialog={setShowDialog}
+        editAbleData={editAbleData}
+        setEditAbleData={setEditAbleData}
+        index={itemToDelete}
+        setIndex={setItemToDelete}
+      />
+      <AlertDialog open={showAlertDialog} onOpenChange={setShowAlertDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Confirm Item Deletion</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete this item from your cart? This
+              action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setShowAlertDialog(false)}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete} disabled={isLoading}>
+              {isLoading && <LoaderCircle class="mr-2 h-4 w-4 animate-spin" />}
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }

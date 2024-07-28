@@ -1,30 +1,53 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   deleteItemFromCartAsync,
   selectItems,
   updateCartAsync,
 } from "../Cart/CartSlice";
+import { Card, CardDescription, CardTitle } from "../../components/ui/card";
+
 import { Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { updateUserAsync } from "../User/userSlice";
+import { AspectRatio } from "../../components/ui/aspect-ratio";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../components/ui/select";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../../components/ui/alert-dialog";
+import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { createOrderAsync, selectCurrentOrder } from "../Order/orderSlice";
 import { GetLoginUserAsync, Logout, selectUserInfo } from "../auth/authSlice";
-
+import { CardHeader } from "reactstrap";
+import { Button } from "../../components/ui/button";
+import { Address } from "../../components/Common/Address";
+import { Separator } from "../../components/ui/separator";
+import { useToast } from "../../components/ui/use-toast";
 function Checkout() {
   const dispatch = useDispatch();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const [showDialog, setShowDialog] = useState(false);
   const user = useSelector(selectUserInfo);
-  console.log(user,"user");
   const currentOrder = useSelector(selectCurrentOrder);
+  const [showAlertDialog, setShowAlertDialog] = useState(false);
 
   const items = useSelector(selectItems);
+  const { toast } = useToast();
+
   const totalAmount = items.reduce(
     (amount, item) => item.product.price * item.quantity + amount,
     0
@@ -32,29 +55,62 @@ function Checkout() {
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("cash");
-  const handleQuantity = (e, item) => {
-    dispatch(updateCartAsync({ id: item.id, quantity: +e.target.value }));
+  const [isLoading, setIsLoading] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
+  const [quantities, setQuantities] = useState(
+    items.map((item) => item.quantity)
+  );
+
+  const handleQuantityChange = (value, item, index) => {
+    const newQuantities = [...quantities];
+    newQuantities[index] = value;
+    setQuantities(newQuantities);
+    dispatch(updateCartAsync({ id: item.id, quantity: +value }));
   };
-  const handleRemove = (e, id) => {
-    dispatch(deleteItemFromCartAsync(id));
+  const handleRemove = (item) => {
+    setItemToDelete(item);
+    setShowAlertDialog(true);
+  };
+
+  const confirmDelete = async () => {
+    if (itemToDelete) {
+      setIsLoading(true);
+      try {
+        await dispatch(deleteItemFromCartAsync(itemToDelete.id));
+        toast({
+          title: " Successful",
+          description: "item deleted successfully",
+        });
+      } finally {
+        setIsLoading(false);
+        setShowAlertDialog(false);
+        setItemToDelete(null);
+      }
+    }
   };
   const handleAddress = (e) => {
     console.log(e.target.value);
     setSelectedAddress(user.addresses[e.target.value]);
+    console.log(selectedAddress);
   };
-  const handlePayment = (e) => {
-    console.log(e.target.value);
-    setPaymentMethod(e.target.value);
-  };
+
   const handleOrder = (e) => {
+    if (!selectedAddress) {
+      toast({
+        variant: "destructive",
+        title: " Uh oh!",
+        description: "kindly select shipping address",
+      });
+      return;
+    }
     const order = {
       items,
       totalAmount,
       totalItems,
-      user: user.id,
-      paymentMethod,
+      user: user._id,
       selectedAddress,
       status: "pending",
+      paymentMethod: "cash",
     };
     dispatch(createOrderAsync(order));
   };
@@ -69,323 +125,202 @@ function Checkout() {
         ></Navigate>
       )}
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
-          <div className="lg:col-span-3">
-            <form
-              className="bg-black px-5 py-12 mt-12"
-              noValidate
-              onSubmit={handleSubmit((data) => {
-                console.log(data);
-                dispatch(
-                  updateUserAsync({
-                    ...user,
-                    addresses: [...user.addresses, data],
-                  })
-                );
-                dispatch(GetLoginUserAsync());
-                reset();
-              })}
-            >
-              <div className="space-y-12">
-                <div className="border-b border-gray-900/10 pb-12">
-                  <h2 className="text-2xl font-semibold leading-7 text-white-900">
-                    Personal Information
-                  </h2>
-
-                  <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div className="sm:col-span-4">
-                      <label
-                        htmlFor="name"
-                        className="block text-sm font-medium leading-6 text-white-900"
-                      >
-                        Full name
-                      </label>
-                      <div className="mt-2">
-                        <input
-                          type="text"
-                          {...register("name", {
-                            required: "name is required",
-                          })}
-                          id="name"
-                          className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-white-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
-                      </div>
-                    </div>
-                    <div className="sm:col-span-4">
-                      <label
-                        htmlFor="email"
-                        className="block text-sm font-medium leading-6 text-white-900"
-                      >
-                        Email address
-                      </label>
-                      <div className="mt-2">
-                        <input
-                          id="email"
-                          {...register("email", {
-                            required: "email is required",
-                          })}
-                          type="email"
-                          className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
-                      </div>
-                    </div>
-                    <div className="sm:col-span-3">
-                      <label
-                        htmlFor="phone"
-                        className="block text-sm font-medium leading-6 text-white-900"
-                      >
-                        Phone
-                      </label>
-                      <div className="mt-2">
-                        <input
-                          id="phone"
-                          {...register("phone", {
-                            required: "phone is required",
-                          })}
-                          type="tel"
-                          className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-white-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
-                      </div>
-
-                      <div className="col-span-full">
-                        <label
-                          htmlFor="street-address"
-                          className="block text-sm font-medium leading-6 text-white-900"
-                        >
-                          Street address
-                        </label>
-                        <div className="mt-2">
-                          <input
-                            type="text"
-                            {...register("street", {
-                              required: "street is required",
-                            })}
-                            id="street"
-                            className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-white-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          />
-                        </div>
-                      </div>
-                      <div className="sm:col-span-2 sm:col-start-1">
-                        <label
-                          htmlFor="city"
-                          className="block text-sm font-medium leading-6 text-white-900"
-                        >
-                          City
-                        </label>
-                        <div className="mt-2">
-                          <input
-                            type="text"
-                            {...register("city", {
-                              required: "city is required",
-                            })}
-                            id="city"
-                            autoComplete="address-level2"
-                            className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-white-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-6 flex items-center justify-end gap-x-6">
-                  <button
-                    // onClick={e=>reset()}
-                    type="button"
-                    className="rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  >
-                    Reset
-                  </button>
-                  <button
-                    type="submit"
-                    className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  >
-                    Add Address
-                  </button>
-                </div>
-
-                <div className="border-b border-gray-900/10 pb-12">
-                  <h2 className="text-base font-semibold leading-7 text-white-900">
-                    Addresses
-                  </h2>
-                  <p className="mt-1 text-sm leading-6 text-white-600">
-                    Choose from Existing addresses
-                  </p>
-                  <ul role="list">
-                    {user &&
-                      user.addresses &&
-                      user.addresses.map((address, index) => (
-                        <li
-                          key={index}
-                          className="flex justify-between gap-x-6 px-4 py-4 border-solid border-2 border-gray-500 my-2"
-                        >
-                          <div className="flex gap-x-4">
-                            <input
-                              onChange={handleAddress}
-                              name="address"
-                              type="radio"
-                              value={index}
-                              className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                            />
-                            <div className="min-w-0 flex-auto">
-                              <p className="text-sm font-semibold leading-6 text-white-900">
-                                {address.name}
-                              </p>
-                              <p className="mt-1 truncate text-xs leading-5 text-white-500">
-                                {address.street}
-                              </p>
-                              <p className="mt-1 truncate text-xs leading-5 text-white-500">
-                                {address.pinCode}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="hidden sm:flex sm:flex-col sm:items-end">
-                            <p className="text-sm leading-6 text-white-900">
-                              Phone: {address.phone}
-                            </p>
-                            <p className="text-sm leading-6 text-white-500">
-                              {address.city}
-                            </p>
-                          </div>
-                        </li>
-                      ))}
-                  </ul>
-                  <div className="mt-10 space-y-10">
-                    <fieldset>
-                      <legend className="text-sm font-semibold leading-6 text-white-900">
-                        Payment Methods
-                      </legend>
-                      <p className="mt-1 text-sm leading-6 text-white-600">
-                        Only cash on delivery
-                      </p>
-                      <div className="mt-6 space-y-6">
-                        <div className="flex items-center gap-x-3">
-                          <input
-                            id="cash"
-                            name="payments"
-                            onChange={handlePayment}
-                            value="cash"
-                            type="radio"
-                            checked={paymentMethod === "cash"}
-                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                          />
-                          <label
-                            htmlFor="cash"
-                            className="block text-sm font-medium leading-6 text-white-900"
-                          >
-                            Cash
-                          </label>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div className="lg:col-span-2">
-            <div className="mx-auto mt-12 bg-black max-w-7xl px-2 sm:px-2 lg:px-4">
-              <div className="border-t border-gray-200 px-0 py-6 sm:px-0">
-                <h1 className="text-4xl my-5 font-bold tracking-tight text-white-900">
-                  Cart
-                </h1>
-                <div className="flow-root">
-                  <ul role="list" className="-my-6 divide-y divide-gray-200">
-                    {items.map((item) => (
-                      <li key={item.id} className="flex py-6">
-                        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                          <img
-                            src={item.product.thumbnail}
-                            alt={item.product.title}
-                            className="h-full w-full object-cover object-center"
-                          />
-                        </div>
-                        <div className="ml-4 flex flex-1 flex-col">
-                          <div>
-                            <div className="flex justify-between text-base font-medium text-white-900">
-                              <h3>
-                                <a href={item.product.id}>
-                                  {item.product.title}
-                                </a>
-                              </h3>
-                              <p className="ml-4">${item.product.price}</p>
-                            </div>
-                            <p className="mt-1 text-sm text-white-500">
-                              {item.product.brand}
-                            </p>
-                          </div>
-                          <div className="flex flex-1 items-end justify-between text-sm">
-                            <div className="text-gray-500">
-                              <label
-                                htmlFor="quantity"
-                                className="inline mr-5 text-sm font-medium leading-6 text-white"
-                              >
-                                Qty
-                              </label>
-                              <select
-                                onChange={(e) => handleQuantity(e, item)}
-                                value={item.quantity}
-                              >
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                              </select>
-                            </div>
-
-                            <div className="flex">
-                              <button
-                                onClick={(e) => handleRemove(e, item.id)}
-                                type="button"
-                                className="font-medium text-red-600 hover:text-red-500"
-                              >
-                                Remove
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-              <div className="border-t border-gray-200 px-2 py-6 sm:px-2">
-                <div className="flex justify-between my-2 text-base font-medium text-white-900">
-                  <p>Subtotal</p>
-                  <p>$ {totalAmount}</p>
-                </div>
-                <div className="flex justify-between my-2 text-base font-medium text-white-900">
-                  <p>Total Items in Cart</p>
-                  <p>{totalItems} items</p>
-                </div>
-
-                <div className="mt-6">
-                  <div
-                    onClick={handleOrder}
-                    className="flex cursor-pointer items-center justify-center rounded-md border border-transparent bg-gray-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-gray-700"
-                  >
-                    Order Now
-                  </div>
-                </div>
-                <div className="mt-6 flex justify-center text-center text-sm text-white-500">
-                  <p>
-                    <Link to="/">
-                      <button
-                        type="button"
-                        className="font-medium text-blue-400 hover:text-blue-700"
-                      >
-                        Continue Shopping
-                        <span aria-hidden="true"> &rarr;</span>
-                      </button>
-                    </Link>
-                  </p>
-                </div>
-              </div>
+      <div className="lg:grid grid-cols-2 my-5 mx-4 lg:space-y-0 space-y-6 ">
+        <Card className="py-8 px-4 lg:mr-10 ">
+          <div className="sm:flex justify-between items-center ">
+            <CardHeader>
+              <CardTitle>Addresses</CardTitle>
+              <CardDescription> Choose from Existing addresses</CardDescription>
+            </CardHeader>{" "}
+            <div className="text-end">
+              <Button
+                size="sm"
+                className="sm:my-0 mt-2"
+                onClick={() => setShowDialog(true)}
+              >
+                Add Address
+              </Button>
             </div>
           </div>
-        </div>
+          <Separator className="mt-4" />
+          {user &&
+            user.addresses &&
+            user.addresses.map((address, index) => (
+              <>
+                <div class="flex items-center justify-between space-y-4 py-2  ">
+                  <div class="flex items-center sm:mt-2">
+                    <input
+                      type="radio"
+                      onChange={handleAddress}
+                      name="address"
+                      value={index}
+                      className="h  -4 w-4 mr-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    />
+                    <div className="space-y-1">
+                      <h2 class="text-lg sm:text-xl font-medium">
+                        {address.name}
+                      </h2>
+                      <p class="sm:text-md  "> {address.email}</p>
+                      <p class="tsm:ext-md  "> {address.phone}</p>
+                      <p class="sm:text-md  sm:hidden">
+                        {" "}
+                        {address.city}, {address.city}, {address.city}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="space-y-1 hidden sm:block">
+                    <p class="sm:text-md  "> {address.city}</p>
+                    <p class="sm:text-md  "> {address.street} </p>
+                    <p class="sm:text-md  "> {address.zip} </p>
+                  </div>
+                </div>
+                <Separator className="mt-2" />
+              </>
+            ))}
+        </Card>
+        <Card className="w-full sm:mx-auto px-3 sm:px-4 py-8 ">
+          <CardTitle className="text-3xl mb-10 text-center">Cart</CardTitle>
+          <Separator className="my-3" />
+          <div className="flex flex-col space-y-4">
+            {items.map((item, index) => (
+              <div key={index}>
+                <div className="flex items-start space-x-4">
+                  <div className="w-[50px] sm:w-[150px] mt-1">
+                    <AspectRatio
+                      ratio={16 / 14}
+                      className="bg-muted flex items-center justify-center sm:h-32 h-12"
+                    >
+                      <img
+                        src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=300&dpr=2&q=80"
+                        // src={item.product.images[0]}
+                        className="object-contain w-full h-full py-1"
+                        alt={item.name}
+                      />
+                    </AspectRatio>
+                  </div>
+                  <div className="flex flex-col w-full">
+                    <div className="flex justify-between">
+                      <divx>
+                        <h2 className="sm:text-lg font-semibold">
+                          {item.product.title}
+                        </h2>
+                        <p className="text-muted-foreground text-sm p-0 m-0">
+                          {item.product.brand}
+                        </p>
+                        <p className="text-muted-foreground text-sm p-0 m-0">
+                          {item.product.category}
+                        </p>
+                      </divx>
+                      <p className="sm:text-lg font-semibold hidden sm:inline">
+                        ${item.product.price}
+                      </p>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="text-destructive cursor-pointer h-5 w-5 sm:hidden inline"
+                        viewBox="0 0 50 50"
+                        onClick={() => handleRemove(item)}
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M25 42c-9.4 0-17-7.6-17-17S15.6 8 25 8s17 7.6 17 17s-7.6 17-17 17m0-32c-8.3 0-15 6.7-15 15s6.7 15 15 15s15-6.7 15-15s-6.7-15-15-15"
+                        />
+                        <path fill="currentColor" d="M16 24h18v2H16z" />
+                      </svg>
+                    </div>
+                    <div className="flex justify-between mt-4 pt-2">
+                      <div className="flex items-center">
+                        <Select
+                          value={quantities[index].toString()}
+                          onValueChange={(value) =>
+                            handleQuantityChange(value, item, index)
+                          }
+                        >
+                          <SelectTrigger className="w-[70px] sm:w-[110px]">
+                            <SelectValue>{quantities[index]}</SelectValue>
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {[1, 2, 3, 4, 5].map((quantity) => (
+                                <SelectItem
+                                  key={quantity}
+                                  value={quantity.toString()}
+                                >
+                                  {quantity}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <button
+                        onClick={() => handleRemove(item)}
+                        className="text-blue-500 hidden sm:inline"
+                      >
+                        Remove
+                      </button>
+                      <p className="text-md font-semibold inline sm:hidden mt-1">
+                        ${item.product.price}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <Separator className="mt-3" />
+              </div>
+            ))}
+            <div className="flex justify-between items-center pt-3">
+              <p className="text-sm sm:text-lg font-semibold">total items</p>
+              <p className="text-sm sm:text-lg font-semibold">{totalItems}</p>
+            </div>
+            <div className="flex justify-between items-center my-1">
+              <p className="text-sm sm:text-lg font-semibold">Subtotal</p>
+              <p className="text-sm sm:text-lg font-semibold">${totalAmount}</p>
+            </div>
+            <Button onClick={handleOrder}>Order Now</Button>
+            <NavLink
+              to="/"
+              className="text-blue-500 hover:underline text-center"
+            >
+              or Continue Shopping
+              <span>
+                <svg
+                  className="inline"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 256 256"
+                >
+                  <path
+                    fill="currentColor"
+                    d="m218.83 130.83l-72 72a4 4 0 0 1-5.66-5.66L206.34 132H40a4 4 0 0 1 0-8h166.34l-65.17-65.17a4 4 0 0 1 5.66-5.66l72 72a4 4 0 0 1 0 5.66"
+                  />
+                </svg>
+              </span>
+            </NavLink>
+          </div>
+        </Card>
       </div>
+      <Address showDialog={showDialog} setShowDialog={setShowDialog} />
+      <AlertDialog open={showAlertDialog} onOpenChange={setShowAlertDialog}>
+        <AlertDialogTrigger asChild></AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Confirm Item Deletion</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete this item from your cart? This
+              action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setShowAlertDialog(false)}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete} disabled={isLoading}>
+              {isLoading && <LoaderCircle class="mr-2 h-4 w-4 animate-spin" />}
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 }

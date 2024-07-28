@@ -1,7 +1,7 @@
 import { axiosInstance } from "../auth/authApi";
 
 export const fetchLoggedInUserOrders = async (id) => {
-  const response = await axiosInstance.get(`/orders/own`);
+  const response = await axiosInstance.get(`/orders/own/${id}`);
   return response;
 };
 
