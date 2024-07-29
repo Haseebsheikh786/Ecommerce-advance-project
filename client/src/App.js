@@ -20,12 +20,12 @@ import DownloadApp from "./components/downloadApp";
 import useAutoLogin from "./hooks/useAutoLogin";
 import ToastLayout from "./components/ToastLayout"; // Adjust the import path based on your structure
 import { fetchItemsByUserIdAsync } from "./pages/Cart/CartSlice";
+import Chat from "./components/chat/chat";
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(selectloginUser);
-  console.log(user, "user");
-  const loading = useAutoLogin();
+   const loading = useAutoLogin();
 
   useEffect(() => {
     if (!loading && user) {
@@ -47,6 +47,7 @@ function App() {
 
 function Layout() {
   const location = useLocation();
+  const user = useSelector(selectloginUser);
   const showNavbar = ![
     "/login",
     "/forgot-password",
@@ -57,6 +58,7 @@ function Layout() {
   return (
     <>
       {showNavbar && <Navbar />}
+      {user && <Chat />}
 
       <Routes>
         <Route path="/" exact element={<ProductList />} />

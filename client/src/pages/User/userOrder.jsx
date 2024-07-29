@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchLoggedInUserOrderAsync, selectUserOrders } from "./userSlice";
 import style from "./order.module.css";
@@ -28,83 +28,26 @@ import {
   CardHeader,
   CardTitle,
 } from "../../components/ui/card";
+import { Skeleton } from "../../components/ui/skeleton";
 export default function UserOrder() {
   const dispatch = useDispatch();
   const orders = useSelector(selectUserOrders);
-  console.log(orders);
+  const [isLoading, setIsLoading] = useState(false);
   const user = useSelector(selectUserInfo);
 
   useEffect(() => {
-    if (user) {
-      dispatch(fetchLoggedInUserOrderAsync(user?._id));
-    }
+    const fetchOrder = async () => {
+      if (user) {
+        setIsLoading(true);
+        await dispatch(fetchLoggedInUserOrderAsync(user?._id));
+        setIsLoading(false);
+      }
+    };
+    fetchOrder();
   }, [dispatch, user]);
 
   return (
     <>
-      {/* <div>
-      {orders ? (
-        <>
-          {!orders.length && (
-            <>
-              <div className="mt-10 flex flex-column items-center justify-center gap-x-6">
-                <h1 className={style.EmptyCart}>No order to display</h1>
-                <Link
-                  to="/"
-                  className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Go back home
-                </Link>
-              </div>
-            </>
-          )}
-          {orders &&
-            orders.map((order) => (
-              <div class={style.cartcontainer}>
-                <h1> Order # {order.id}</h1>
-                {order.items.map((item) => (
-                  <div class={style.item} key={item.id}>
-                    <img
-                      src={item.product.thumbnail}
-                      alt={item.product.title}
-                    />
-                    <div class={style.itemdetails}>
-                      <div className={style.first}>
-                        <p>{item.product.title}</p>
-                        <p>{item.product.price}</p>
-                      </div>
-                      <div className={style.second}>
-                        <p> Qty :{item.quantity}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-
-                <div class={style.subtotal}>
-                  <p>
-                    totalItems: <span>{order.totalItems} items</span>
-                  </p>
-                  <p>
-                    Subtotal: <span> $ {order.totalAmount}</span>
-                  </p>
-                </div>
-                <p className={style.shippingP}>Shipping Address :</p>
-                <div className={style.shippingDetail}>
-                  <p className={style.shippingPhone}>
-                    {order.selectedAddress.phone}
-                  </p>
-                  <h5> {order.selectedAddress.name}</h5>
-                  <p>
-                    {" "}
-                    {order.selectedAddress.street} ,{" "}
-                    {order.selectedAddress.city}
-                  </p>
-                </div>
-              </div>
-            ))}
-        </>
-      ) : null}
-    </div> */}
       <Card className="my-8 mx-4">
         <div className="flex justify-between items-center ">
           <CardHeader>
@@ -123,34 +66,50 @@ export default function UserOrder() {
                 <TableHead>address</TableHead>
               </TableRow>
             </TableHeader>
+            {isLoading}
             <TableBody>
-              {orders?.map((order, index) => (
-                <TableRow>
-                  <TableCell>
-                    {new Date(order.createdAt).toLocaleDateString()}
-                  </TableCell>
+              {!isLoading &&
+                orders?.map((order, index) => (
+                  <TableRow>
+                    <TableCell>
+                      {new Date(order.createdAt).toLocaleDateString()}
+                    </TableCell>
 
-                  <TableCell className="flex space-x-2">
-                    {order.items.map((item, i) => (
-                      <div className=" ">
-                        <img
-                          // src={item.product.thumbnail}
-                          src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=300&dpr=2&q=80"
-                          alt={item.product.thumbnail}
-                          className="h-11 w-11 rounded-lg"
-                        />
-                      </div>
-                    ))}
-                  </TableCell>
-                  <TableCell className="">{order.totalItems}</TableCell>
-                  <TableCell className="">{order.totalAmount}</TableCell>
-                  <TableCell className="">
-                    {order.selectedAddress.city},{order.selectedAddress.street},
-                  </TableCell>
-                </TableRow>
-              ))}
+                    <TableCell className="flex space-x-2">
+                      {order.items.map((item, i) => (
+                        <div className=" ">
+                          <img
+                            // src={item.product.thumbnail}
+                            src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=300&dpr=2&q=80"
+                            alt={item.product.thumbnail}
+                            className="h-11 w-11 rounded-lg"
+                          />
+                        </div>
+                      ))}
+                    </TableCell>
+                    <TableCell className="">{order.totalItems}</TableCell>
+                    <TableCell className="">{order.totalAmount}</TableCell>
+                    <TableCell className="">
+                      {order.selectedAddress.city},
+                      {order.selectedAddress.street},
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
+          {isLoading && (
+            <>
+              <Skeleton className="h-4 my-5" />
+              <Skeleton className="h-4 my-5" />
+              <Skeleton className="h-4 my-5" />
+              <Skeleton className="h-4 mt-5" />
+            </>
+          )}
+          {!isLoading && orders?.length === 0 && (
+            <>
+              <p className="text-center mt-4">No data found</p>
+            </>
+          )}
         </CardContent>
       </Card>
     </>
