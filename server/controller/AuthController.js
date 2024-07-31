@@ -111,6 +111,8 @@ const VerifyEmail = asyncHandler(async (req, res) => {
     email: userAvailable.email,
     Isverified: userAvailable.Isverified,
     userName: userAvailable.userName,
+    addresses: userAvailable.addresses,
+    role: userAvailable.role,
   });
 });
 
@@ -215,6 +217,8 @@ const login = asyncHandler(async (req, res) => {
     _id: user._id,
     Isverified: user.Isverified,
     userName: user.userName,
+    addresses: user.addresses,
+    role: user.role,
   });
 });
 
@@ -243,6 +247,7 @@ const loginUser = asyncHandler(async (req, res) => {
       Isverified: userAvailable.Isverified,
       userName: userAvailable.userName,
       addresses: userAvailable.addresses,
+      role: userAvailable.role,
     });
   } catch (err) {
     res.status(404).json({ message: err.message });
@@ -293,7 +298,7 @@ const refresh = asyncHandler(async (req, res) => {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
     });
- 
+
     res.cookie("refreshToken", refreshToken, {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,

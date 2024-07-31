@@ -36,6 +36,7 @@ app.use("/brands", require("./routes/BrandRoute"));
 app.use("/categories", require("./routes/CategoryRoute"));
 app.use("/cart", require("./routes/CartRoute"));
 app.use("/orders", require("./routes/OrderRoute"));
+app.use("/api", require("./routes/ChatRoute"));
 
 dbConnect();
 app.listen(port, () => {

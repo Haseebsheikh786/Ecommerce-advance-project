@@ -20,6 +20,7 @@ function useAutoLogin() {
             email: response.data.user.email,
             userName: response.data.user.userName,
             Isverified: response.data.user.Isverified,
+            role: response.data.user.role,
           };
 
           dispatch(setUser({ data: data }));

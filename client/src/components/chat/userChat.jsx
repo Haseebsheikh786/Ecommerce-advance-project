@@ -1,29 +1,64 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Card } from "../ui/card";
 import { ScrollArea } from "../ui/scroll-area";
 import { Input } from "../ui/input";
-import { Separator } from "../ui/separator";
-const Chat = () => {
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [newMessage, setNewMessage] = useState("");
-  const [messages, setMessages] = useState([
-    { id: 1, text: "Hi there!", isOwner: false },
-    { id: 2, text: "How can I help you?", isOwner: false },
-  ]);
+import { axiosInstance } from "../../pages/auth/authApi";
+import { selectUserInfo } from "../../pages/auth/authSlice";
+import { useSelector } from "react-redux";
 
+const Chat = () => {
+  const user = useSelector(selectUserInfo);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const scrollAreaRef = useRef(null);
+  const [newMessage, setNewMessage] = useState("");
+  const [chatId, setChatId] = useState(null);
+  const [messages, setMessages] = useState([]);
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
   };
 
-  const sendMessage = (e) => {
+  const sendMessage = async (e) => {
+    const data = {
+      sender: user._id,
+      content: newMessage,
+      chat: chatId,
+    };
     if (e.key === "Enter" && newMessage.trim()) {
-      setMessages([
-        ...messages,
-        { id: Date.now(), text: newMessage, isOwner: true },
+      const res = await axiosInstance.post("api/message", data);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          ...res.data,
+        },
       ]);
       setNewMessage("");
     }
   };
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      const res = await axiosInstance.get(`api/user/${user._id}`);
+      setMessages(res.data);
+    };
+    const createChat = async () => {
+      const data = {
+        user: user?._id,
+        admin: "66a155abdbdf042e2fd4646d",
+      };
+      const res = await axiosInstance.post("api/chat", data);
+      setChatId(res.data.chatId);
+    };
+    if (user) {
+      createChat();
+      fetchMessages();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (scrollAreaRef.current) {
+      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
+    }
+  }, [messages, isChatOpen]);
 
   return (
     <div>
@@ -47,10 +82,7 @@ const Chat = () => {
       {/* Chat box */}
       {isChatOpen && (
         <div className="fixed inset-0 z-50 flex justify-end">
-          <div
-            className="fixed inset-0 "
-            onClick={toggleChat}
-          ></div>
+          <div className="fixed inset-0 " onClick={toggleChat}></div>
           <Card className="fixed bottom-0 z-50 right-4 w-96 bg-background h-[500px] rounded-lg transition-transform transform translate-y-0">
             <div className="bg-blue-500 text-white p-2 flex justify-between items-center">
               <h3 className="text-lg">Contact Support </h3>
@@ -69,31 +101,47 @@ const Chat = () => {
               </button>
             </div>
 
-            <ScrollArea className=" p-3 h-[396px] overflow-y-auto Z-50">
-              {messages.map((message) => (
+            <div
+              ref={scrollAreaRef}
+              className=" p-3  Z-50"
+              style={{
+                height: "396px",
+                overflowY: "auto",
+                WebkitOverflowScrolling: "touch",
+                scrollbarWidth: "thin", // For Firefox
+                msOverflowStyle: "auto", // Default for IE and Edge
+              }}
+            >
+              {messages.map((message, index) => (
                 <div key={message.id} className="mb-2">
-                  {!message.isOwner ? (
+                  {message.sender_id !== user?._id ? (
                     <div className="flex items-center">
                       <div className="bg-card shadow border rounded-md p-2">
-                        <p className="pr-6">{message.text}</p>
+                        <p className="pr-6">{message.content}</p>
                         <p className="text-xs text-muted-foreground text-end">
-                          1:47 AM
+                          {new Date(message.created_at).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
                         </p>
                       </div>
                     </div>
                   ) : (
                     <div className="flex flex-col items-end justify-end space-x-2 my-2">
                       <div className="bg-muted shadow border rounded-md p-2">
-                        <p className="pr-6">{message.text}</p>
+                        <p className="pr-6">{message.content}</p>
                         <p className="text-xs text-muted-foreground text-end">
-                          1:47 AM
+                          {new Date(message.created_at).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
                         </p>
                       </div>
                     </div>
                   )}
                 </div>
               ))}
-            </ScrollArea>
+            </div>
             <div className="border-t relative">
               <Input
                 value={newMessage}
@@ -103,7 +151,10 @@ const Chat = () => {
                 className="h-14 w-full focus-visible:ring-0 focus-visible:ring-0 "
                 placeholder="Type a message..."
               />
-              <div className="absolute right-0 top-3 right-2 ">
+              <div
+                onClick={sendMessage}
+                className="absolute right-0 top-3 right-2 "
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-8 w-8"

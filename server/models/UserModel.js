@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
+const userSchema = new Schema(
+  {
     userName: {
       type: String,
       required: [true],
@@ -15,6 +16,7 @@ const userSchema = new Schema({
       type: String,
       required: [true, "please add the user password"],
     },
+    role: { type: String, enum: ["admin", "user"], default: "user" },
     addresses: { type: [Schema.Types.Mixed] },
     Isverified: { type: Boolean, default: false },
     verificationCode: String,
