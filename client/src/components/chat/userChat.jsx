@@ -5,32 +5,35 @@ import { Input } from "../ui/input";
 import { axiosInstance } from "../../pages/auth/authApi";
 import { selectUserInfo } from "../../pages/auth/authSlice";
 import { useSelector } from "react-redux";
+import io from "socket.io-client";
 
 const Chat = () => {
   const user = useSelector(selectUserInfo);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const scrollAreaRef = useRef(null);
   const [newMessage, setNewMessage] = useState("");
   const [chatId, setChatId] = useState(null);
   const [messages, setMessages] = useState([]);
+  const scrollAreaRef = useRef(null);
+  const socketRef = useRef(null);
+
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
   };
 
   const sendMessage = async (e) => {
-    const data = {
-      sender: user._id,
-      content: newMessage,
-      chat: chatId,
-    };
     if (e.key === "Enter" && newMessage.trim()) {
-      const res = await axiosInstance.post("api/message", data);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          ...res.data,
-        },
-      ]);
+      const data = {
+        sender: user._id,
+        content: newMessage,
+        chat: chatId,
+        sender_name: user.userName,
+        sender_role: user.role,
+      };
+
+      // Emit the message through the socket
+      socketRef.current.emit("new_message", data);
+
+      await axiosInstance.post("api/message", data);
       setNewMessage("");
     }
   };
@@ -40,6 +43,7 @@ const Chat = () => {
       const res = await axiosInstance.get(`api/user/${user._id}`);
       setMessages(res.data);
     };
+
     const createChat = async () => {
       const data = {
         user: user?._id,
@@ -47,10 +51,11 @@ const Chat = () => {
       };
       const res = await axiosInstance.post("api/chat", data);
       setChatId(res.data.chatId);
+      fetchMessages();
     };
+
     if (user) {
       createChat();
-      fetchMessages();
     }
   }, [user]);
 
@@ -59,6 +64,31 @@ const Chat = () => {
       scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
     }
   }, [messages, isChatOpen]);
+
+  useEffect(() => {
+    // Initialize Socket.io connection
+    socketRef.current = io("http://localhost:8080"); // Replace with your server URL
+
+    // Handle incoming messages
+    socketRef.current.on("receive_message", (data) => {
+      setMessages((prevMessages) => [...prevMessages, data]);
+    });
+
+    // Handle user connected
+    socketRef.current.on("connect", () => {
+      console.log("Connected to the server");
+    });
+
+    // Handle user disconnected
+    socketRef.current.on("disconnect", () => {
+      console.log("Disconnected from the server");
+    });
+
+    // Clean up the socket connection when the component unmounts
+    return () => {
+      socketRef.current.disconnect();
+    };
+  }, []);
 
   return (
     <div>
@@ -79,7 +109,6 @@ const Chat = () => {
         </div>
       )}
 
-      {/* Chat box */}
       {isChatOpen && (
         <div className="fixed inset-0 z-50 flex justify-end">
           <div className="fixed inset-0 " onClick={toggleChat}></div>
@@ -103,13 +132,13 @@ const Chat = () => {
 
             <div
               ref={scrollAreaRef}
-              className=" p-3  Z-50"
+              className="p-3"
               style={{
                 height: "396px",
                 overflowY: "auto",
                 WebkitOverflowScrolling: "touch",
-                scrollbarWidth: "thin", // For Firefox
-                msOverflowStyle: "auto", // Default for IE and Edge
+                scrollbarWidth: "thin",
+                msOverflowStyle: "auto",
               }}
             >
               {messages.map((message, index) => (
@@ -148,12 +177,12 @@ const Chat = () => {
                 onChange={(e) => setNewMessage(e.target.value)}
                 onKeyDown={sendMessage}
                 type="text"
-                className="h-14 w-full focus-visible:ring-0 focus-visible:ring-0 "
+                className="h-14 w-full focus-visible:ring-0 focus-visible:ring-0"
                 placeholder="Type a message..."
               />
               <div
                 onClick={sendMessage}
-                className="absolute right-0 top-3 right-2 "
+                className="absolute right-0 top-3 right-2"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

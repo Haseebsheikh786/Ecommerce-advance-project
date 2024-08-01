@@ -6,6 +6,7 @@ import { axiosInstance } from "../../pages/auth/authApi";
 import { selectUserInfo } from "../../pages/auth/authSlice";
 import { useSelector } from "react-redux";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import io from "socket.io-client";
 
 const Chat = () => {
   const user = useSelector(selectUserInfo);
@@ -15,25 +16,27 @@ const Chat = () => {
   const [chatId, setChatId] = useState({});
   const [messages, setMessages] = useState([]);
   const [chats, setChats] = useState([]);
+  const socketRef = useRef(null);
+
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
     setChatId({});
   };
 
   const sendMessage = async (e) => {
-    const data = {
-      sender: user._id,
-      content: newMessage,
-      chat: chatId._id,
-    };
     if (e.key === "Enter" && newMessage.trim()) {
-      const res = await axiosInstance.post("api/message", data);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          ...res.data,
-        },
-      ]);
+      const data = {
+        sender: user._id,
+        content: newMessage,
+        chat: chatId,
+        sender_name: user.userName,
+        sender_role: user.role,
+      };
+
+      // Emit the message through the socket
+      socketRef.current.emit("new_message", data);
+
+      await axiosInstance.post("api/message", data);
       setNewMessage("");
     }
   };
@@ -60,6 +63,31 @@ const Chat = () => {
       scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
     }
   }, [messages, isChatOpen]);
+
+  useEffect(() => {
+    // Initialize Socket.io connection
+    socketRef.current = io("http://localhost:8080"); // Replace with your server URL
+
+    // Handle incoming messages
+    socketRef.current.on("receive_message", (data) => {
+      setMessages((prevMessages) => [...prevMessages, data]);
+    });
+
+    // Handle user connected
+    socketRef.current.on("connect", () => {
+      console.log("Connected to the server");
+    });
+
+    // Handle user disconnected
+    socketRef.current.on("disconnect", () => {
+      console.log("Disconnected from the server");
+    });
+
+    // Clean up the socket connection when the component unmounts
+    return () => {
+      socketRef.current.disconnect();
+    };
+  }, []);
 
   return (
     <div>
