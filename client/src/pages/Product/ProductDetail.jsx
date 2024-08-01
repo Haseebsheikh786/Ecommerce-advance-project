@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductByIdAsync, selectProductById } from "./ProductSlice";
-import style from "./product.module.css";
 import { addToCartAsync, selectItems } from "../Cart/CartSlice";
 import { useParams } from "react-router-dom";
 import { CardTitle, Card } from "../../components/ui/card";

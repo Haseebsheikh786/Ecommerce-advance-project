@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchLoggedInUserOrderAsync, selectUserOrders } from "./userSlice";
- import { Link, Navigate } from "react-router-dom";
 import { selectUserInfo } from "../auth/authSlice";
-import { Separator } from "../../components/ui/separator";
-import { cn } from "../../lib/utils";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../../components/ui/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -19,7 +9,6 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/table";
-
 import {
   Card,
   CardContent,
@@ -28,17 +17,28 @@ import {
   CardTitle,
 } from "../../components/ui/card";
 import { Skeleton } from "../../components/ui/skeleton";
-export default function UserOrder() {
+import {
+  fetchAllOrdersAsync,
+  selectOrders,
+  selectTotalOrders,
+} from "../Order/orderSlice";
+import PaginationComponent from "../../components/Common/Pagination";
+export default function AdminOrder() {
   const dispatch = useDispatch();
-  const orders = useSelector(selectUserOrders);
+  const [page, setPage] = useState(1);
+  const totalOrders = useSelector(selectTotalOrders);
+  const orders = useSelector(selectOrders);
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector(selectUserInfo);
-
+  const handlePage = (page) => {
+    setPage(page);
+  };
   useEffect(() => {
     const fetchOrder = async () => {
       if (user) {
         setIsLoading(true);
-        await dispatch(fetchLoggedInUserOrderAsync(user?._id));
+        const pagination = { _page: page, _limit: 10 };
+        dispatch(fetchAllOrdersAsync({ pagination }));
         setIsLoading(false);
       }
     };
@@ -50,7 +50,7 @@ export default function UserOrder() {
       <Card className="my-8 mx-4">
         <div className="flex justify-between items-center ">
           <CardHeader>
-            <CardTitle> orders</CardTitle>
+            <CardTitle>All orders</CardTitle>
             <CardDescription> here's a list of all orders</CardDescription>
           </CardHeader>
         </div>
@@ -108,6 +108,14 @@ export default function UserOrder() {
             <>
               <p className="text-center mt-4">No data found</p>
             </>
+          )}
+          {orders.length > 10 && (
+            <PaginationComponent
+              page={page}
+              setPage={setPage}
+              handlePage={handlePage}
+              totalItems={totalOrders}
+            />
           )}
         </CardContent>
       </Card>

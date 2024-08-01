@@ -7,7 +7,6 @@ export const fetchLoggedInUserOrders = async (id) => {
 
 export function updateUser(update) {
   try{
-
     const response = axiosInstance.post(`/user/${update._id}`, update);
     return response;
   }catch(err){

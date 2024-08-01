@@ -22,6 +22,7 @@ import ToastLayout from "./components/ToastLayout"; // Adjust the import path ba
 import { fetchItemsByUserIdAsync } from "./pages/Cart/CartSlice";
 import AdminChat from "./components/chat/adminChat";
 import UserChat from "./components/chat/userChat";
+import AdminOrder from "./pages/User/adminOrders";
 
 function App() {
   const dispatch = useDispatch();
@@ -106,15 +107,27 @@ function Layout() {
             </Protected>
           }
         />
-        <Route
-          path="/orders"
-          exact
-          element={
-            <Protected>
-              <Myorders />
-            </Protected>
-          }
-        />
+        {user && user.role === "admin" ? (
+          <Route
+            path="/orders"
+            exact
+            element={
+              <Protected>
+                <AdminOrder />
+              </Protected>
+            }
+          />
+        ) : (
+          <Route
+            path="/orders"
+            exact
+            element={
+              <Protected>
+                <Myorders />
+              </Protected>
+            }
+          />
+        )}
         <Route path="/order-success/:id" exact element={<Order />} />
       </Routes>
     </>
