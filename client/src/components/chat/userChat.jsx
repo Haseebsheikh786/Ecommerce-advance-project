@@ -31,10 +31,10 @@ const Chat = () => {
       };
 
       // Emit the message through the socket
-      socketRef.current.emit("new_message", data);
-
+      
       await axiosInstance.post("api/message", data);
       setNewMessage("");
+      socketRef.current.emit("new_message", data);
     }
   };
 

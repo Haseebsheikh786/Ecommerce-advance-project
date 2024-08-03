@@ -3,30 +3,26 @@ const { Schema } = mongoose;
 
 const productSchema = new Schema(
   {
-    title: { type: String, required: true, unique: true },
+    title: { type: String, required: true, unique: false},
     description: { type: String, required: true },
     price: {
       type: Number,
-      min: [1, "wrong min price"],
-      max: [10000, "wrong max price"],
-    },
+      required:true
+    }, 
     discountPercentage: {
       type: Number,
-      min: [1, "wrong min discount"],
-      max: [99, "wrong max discount"],
+      default: 0,
     },
     rating: {
       type: Number,
-      min: [0, "wrong min rating"],
-      max: [5, "wrong max price"],
       default: 0,
     },
-    stock: { type: Number, min: [0, "wrong min stock"], default: 0 },
+    stock: { type: Number, default: 0 },
     brand: { type: String, required: true },
-    category: { type: String, required: true },
+    category: { type: String, required: false },
     thumbnail: { type: String, required: true },
-    images: { type: [String], required: true },
-    discountPrice: { type: Number },
+    images: { type: [String], required: false, default: [] },
+    discountPrice: { type: Number, default: 0 },
     deleted: { type: Boolean, default: false },
   },
   { timestamps: true }

@@ -68,8 +68,7 @@ const ProductDetail = () => {
           <div class="flex flex-col lg:flex-row">
             <div class="w-full lg:w-1/2 p-4 hidden lg:flex">
               <img
-                src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=300&dpr=2&q=80"
-                // src={product.thumbnail}
+                src={product.thumbnail}
                 alt="Basic Tee"
                 class="w-full h-auto rounded-lg shadow-lg  "
               />
@@ -83,8 +82,8 @@ const ProductDetail = () => {
 
               <div class="w-full pt-7 pb-2 flex lg:hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=300&dpr=2&q=80"
-                  // src={product.thumbnail}
+                  // src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=300&dpr=2&q=80"
+                  src={product.thumbnail}
                   alt="Basic Tee"
                   class="w-full h-auto rounded-lg shadow-lg  "
                 />

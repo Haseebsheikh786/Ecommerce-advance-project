@@ -104,8 +104,8 @@ const ShoppingCart = () => {
                           className="bg-muted flex items-center justify-center sm:h-32 h-12"
                         >
                           <img
-                            src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=300&dpr=2&q=80"
-                            // src={item.product.images[0]}
+                            // src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=300&dpr=2&q=80"
+                            src={item.product.thumbnail}
                             className="object-contain w-full h-full py-1"
                             alt={item.name}
                           />

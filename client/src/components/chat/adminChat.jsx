@@ -22,6 +22,10 @@ const Chat = () => {
     setIsChatOpen(!isChatOpen);
     setChatId({});
   };
+  const changeChat = () => {
+    setChatId({});
+    setMessages([])
+  };
 
   const sendMessage = async (e) => {
     if (e.key === "Enter" && newMessage.trim()) {
@@ -34,10 +38,10 @@ const Chat = () => {
       };
 
       // Emit the message through the socket
-      socketRef.current.emit("new_message", data);
-
+      
       await axiosInstance.post("api/message", data);
       setNewMessage("");
+      socketRef.current.emit("new_message", data);
     }
   };
 
@@ -169,7 +173,7 @@ const Chat = () => {
           <div className="fixed inset-0 " onClick={toggleChat}></div>
           <Card className="fixed bottom-0 z-50 right-4 w-96 bg-background h-[500px] rounded-lg transition-transform transform translate-y-0">
             <div className="bg-blue-500 text-white p-2 flex justify-between items-center">
-              <button onClick={() => setChatId({})}>
+              <button onClick={changeChat}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"

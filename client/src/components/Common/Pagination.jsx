@@ -17,7 +17,7 @@ export default function PaginationComponent({ page, handlePage, totalItems }) {
           <PaginationItem
             onClick={(e) => handlePage(page > 1 ? page - 1 : page)}
           >
-            <PaginationPrevious href="#" />
+            <PaginationPrevious   size="sm" href="#" />
           </PaginationItem>
           {Array.from({ length: totalPages }).map((el, index) => (
             <PaginationItem
@@ -25,16 +25,16 @@ export default function PaginationComponent({ page, handlePage, totalItems }) {
               aria-current="page"
             >
               {index + 1 === page ? (
-                <PaginationLink isActive> {index + 1}</PaginationLink>
+                <PaginationLink size="sm"  isActive> {index + 1}</PaginationLink>
               ) : (
-                <PaginationLink> {index + 1}</PaginationLink>
+                <PaginationLink size="sm" >  {index + 1}</PaginationLink>
               )}
             </PaginationItem>
           ))}
           <PaginationItem
             onClick={(e) => handlePage(page < totalPages ? page + 1 : page)}
           >
-            <PaginationNext href="#" />
+            <PaginationNext href="#" size="sm"  />
           </PaginationItem>
         </PaginationContent>
       </Pagination>

@@ -32,9 +32,11 @@ const priceRanges = [
   { label: "Rs. 80,000 - Rs. 100,000", minPrice: 80000, maxPrice: 100000 },
   { label: "Above 150,000", minPrice: 150000, maxPrice: Infinity },
 ];
+
 const ProductList = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
+
   const brands = useSelector(selectBrands);
   const totalItems = useSelector(selectTotalItems);
   const [filter, setFilter] = useState({});
@@ -163,7 +165,7 @@ const ProductList = () => {
                 isLoading={isLoading}
               />
             </div>
-            <div className="border shadow sm:ml-4 lg:col-span-4 border-l">
+            <div className="border shadow lg:ml-4 lg:col-span-4 border-l">
               <div className=" px-4 pt-4 pb-4 lg:px-8">
                 <div className="flex justify-between items-center">
                   <div>
@@ -220,31 +222,28 @@ const ProductList = () => {
                 <Separator className="mb-4 mt-3" />
                 {!isLoading ? (
                   <div className="relative">
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8 ">
                       {products.map((album, index) => (
                         <Link
                           key={album.id}
                           to={`product-detail/${album.id}`}
-                          className={cn("space-y-3")}
+                          className={cn("space-y-3 sm:border sm:p-4 ")}
                         >
-                          <div className="rounded-md">
+                          <div className="rounded-md  overflow-hidden">
                             <img
                               src={album.thumbnail}
-                              // src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=300&dpr=2&q=80"
                               alt={album.name}
-                              width={250}
-                              height={330}
                               className={cn(
                                 "h-auto w-auto object-cover transition-all hover:scale-105",
                                 "aspect-square"
                               )}
                             />
                           </div>
-                          <div className="space-y-1 text-sm">
+                          <div className="space-y-1  text-xs sm:text-md pt-2">
                             <h3 className="font-medium leading-none">
                               {album.title}
                             </h3>
-                            <p className="text-xs text-muted-foreground">
+                            <p className="text-xs sm:text-sm text-muted-foreground">
                               {album.price}
                             </p>
                           </div>
@@ -258,17 +257,17 @@ const ProductList = () => {
                     />
                   </div>
                 ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8">
-                      {Array.from({ length: 8 }).map((_, index) => (
-                        <div key={index} className="space-y-3 animate-pulse ">
-                          <div className="rounded-md bg-gray-200 h-44 "></div>
-                          <div className="space-y-1  text-sm">
-                            <div className="h-4 bg-gray-200 rounded"></div>
-                            <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-                          </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8">
+                    {Array.from({ length: 8 }).map((_, index) => (
+                      <div key={index} className="space-y-3 animate-pulse ">
+                        <div className="rounded-md bg-gray-200 h-44 "></div>
+                        <div className="space-y-1  text-sm">
+                          <div className="h-4 bg-gray-200 rounded"></div>
+                          <div className="h-4 bg-gray-200 rounded w-1/2"></div>
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
             </div>

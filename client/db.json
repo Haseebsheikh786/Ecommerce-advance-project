@@ -1,2182 +1,508 @@
 {
   "products": [
     {
-      "id": 1,
+      "title": "iPhone 5",
+      "description": "A compact and classic design, the iPhone 5 offers a 4-inch Retina display with sharp visuals. It boasts a lightweight aluminum body and improved performance over previous models.",
+      "price": 20000,
+      "brand": "Apple",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj6ItJKXEqSJo3nIcsyMdago0n2XOlNCZsmg&s"
+    },
+    {
+      "title": "iPhone 6",
+      "description": "The iPhone 6 features a larger 4.7-inch display, offering a more immersive viewing experience. With a sleek metal finish, it's both stylish and functional, with upgraded camera capabilities.",
+      "price": 30000,
+      "brand": "Apple",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1vAWx_zSKP9r1t3d6U9YuS1PlvGV-aG3tBA&s"
+    },
+    {
+      "title": "iPhone 7",
+      "description": "Introducing water resistance and a new advanced camera system, the iPhone 7 is designed for durability. The device also offers stereo speakers and a vibrant Retina HD display.",
+      "price": 40000,
+      "brand": "Apple",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7b3hUosZZ77RI_caAsbQmDRY_esNE4en_FQ&s"
+    },
+    {
       "title": "iPhone 8",
-      "description": "An apple mobile which is nothing like apple",
-      "price": 549,
-      "discountPercentage": 14.96,
-      "rating": 4.69,
-      "stock": 94,
+      "description": "With a stunning glass design, the iPhone 8 supports wireless charging and features the powerful A11 Bionic chip. It delivers fast performance and improved graphics for a smooth user experience.",
+      "price": 50000,
       "brand": "Apple",
-      "category": "smartphones",
-      "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/1/1.jpg",
-        "https://i.dummyjson.com/data/products/1/2.jpg",
-        "https://i.dummyjson.com/data/products/1/3.jpg",
-        "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
-      ]
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEx9wMgkrq2HHtsr1H7mtdVFaiDHGYBGk3Q&s"
     },
     {
-      "id": 2,
       "title": "iPhone X",
-      "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
-      "price": 899,
-      "discountPercentage": 17.94,
-      "rating": 4.44,
-      "stock": 34,
+      "description": "A groundbreaking model, the iPhone X features Face ID technology and a brilliant edge-to-edge OLED display. It offers an immersive experience with true-to-life colors and a sleek, futuristic design.",
+      "price": 90000,
       "brand": "Apple",
-      "category": "smartphones",
-      "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/2/1.jpg",
-        "https://i.dummyjson.com/data/products/2/2.jpg",
-        "https://i.dummyjson.com/data/products/2/3.jpg",
-        "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
-      ],
-      "deleted": true
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhPpMO2PXZPyqC4-sq38nKLh60qgbVnOu7sg&s"
     },
     {
-      "id": 3,
-      "title": "Samsung Universe 9",
-      "description": "Samsung's new variant which goes beyond Galaxy to the Universe",
-      "price": 1249,
-      "discountPercentage": 15.46,
-      "rating": 4.09,
-      "stock": 36,
-      "brand": "Samsung",
-      "category": "smartphones",
-      "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/3/1.jpg"
-      ]
-    },
-    {
-      "id": 4,
-      "title": "OPPOF19",
-      "description": "OPPO F19 is officially announced on April 2021.",
-      "price": 280,
-      "discountPercentage": 17.91,
-      "rating": 4.3,
-      "stock": 0,
-      "brand": "OPPO",
-      "category": "smartphones",
-      "thumbnail": "https://i.dummyjson.com/data/products/4/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/4/1.jpg",
-        "https://i.dummyjson.com/data/products/4/2.jpg",
-        "https://i.dummyjson.com/data/products/4/3.jpg",
-        "https://i.dummyjson.com/data/products/4/4.jpg",
-        "https://i.dummyjson.com/data/products/4/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 5,
-      "title": "Huawei P30",
-      "description": "Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.",
-      "price": 499,
-      "discountPercentage": 10.58,
-      "rating": 4.09,
-      "stock": 32,
-      "brand": "Huawei",
-      "category": "smartphones",
-      "thumbnail": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/5/1.jpg",
-        "https://i.dummyjson.com/data/products/5/2.jpg",
-        "https://i.dummyjson.com/data/products/5/3.jpg",
-        "https://i.dummyjson.com/data/products/5/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 6,
-      "title": "MacBook Pro",
-      "description": "MacBook Pro 2021 with mini-LED display may launch between September, November",
-      "price": 1749,
-      "discountPercentage": 11.02,
-      "rating": 4.57,
-      "stock": 83,
+      "title": "iPhone 11",
+      "description": "The iPhone 11 introduces a dual-camera system with Night mode for stunning low-light photos. Its A13 Bionic chip ensures powerful performance, and the battery life has been significantly improved.",
+      "price": 100000,
       "brand": "Apple",
-      "category": "laptops",
-      "thumbnail": "https://i.dummyjson.com/data/products/6/thumbnail.png",
-      "images": [
-        "https://i.dummyjson.com/data/products/6/1.png",
-        "https://i.dummyjson.com/data/products/6/2.jpg",
-        "https://i.dummyjson.com/data/products/6/3.png",
-        "https://i.dummyjson.com/data/products/6/4.jpg"
-      ],
-      "deleted": true
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQC4Z6o2A_LqKQXFGxNV1AQ--gM36QadAZ8w&s"
     },
     {
-      "id": 7,
-      "title": "Samsung Galaxy Book",
-      "description": "Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched",
-      "price": 1499,
-      "discountPercentage": 4.15,
-      "rating": 4.25,
-      "stock": 50,
+      "title": "iPhone 12",
+      "description": "Equipped with 5G technology, the iPhone 12 offers faster connectivity and download speeds. It features a Ceramic Shield for better drop protection and a Super Retina XDR display for stunning visuals.",
+      "price": 120000,
+      "brand": "Apple",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtx4MgAvGJS83bh7mhZIOCAVQefme7kKnf_A&s"
+    },
+    {
+      "title": "iPhone 13",
+      "description": "The iPhone 13 comes with a smaller notch, offering more screen space and enhanced visuals. It provides longer battery life and improved camera performance, perfect for capturing life's moments.",
+      "price": 140000,
+      "brand": "Apple",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaARXxYt3K8RvftntZ8d-nzStS4OyE0aVJkg&s"
+    },
+    {
+      "title": "iPhone 14",
+      "description": "The iPhone 14 features an advanced dual-camera system and a new design with flat edges. Powered by the A15 Bionic chip, it offers incredible performance and efficiency for all your tasks.",
+      "price": 160000,
+      "brand": "Apple",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_0cS3oMG-GFPWijbScnPFaEZSlCn-v0FLAw&s"
+    },
+    {
+      "title": "iPhone 15",
+      "description": "The latest model, the iPhone 15, boasts cutting-edge technology with a sleek, modern design. It features a powerful new chip, enhanced camera capabilities, and a stunning display for an unmatched experience.",
+      "price": 180000,
+      "brand": "Apple",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJiMDm_PaEINch2nL941hanc-5tRgpZvG8Bw&s"
+    },
+    {
+      "title": "Samsung Galaxy S5",
+      "description": "The Galaxy S5 offers a 5.1-inch Super AMOLED display with vibrant colors and sharp details. It features a water-resistant design and an advanced 16 MP camera for stunning photos.",
+      "price": 25000,
       "brand": "Samsung",
-      "category": "laptops",
-      "thumbnail": "https://i.dummyjson.com/data/products/7/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/7/1.jpg",
-        "https://i.dummyjson.com/data/products/7/2.jpg",
-        "https://i.dummyjson.com/data/products/7/3.jpg",
-        "https://i.dummyjson.com/data/products/7/thumbnail.jpg"
-      ]
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiIc3kCDDoFmR2x38uE_uwZJB3cQCGP9Fgkw&s"
     },
     {
-      "id": 8,
-      "title": "Microsoft Surface Laptop 4",
-      "description": "Style and speed. Stand out on HD video calls backed by Studio Mics. Capture ideas on the vibrant touchscreen.",
-      "price": 1499,
-      "discountPercentage": 10.23,
-      "rating": 4.43,
-      "stock": 68,
-      "brand": "Microsoft Surface",
-      "category": "laptops",
-      "thumbnail": "https://i.dummyjson.com/data/products/8/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/8/1.jpg",
-        "https://i.dummyjson.com/data/products/8/2.jpg",
-        "https://i.dummyjson.com/data/products/8/3.jpg",
-        "https://i.dummyjson.com/data/products/8/4.jpg",
-        "https://i.dummyjson.com/data/products/8/thumbnail.jpg"
-      ]
+      "title": "Samsung Galaxy S6",
+      "description": "With a sleek glass and metal design, the Galaxy S6 boasts a 5.1-inch Quad HD display. It includes wireless charging capabilities and a fast, efficient processor for smooth performance.",
+      "price": 35000,
+      "brand": "Samsung",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9K2NFPF2umhN696Ydwv9oAb4GE4w3D7QMgw&s"
     },
     {
-      "id": 9,
-      "title": "Infinix INBOOK",
-      "description": "Infinix Inbook X1 Ci3 10th 8GB 256GB 14 Win10 Grey – 1 Year Warranty",
-      "price": 1099,
-      "discountPercentage": 11.83,
-      "rating": 4.54,
-      "stock": 96,
+      "title": "Samsung Galaxy S7",
+      "description": "The Galaxy S7 features a 5.1-inch Quad HD display and is water and dust resistant. Its dual-pixel camera technology delivers fast focusing and excellent low-light performance.",
+      "price": 45000,
+      "brand": "Samsung",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGIby65ufTZ0UE7zJh68ZMKEzjd7knEeA05w&s"
+    },
+    {
+      "title": "Samsung Galaxy S8",
+      "description": "The Galaxy S8 offers an immersive 5.8-inch Infinity Display with minimal bezels. It includes an advanced facial recognition system and a powerful Exynos 8895 processor.",
+      "price": 55000,
+      "brand": "Samsung",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVaT5Fvgm9-SL31gSzN13kilzD6ZL63XzgcA&s"
+    },
+    {
+      "title": "Samsung Galaxy S9",
+      "description": "With a refined design, the Galaxy S9 features a 5.8-inch Super AMOLED display and stereo speakers. The camera offers Super Slow-mo video capabilities and low-light enhancements.",
+      "price": 65000,
+      "brand": "Samsung",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxLhQ-gOBjYkNJTcR6VGWWhBi80CZSnjYvVw&s"
+    },
+    {
+      "title": "Samsung Galaxy S10",
+      "description": "The Galaxy S10 boasts a 6.1-inch Dynamic AMOLED display and an ultrasonic fingerprint sensor. It features a versatile triple-camera system and an all-day intelligent battery.",
+      "price": 75000,
+      "brand": "Samsung",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXYr4RDZFaobCItqXawi0XhaNY-_6ehHtf8Q&s"
+    },
+    {
+      "title": "Samsung Galaxy S20",
+      "price": 95000,
+      "description": "Featuring a 6.2-inch Quad HD+ display, the Galaxy S20 offers 5G connectivity and 8K video recording. Its advanced camera system includes a 64 MP telephoto lens and Space Zoom.",
+      "brand": "Samsung",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRa1YZUPq1Y6FJcDT0O8t_QRA0Q_9tXxlx8Q&s"
+    },
+    {
+      "title": "Samsung Galaxy S21",
+      "price": 110000,
+      "description": "The Galaxy S21 comes with a 6.2-inch Full HD+ display and a powerful Exynos 2100 processor. It has a pro-grade camera system with 30x Space Zoom and enhanced night mode.",
+      "brand": "Samsung",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSw4hZZSVD-Qc1a2p_XwAwAeLSa5mXWNKYpWg&s"
+    },
+    {
+      "title": "Samsung Galaxy S22",
+      "price": 125000,
+      "description": "With a sleek design, the Galaxy S22 features a 6.1-inch Dynamic AMOLED display and a versatile triple-camera setup. It offers enhanced low-light photography and a fast-charging battery.",
+      "brand": "Samsung",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD5PeF5t-0OmtObtzN4xnESVva1Ip0FeBxsg&s"
+    },
+    {
+      "title": "Samsung Galaxy S23",
+      "price": 140000,
+      "description": "The latest Galaxy S23 features a cutting-edge 6.2-inch AMOLED display and a powerful Exynos 2200 chip. It offers an advanced camera system with AI-enhanced photography and video capabilities.",
+      "brand": "Samsung",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBmu6AI2qsF5fVF8R-Nt2acy61Efqj1irdFQ&s"
+    },
+    {
+      "title": "OPPO F1",
+      "price": 20000,
+      "description": "The OPPO F1, known as the 'Selfie Expert,' features a 5-inch display and a 13 MP rear camera. It offers a sleek design and impressive front camera capabilities for great selfies.",
+      "brand": "Oppo",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDRImAvA9RrNrspoFHVHhzVi_GSPmHg_sqfg&s"
+    },
+    {
+      "title": "OPPO F3",
+      "price": 30000,
+      "description": "With dual selfie cameras, the OPPO F3 offers a 5.5-inch display and a 16 MP main camera. It delivers great performance and an extended battery life for a smooth user experience.",
+      "brand": "Oppo",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDFDocSh_6C0WN_YJh9KylVMksZzSH0WqL3g&s"
+    },
+    {
+      "title": "OPPO F5",
+      "price": 35000,
+      "description": "The OPPO F5 features a 6-inch FHD+ display and an AI-powered 20 MP front camera. It's designed for stunning selfies and clear, vibrant visuals, ideal for social media enthusiasts.",
+      "brand": "Oppo",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6YIginX3GKOKLTnbmiMDRjP21b8hEvIw8PQ&s"
+    },
+    {
+      "title": "OPPO F7",
+      "price": 40000,
+      "description": "Featuring a 6.23-inch display with a notch, the OPPO F7 boasts a 25 MP AI-powered front camera. It offers advanced beauty modes and a powerful MediaTek Helio P60 processor.",
+      "brand": "Oppo",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTy05VgV-qlGFxCxIqq4l-XmgZmL2QBBL86mQ&s"
+    },
+    {
+      "title": "OPPO F9",
+      "price": 45000,
+      "brand": "Oppo",
+      "description": "The OPPO F9 offers a waterdrop screen design and a 25 MP front camera with AI Beauty Technology. It supports VOOC Flash Charge for faster charging and has a vibrant 6.3-inch display.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDjMSuHpFfqGVqsqEb9g31rraC_y0RJyF8tA&s"
+    },
+    {
+      "title": "OPPO Reno 2",
+      "price": 60000,
+      "brand": "Oppo",
+      "description": "The OPPO Reno 2 features a quad-camera setup and a 6.5-inch AMOLED display. It has a unique shark-fin pop-up front camera and offers 20x digital zoom for versatile photography.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBuTvCjp-PNOEmE81cBsCP6t2dSZ_8nTi-Ug&s"
+    },
+    {
+      "title": "OPPO Reno 3",
+      "brand": "Oppo",
+      "price": 70000,
+      "description": "With a 6.4-inch AMOLED display, the OPPO Reno 3 offers a 48 MP quad-camera system. It supports 5G connectivity and provides a sleek, stylish design for modern users.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-aLx23_EzjSZKSrVUH1K4j31sunxZee8w0w&s"
+    },
+    {
+      "title": "OPPO Find X3 Pro",
+      "price": 130000,
+      "description": "The OPPO Find X3 Pro boasts a 6.7-inch AMOLED display and a powerful Snapdragon 888 processor. It features a 50 MP quad-camera system and offers 10-bit color for vivid, lifelike visuals.",
+      "brand": "Oppo",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVkqKtRLD5zSYXrYc7ZM_TERQlxsaXmJrd1A&s"
+    },
+    {
+      "title": "Vivo V5",
+      "price": 25000,
+      "description": "The Vivo V5 is known for its impressive 20 MP front camera, offering crystal-clear selfies. It features a 5.5-inch display and comes with a sleek, lightweight design.",
+      "brand": "Vivo",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4qexQT0vt32Vs3hUdf0XvaF427-tfPO5eyw&s"
+    },
+    {
+      "title": "Vivo V7",
+      "price": 30000,
+      "brand": "Vivo",
+      "description": "With a 24 MP front camera, the Vivo V7 is perfect for selfie enthusiasts. It features a 5.7-inch FullView display and offers a comfortable, one-handed operation.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHtCmuqPHKV9mQff7QyF0ODPtIAj3-yGZMvA&s"
+    },
+    {
+      "title": "Vivo V9",
+      "price": 35000,
+      "brand": "Vivo",
+      "description": "The Vivo V9 offers a 6.3-inch Full HD+ display with a notch design. It includes a dual rear camera setup and a 24 MP front camera for stunning selfies and group shots.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxU_lWI-XiTF78CK2M34i6yvpBlm9N1jYe8g&s"
+    },
+    {
+      "title": "Vivo V11",
+      "price": 40000,
+      "brand": "Vivo",
+      "description": "Featuring an in-display fingerprint sensor, the Vivo V11 offers a 6.41-inch Super AMOLED display. Its 25 MP front camera and AI features enhance photo quality and user experience.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6P_I92YPyZ4rZO1X6WPO2e1s4ZvjN2j4whg&s"
+    },
+    {
+      "title": "Vivo V15",
+      "brand": "Vivo",
+      "price": 45000,
+      "description": "The Vivo V15 comes with a 32 MP pop-up front camera and a 6.53-inch Ultra FullView display. It includes a triple rear camera setup with AI features for superior photography.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGJ6PkGm3GbWDg_FYeBq9QLhoXwDUd-MmI9w&s"
+    },
+    {
+      "title": "Vivo V17",
+      "price": 50000,
+      "brand": "Vivo",
+      "description": "With a 48 MP quad-camera system, the Vivo V17 offers impressive photography capabilities. It features a 6.44-inch Super AMOLED display and a 32 MP front camera for great selfies.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM6LRMRGDAaKByvNp1VJ51ysMGB0QEtY7LvA&s"
+    },
+    {
+      "title": "Vivo V19",
+      "price": 55000,
+      "description": "The Vivo V19 features a 6.44-inch AMOLED display and dual front cameras, including a 32 MP main camera. Its AI-powered quad rear camera setup delivers stunning photos in any lighting.",
+      "brand": "Vivo",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI8YSuJ-d7LaviMlUhM7MY7nwZ3fKZNAY0Gg&s"
+    },
+    {
+      "title": "Vivo V20",
+      "brand": "Vivo",
+      "price": 60000,
+      "description": "The Vivo V20 offers a sleek design with a 6.44-inch AMOLED display and a 44 MP Eye Autofocus front camera. It features a 64 MP triple rear camera setup for versatile photography.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiktbdoJ8gK4zzA3YqFZxg_q2y7stxqoTijA&s"
+    },
+    {
+      "title": "Vivo V21",
+      "price": 65000,
+      "description": "Featuring a 6.44-inch AMOLED display and a 44 MP front camera with OIS, the Vivo V21 is designed for crystal-clear selfies. It includes a 64 MP rear camera with night mode for excellent low-light photography.",
+      "brand": "Vivo",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJWTwOcFPKPE_PbilmbKJEPeGFjcD5PkWt7Q&s"
+    },
+    {
+      "title": "Vivo X60 Pro",
+      "price": 95000,
+      "brand": "Vivo",
+      "description": "The Vivo X60 Pro boasts a 6.56-inch AMOLED display and a powerful Snapdragon 870 processor. It features a ZEISS co-engineered imaging system for professional-grade photos and videos.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfbMCnYaW8rhruGshpf6yvRrAyZoobI6Zwww&s"
+    },
+    {
+      "title": "Infinix Hot 8",
+      "price": 15000,
       "brand": "Infinix",
-      "category": "laptops",
-      "thumbnail": "https://i.dummyjson.com/data/products/9/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/9/1.jpg",
-        "https://i.dummyjson.com/data/products/9/2.png",
-        "https://i.dummyjson.com/data/products/9/3.png",
-        "https://i.dummyjson.com/data/products/9/4.jpg",
-        "https://i.dummyjson.com/data/products/9/thumbnail.jpg"
-      ]
+      "description": "The Infinix Hot 8 offers a 6.52-inch HD+ display and a triple rear camera setup. It features a large 5000 mAh battery for extended use and a sleek, modern design.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScYtuOA9YgdcfJ-fMwpiayR2p_KAssXkHyHA&s"
     },
     {
-      "id": 10,
-      "title": "HP Pavilion 15-DK1056WM",
-      "description": "HP Pavilion 15-DK1056WM Gaming Laptop 10th Gen Core i5, 8GB, 256GB SSD, GTX 1650 4GB, Windows 10",
-      "price": 1099,
-      "discountPercentage": 6.18,
-      "rating": 4.43,
-      "stock": 89,
-      "brand": "HP Pavilion",
-      "category": "laptops",
-      "thumbnail": "https://i.dummyjson.com/data/products/10/thumbnail.jpeg",
-      "images": [
-        "https://i.dummyjson.com/data/products/10/1.jpg",
-        "https://i.dummyjson.com/data/products/10/2.jpg",
-        "https://i.dummyjson.com/data/products/10/3.jpg",
-        "https://i.dummyjson.com/data/products/10/thumbnail.jpeg"
-      ]
+      "title": "Infinix S5",
+      "price": 20000,
+      "brand": "Infinix",
+      "description": "With a 6.6-inch Infinity-O display, the Infinix S5 provides an immersive viewing experience. It has a 32 MP AI front camera and a quad rear camera system for versatile photography.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-N03yAUu1-CTD0Tgjk2JHsz26Q4isi3qemQ&s"
     },
     {
-      "id": 11,
-      "title": "perfume Oil",
-      "description": "Mega Discount, Impression of Acqua Di Gio by GiorgioArmani concentrated attar perfume Oil",
-      "price": 13,
-      "discountPercentage": 8.4,
-      "rating": 4.26,
-      "stock": 65,
-      "brand": "Impression of Acqua Di Gio",
-      "category": "fragrances",
-      "thumbnail": "https://i.dummyjson.com/data/products/11/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/11/1.jpg",
-        "https://i.dummyjson.com/data/products/11/2.jpg",
-        "https://i.dummyjson.com/data/products/11/3.jpg",
-        "https://i.dummyjson.com/data/products/11/thumbnail.jpg"
-      ]
+      "title": "Infinix Note 7",
+      "price": 25000,
+      "brand": "Infinix",
+      "description": "The Infinix Note 7 features a 6.95-inch HD+ display and a 48 MP quad-camera setup. It includes a powerful Helio G70 processor and a large battery for gaming and multitasking.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCNfeUKblA0HN4GRyNHiGEFFtQyU_ouC8agw&s"
     },
     {
-      "id": 12,
-      "title": "Brown Perfume",
-      "description": "Royal_Mirage Sport Brown Perfume for Men & Women - 120ml",
-      "price": 40,
-      "discountPercentage": 15.66,
-      "rating": 4,
-      "stock": 52,
-      "brand": "Royal_Mirage",
-      "category": "fragrances",
-      "thumbnail": "https://i.dummyjson.com/data/products/12/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/12/1.jpg",
-        "https://i.dummyjson.com/data/products/12/2.jpg",
-        "https://i.dummyjson.com/data/products/12/3.png",
-        "https://i.dummyjson.com/data/products/12/4.jpg",
-        "https://i.dummyjson.com/data/products/12/thumbnail.jpg"
-      ]
+      "title": "Infinix Hot 9",
+      "brand": "Infinix",
+      "price": 17000,
+      "description": "The Infinix Hot 9 boasts a 6.6-inch HD+ display and a 13 MP AI quad-camera. It offers a 5000 mAh battery and DTS audio processing for an enhanced audio experience.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV0DhwZIBE_C_IRu14Ejqb7cUsPmJvuShvOA&s"
     },
     {
-      "id": 13,
-      "title": "Fog Scent Xpressio Perfume",
-      "description": "Product details of Best Fog Scent Xpressio Perfume 100ml For Men cool long lasting perfumes for Men",
-      "price": 13,
-      "discountPercentage": 8.14,
-      "rating": 4.59,
-      "stock": 61,
-      "brand": "Fog Scent Xpressio",
-      "category": "fragrances",
-      "thumbnail": "https://i.dummyjson.com/data/products/13/thumbnail.webp",
-      "images": [
-        "https://i.dummyjson.com/data/products/13/1.jpg",
-        "https://i.dummyjson.com/data/products/13/2.png",
-        "https://i.dummyjson.com/data/products/13/3.jpg",
-        "https://i.dummyjson.com/data/products/13/4.jpg",
-        "https://i.dummyjson.com/data/products/13/thumbnail.webp"
-      ]
+      "title": "Infinix Zero 8",
+      "price": 35000,
+      "brand": "Infinix",
+      "description": "Featuring a 6.85-inch Full HD+ display, the Infinix Zero 8 offers a dual front camera setup and a 64 MP quad rear camera. It provides fast charging and a smooth gaming experience.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5iGsMrG-PHMAvXZsLv0ah6tW2v9pkafybfg&s"
     },
     {
-      "id": 14,
-      "title": "Non-Alcoholic Concentrated Perfume Oil",
-      "description": "Original Al Munakh® by Mahal Al Musk | Our Impression of Climate | 6ml Non-Alcoholic Concentrated Perfume Oil",
-      "price": 120,
-      "discountPercentage": 15.6,
-      "rating": 4.21,
-      "stock": 114,
-      "brand": "Al Munakh",
-      "category": "fragrances",
-      "thumbnail": "https://i.dummyjson.com/data/products/14/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/14/1.jpg",
-        "https://i.dummyjson.com/data/products/14/2.jpg",
-        "https://i.dummyjson.com/data/products/14/3.jpg",
-        "https://i.dummyjson.com/data/products/14/thumbnail.jpg"
-      ]
+      "title": "Infinix Hot 10",
+      "brand": "Infinix",
+      "price": 20000,
+      "description": "The Infinix Hot 10 offers a 6.78-inch HD+ display and a 16 MP AI quad-camera. It comes with a MediaTek Helio G70 processor and a large 5200 mAh battery for extended use.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs7uBaOY2v0qhv-enOQUjys2xg-wrgryQCCA&s"
     },
     {
-      "id": 15,
-      "title": "Eau De Perfume Spray",
-      "description": "Genuine  Al-Rehab spray perfume from UAE/Saudi Arabia/Yemen High Quality",
-      "price": 30,
-      "discountPercentage": 10.99,
-      "rating": 4.7,
-      "stock": 105,
-      "brand": "Lord - Al-Rehab",
-      "category": "fragrances",
-      "thumbnail": "https://i.dummyjson.com/data/products/15/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/15/1.jpg",
-        "https://i.dummyjson.com/data/products/15/2.jpg",
-        "https://i.dummyjson.com/data/products/15/3.jpg",
-        "https://i.dummyjson.com/data/products/15/4.jpg",
-        "https://i.dummyjson.com/data/products/15/thumbnail.jpg"
-      ]
+      "title": "Infinix Note 10 Pro",
+      "price": 40000,
+      "description": "The Infinix Note 10 Pro offers a 6.95-inch Full HD+ display and a 64 MP quad-camera system. It comes with a Helio G95 processor and 33W fast charging for a premium experience.",
+      "brand": "Infinix",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWta2FBw0GjM4Ae3CyMlIOwJhu_UBCOFT3Xg&s"
     },
     {
-      "id": 16,
-      "title": "Hyaluronic Acid Serum",
-      "description": "L'OrÃ©al Paris introduces Hyaluron Expert Replumping Serum formulated with 1.5% Hyaluronic Acid",
-      "price": 19,
-      "discountPercentage": 13.31,
-      "rating": 4.83,
-      "stock": 110,
-      "brand": "L'Oreal Paris",
-      "category": "skincare",
-      "thumbnail": "https://i.dummyjson.com/data/products/16/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/16/1.png",
-        "https://i.dummyjson.com/data/products/16/2.webp",
-        "https://i.dummyjson.com/data/products/16/3.jpg",
-        "https://i.dummyjson.com/data/products/16/4.jpg",
-        "https://i.dummyjson.com/data/products/16/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 17,
-      "title": "Tree Oil 30ml",
-      "description": "Tea tree oil contains a number of compounds, including terpinen-4-ol, that have been shown to kill certain bacteria,",
-      "price": 12,
-      "discountPercentage": 4.09,
-      "rating": 4.52,
-      "stock": 78,
-      "brand": "Hemani Tea",
-      "category": "skincare",
-      "thumbnail": "https://i.dummyjson.com/data/products/17/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/17/1.jpg",
-        "https://i.dummyjson.com/data/products/17/2.jpg",
-        "https://i.dummyjson.com/data/products/17/3.jpg",
-        "https://i.dummyjson.com/data/products/17/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 18,
-      "title": "Oil Free Moisturizer 100ml",
-      "description": "Dermive Oil Free Moisturizer with SPF 20 is specifically formulated with ceramides, hyaluronic acid & sunscreen.",
-      "price": 40,
-      "discountPercentage": 13.1,
-      "rating": 4.56,
-      "stock": 88,
-      "brand": "Dermive",
-      "category": "skincare",
-      "thumbnail": "https://i.dummyjson.com/data/products/18/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/18/1.jpg",
-        "https://i.dummyjson.com/data/products/18/2.jpg",
-        "https://i.dummyjson.com/data/products/18/3.jpg",
-        "https://i.dummyjson.com/data/products/18/4.jpg",
-        "https://i.dummyjson.com/data/products/18/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 19,
-      "title": "Skin Beauty Serum.",
-      "description": "Product name: rorec collagen hyaluronic acid white face serum riceNet weight: 15 m",
-      "price": 46,
-      "discountPercentage": 10.68,
-      "rating": 4.42,
-      "stock": 54,
-      "brand": "ROREC White Rice",
-      "category": "skincare",
-      "thumbnail": "https://i.dummyjson.com/data/products/19/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/19/1.jpg",
-        "https://i.dummyjson.com/data/products/19/2.jpg",
-        "https://i.dummyjson.com/data/products/19/3.png",
-        "https://i.dummyjson.com/data/products/19/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 20,
-      "title": "Freckle Treatment Cream- 15gm",
-      "description": "Fair & Clear is Pakistan's only pure Freckle cream which helpsfade Freckles, Darkspots and pigments. Mercury level is 0%, so there are no side effects.",
-      "price": 70,
-      "discountPercentage": 16.99,
-      "rating": 4.06,
-      "stock": 140,
-      "brand": "Fair & Clear",
-      "category": "skincare",
-      "thumbnail": "https://i.dummyjson.com/data/products/20/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/20/1.jpg",
-        "https://i.dummyjson.com/data/products/20/2.jpg",
-        "https://i.dummyjson.com/data/products/20/3.jpg",
-        "https://i.dummyjson.com/data/products/20/4.jpg",
-        "https://i.dummyjson.com/data/products/20/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 21,
-      "title": "- Daal Masoor 500 grams",
-      "description": "Fine quality Branded Product Keep in a cool and dry place",
-      "price": 20,
-      "discountPercentage": 4.81,
-      "rating": 4.44,
-      "stock": 133,
-      "brand": "Saaf & Khaas",
-      "category": "groceries",
-      "thumbnail": "https://i.dummyjson.com/data/products/21/thumbnail.png",
-      "images": [
-        "https://i.dummyjson.com/data/products/21/1.png",
-        "https://i.dummyjson.com/data/products/21/2.jpg",
-        "https://i.dummyjson.com/data/products/21/3.jpg"
-      ]
-    },
-    {
-      "id": 22,
-      "title": "Elbow Macaroni - 400 gm",
-      "description": "Product details of Bake Parlor Big Elbow Macaroni - 400 gm",
-      "price": 14,
-      "discountPercentage": 15.58,
-      "rating": 4.57,
-      "stock": 146,
-      "brand": "Bake Parlor Big",
-      "category": "groceries",
-      "thumbnail": "https://i.dummyjson.com/data/products/22/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/22/1.jpg",
-        "https://i.dummyjson.com/data/products/22/2.jpg",
-        "https://i.dummyjson.com/data/products/22/3.jpg"
-      ]
-    },
-    {
-      "id": 23,
-      "title": "Orange Essence Food Flavou",
-      "description": "Specifications of Orange Essence Food Flavour For Cakes and Baking Food Item",
-      "price": 14,
-      "discountPercentage": 8.04,
-      "rating": 4.85,
-      "stock": 26,
-      "brand": "Baking Food Items",
-      "category": "groceries",
-      "thumbnail": "https://i.dummyjson.com/data/products/23/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/23/1.jpg",
-        "https://i.dummyjson.com/data/products/23/2.jpg",
-        "https://i.dummyjson.com/data/products/23/3.jpg",
-        "https://i.dummyjson.com/data/products/23/4.jpg",
-        "https://i.dummyjson.com/data/products/23/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 24,
-      "title": "cereals muesli fruit nuts",
-      "description": "original fauji cereal muesli 250gm box pack original fauji cereals muesli fruit nuts flakes breakfast cereal break fast faujicereals cerels cerel foji fouji",
-      "price": 46,
-      "discountPercentage": 16.8,
-      "rating": 4.94,
-      "stock": 113,
-      "brand": "fauji",
-      "category": "groceries",
-      "thumbnail": "https://i.dummyjson.com/data/products/24/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/24/1.jpg",
-        "https://i.dummyjson.com/data/products/24/2.jpg",
-        "https://i.dummyjson.com/data/products/24/3.jpg",
-        "https://i.dummyjson.com/data/products/24/4.jpg",
-        "https://i.dummyjson.com/data/products/24/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 25,
-      "title": "Gulab Powder 50 Gram",
-      "description": "Dry Rose Flower Powder Gulab Powder 50 Gram • Treats Wounds",
-      "price": 70,
-      "discountPercentage": 13.58,
-      "rating": 4.87,
-      "stock": 47,
-      "brand": "Dry Rose",
-      "category": "groceries",
-      "thumbnail": "https://i.dummyjson.com/data/products/25/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/25/1.png",
-        "https://i.dummyjson.com/data/products/25/2.jpg",
-        "https://i.dummyjson.com/data/products/25/3.png",
-        "https://i.dummyjson.com/data/products/25/4.jpg",
-        "https://i.dummyjson.com/data/products/25/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 26,
-      "title": "Plant Hanger For Home",
-      "description": "Boho Decor Plant Hanger For Home Wall Decoration Macrame Wall Hanging Shelf",
-      "price": 41,
-      "discountPercentage": 17.86,
-      "rating": 4.08,
-      "stock": 131,
-      "brand": "Boho Decor",
-      "category": "home-decoration",
-      "thumbnail": "https://i.dummyjson.com/data/products/26/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/26/1.jpg",
-        "https://i.dummyjson.com/data/products/26/2.jpg",
-        "https://i.dummyjson.com/data/products/26/3.jpg",
-        "https://i.dummyjson.com/data/products/26/4.jpg",
-        "https://i.dummyjson.com/data/products/26/5.jpg",
-        "https://i.dummyjson.com/data/products/26/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 27,
-      "title": "Flying Wooden Bird",
-      "description": "Package Include 6 Birds with Adhesive Tape Shape: 3D Shaped Wooden Birds Material: Wooden MDF, Laminated 3.5mm",
-      "price": 51,
-      "discountPercentage": 15.58,
-      "rating": 4.41,
-      "stock": 17,
-      "brand": "Flying Wooden",
-      "category": "home-decoration",
-      "thumbnail": "https://i.dummyjson.com/data/products/27/thumbnail.webp",
-      "images": [
-        "https://i.dummyjson.com/data/products/27/1.jpg",
-        "https://i.dummyjson.com/data/products/27/2.jpg",
-        "https://i.dummyjson.com/data/products/27/3.jpg",
-        "https://i.dummyjson.com/data/products/27/4.jpg",
-        "https://i.dummyjson.com/data/products/27/thumbnail.webp"
-      ]
-    },
-    {
-      "id": 28,
-      "title": "3D Embellishment Art Lamp",
-      "description": "3D led lamp sticker Wall sticker 3d wall art light on/off button  cell operated (included)",
-      "price": 20,
-      "discountPercentage": 16.49,
-      "rating": 4.82,
-      "stock": 54,
-      "brand": "LED Lights",
-      "category": "home-decoration",
-      "thumbnail": "https://i.dummyjson.com/data/products/28/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/28/1.jpg",
-        "https://i.dummyjson.com/data/products/28/2.jpg",
-        "https://i.dummyjson.com/data/products/28/3.png",
-        "https://i.dummyjson.com/data/products/28/4.jpg",
-        "https://i.dummyjson.com/data/products/28/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 29,
-      "title": "Handcraft Chinese style",
-      "description": "Handcraft Chinese style art luxury palace hotel villa mansion home decor ceramic vase with brass fruit plate",
-      "price": 60,
-      "discountPercentage": 15.34,
-      "rating": 4.44,
-      "stock": 7,
-      "brand": "luxury palace",
-      "category": "home-decoration",
-      "thumbnail": "https://i.dummyjson.com/data/products/29/thumbnail.webp",
-      "images": [
-        "https://i.dummyjson.com/data/products/29/1.jpg",
-        "https://i.dummyjson.com/data/products/29/2.jpg",
-        "https://i.dummyjson.com/data/products/29/3.webp",
-        "https://i.dummyjson.com/data/products/29/4.webp",
-        "https://i.dummyjson.com/data/products/29/thumbnail.webp"
-      ]
-    },
-    {
-      "id": 30,
-      "title": "Key Holder",
-      "description": "Attractive DesignMetallic materialFour key hooksReliable & DurablePremium Quality",
-      "price": 30,
-      "discountPercentage": 2.92,
-      "rating": 4.92,
-      "stock": 54,
-      "brand": "Golden",
-      "category": "home-decoration",
-      "thumbnail": "https://i.dummyjson.com/data/products/30/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/30/1.jpg",
-        "https://i.dummyjson.com/data/products/30/2.jpg",
-        "https://i.dummyjson.com/data/products/30/3.jpg",
-        "https://i.dummyjson.com/data/products/30/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 31,
-      "title": "Mornadi Velvet Bed",
-      "description": "Mornadi Velvet Bed Base with Headboard Slats Support Classic Style Bedroom Furniture Bed Set",
-      "price": 40,
-      "discountPercentage": 17,
-      "rating": 4.16,
-      "stock": 140,
-      "brand": "Furniture Bed Set",
-      "category": "furniture",
-      "thumbnail": "https://i.dummyjson.com/data/products/31/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/31/1.jpg",
-        "https://i.dummyjson.com/data/products/31/2.jpg",
-        "https://i.dummyjson.com/data/products/31/3.jpg",
-        "https://i.dummyjson.com/data/products/31/4.jpg",
-        "https://i.dummyjson.com/data/products/31/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 32,
-      "title": "Sofa for Coffe Cafe",
-      "description": "Ratttan Outdoor furniture Set Waterproof  Rattan Sofa for Coffe Cafe",
-      "price": 50,
-      "discountPercentage": 15.59,
-      "rating": 4.74,
-      "stock": 30,
-      "brand": "Ratttan Outdoor",
-      "category": "furniture",
-      "thumbnail": "https://i.dummyjson.com/data/products/32/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/32/1.jpg",
-        "https://i.dummyjson.com/data/products/32/2.jpg",
-        "https://i.dummyjson.com/data/products/32/3.jpg",
-        "https://i.dummyjson.com/data/products/32/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 33,
-      "title": "3 Tier Corner Shelves",
-      "description": "3 Tier Corner Shelves | 3 PCs Wall Mount Kitchen Shelf | Floating Bedroom Shelf",
-      "price": 700,
-      "discountPercentage": 17,
-      "rating": 4.31,
-      "stock": 106,
-      "brand": "Kitchen Shelf",
-      "category": "furniture",
-      "thumbnail": "https://i.dummyjson.com/data/products/33/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/33/1.jpg",
-        "https://i.dummyjson.com/data/products/33/2.jpg",
-        "https://i.dummyjson.com/data/products/33/3.jpg",
-        "https://i.dummyjson.com/data/products/33/4.jpg",
-        "https://i.dummyjson.com/data/products/33/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 34,
-      "title": "Plastic Table",
-      "description": "V﻿ery good quality plastic table for multi purpose now in reasonable price",
-      "price": 50,
-      "discountPercentage": 4,
-      "rating": 4.01,
-      "stock": 136,
-      "brand": "Multi Purpose",
-      "category": "furniture",
-      "thumbnail": "https://i.dummyjson.com/data/products/34/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/34/1.jpg",
-        "https://i.dummyjson.com/data/products/34/2.jpg",
-        "https://i.dummyjson.com/data/products/34/3.jpg",
-        "https://i.dummyjson.com/data/products/34/4.jpg",
-        "https://i.dummyjson.com/data/products/34/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 35,
-      "title": "3 DOOR PORTABLE",
-      "description": "Material: Stainless Steel and Fabric  Item Size: 110 cm x 45 cm x 175 cm Package Contents: 1 Storage Wardrobe",
-      "price": 41,
-      "discountPercentage": 7.98,
-      "rating": 4.06,
-      "stock": 68,
-      "brand": "AmnaMart",
-      "category": "furniture",
-      "thumbnail": "https://i.dummyjson.com/data/products/35/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/35/1.jpg",
-        "https://i.dummyjson.com/data/products/35/2.jpg",
-        "https://i.dummyjson.com/data/products/35/3.jpg",
-        "https://i.dummyjson.com/data/products/35/4.jpg",
-        "https://i.dummyjson.com/data/products/35/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 36,
-      "title": "Sleeve Shirt Womens",
-      "description": "Cotton Solid Color Professional Wear Sleeve Shirt Womens Work Blouses Wholesale Clothing Casual Plain Custom Top OEM Customized",
-      "price": 90,
-      "discountPercentage": 10.89,
-      "rating": 4.26,
-      "stock": 39,
-      "brand": "Professional Wear",
-      "category": "tops",
-      "thumbnail": "https://i.dummyjson.com/data/products/36/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/36/1.jpg",
-        "https://i.dummyjson.com/data/products/36/2.webp",
-        "https://i.dummyjson.com/data/products/36/3.webp",
-        "https://i.dummyjson.com/data/products/36/4.jpg",
-        "https://i.dummyjson.com/data/products/36/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 37,
-        "title": "ank Tops for Womens/Girls",
-        "description": "PACK OF 3 CAMISOLES ,VERY COMFORTABLE SOFT COTTON STUFF, COMFORTABLE IN ALL FOUR SEASONS",
-        "price": 50,
-        "discountPercentage": 12.05,
-        "rating": 4.52,
-        "stock": 107,
-        "brand": "Soft Cotton",
-        "category": "tops",
-        "thumbnail": "https://i.dummyjson.com/data/products/37/thumbnail.jpg",
-        "images": [
-          "https://i.dummyjson.com/data/products/37/1.jpg",
-          "https://i.dummyjson.com/data/products/37/2.jpg",
-          "https://i.dummyjson.com/data/products/37/3.jpg",
-          "https://i.dummyjson.com/data/products/37/4.jpg",
-          "https://i.dummyjson.com/data/products/37/thumbnail.jpg"
-        ]
-    },
-    {
-      "id": 38,
-      "title": "sublimation plain kids tank",
-      "description": "sublimation plain kids tank tops wholesale",
-      "price": 100,
-      "discountPercentage": 11.12,
-      "rating": 4.8,
-      "stock": 20,
-      "brand": "Soft Cotton",
-      "category": "tops",
-      "thumbnail": "https://i.dummyjson.com/data/products/38/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/38/1.png",
-        "https://i.dummyjson.com/data/products/38/2.jpg",
-        "https://i.dummyjson.com/data/products/38/3.jpg",
-        "https://i.dummyjson.com/data/products/38/4.jpg"
-      ]
-    },
-    {
-      "id": 39,
-      "title": "Women Sweaters Wool",
-      "description": "2021 Custom Winter Fall Zebra Knit Crop Top Women Sweaters Wool Mohair Cos Customize Crew Neck Women' S Crop Top Sweater",
-      "price": 600,
-      "discountPercentage": 17.2,
-      "rating": 4.55,
-      "stock": 55,
-      "brand": "Top Sweater",
-      "category": "tops",
-      "thumbnail": "https://i.dummyjson.com/data/products/39/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/39/1.jpg",
-        "https://i.dummyjson.com/data/products/39/2.jpg",
-        "https://i.dummyjson.com/data/products/39/3.jpg",
-        "https://i.dummyjson.com/data/products/39/4.jpg",
-        "https://i.dummyjson.com/data/products/39/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 40,
-      "title": "women winter clothes",
-      "description": "women winter clothes thick fleece hoodie top with sweat pantjogger women sweatsuit set joggers pants two piece pants set",
-      "price": 57,
-      "discountPercentage": 13.39,
-      "rating": 4.91,
-      "stock": 84,
-      "brand": "Top Sweater",
-      "category": "tops",
-      "thumbnail": "https://i.dummyjson.com/data/products/40/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/40/1.jpg",
-        "https://i.dummyjson.com/data/products/40/2.jpg"
-      ]
-    },
-    {
-      "id": 41,
-      "title": "NIGHT SUIT",
-      "description": "NIGHT SUIT RED MICKY MOUSE..  For Girls. Fantastic Suits.",
-      "price": 55,
-      "discountPercentage": 15.05,
-      "rating": 4.65,
-      "stock": 21,
-      "brand": "RED MICKY MOUSE..",
-      "category": "womens-dresses",
-      "thumbnail": "https://i.dummyjson.com/data/products/41/thumbnail.webp",
-      "images": [
-        "https://i.dummyjson.com/data/products/41/1.jpg",
-        "https://i.dummyjson.com/data/products/41/2.webp",
-        "https://i.dummyjson.com/data/products/41/3.jpg",
-        "https://i.dummyjson.com/data/products/41/4.jpg",
-        "https://i.dummyjson.com/data/products/41/thumbnail.webp"
-      ]
-    },
-    {
-      "id": 42,
-      "title": "Stiched Kurta plus trouser",
-      "description": "FABRIC: LILEIN CHEST: 21 LENGHT: 37 TROUSER: (38) :ARABIC LILEIN",
-      "price": 80,
-      "discountPercentage": 15.37,
-      "rating": 4.05,
-      "stock": 148,
-      "brand": "Digital Printed",
-      "category": "womens-dresses",
-      "thumbnail": "https://i.dummyjson.com/data/products/42/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/42/1.png",
-        "https://i.dummyjson.com/data/products/42/2.png",
-        "https://i.dummyjson.com/data/products/42/3.png",
-        "https://i.dummyjson.com/data/products/42/4.jpg",
-        "https://i.dummyjson.com/data/products/42/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 43,
-      "title": "frock gold printed",
-      "description": "Ghazi fabric long frock gold printed ready to wear stitched collection (G992)",
-      "price": 600,
-      "discountPercentage": 15.55,
-      "rating": 4.31,
-      "stock": 150,
-      "brand": "Ghazi Fabric",
-      "category": "womens-dresses",
-      "thumbnail": "https://i.dummyjson.com/data/products/43/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/43/1.jpg",
-        "https://i.dummyjson.com/data/products/43/2.jpg",
-        "https://i.dummyjson.com/data/products/43/3.jpg",
-        "https://i.dummyjson.com/data/products/43/4.jpg",
-        "https://i.dummyjson.com/data/products/43/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 44,
-      "title": "Ladies Multicolored Dress",
-      "description": "This classy shirt for women gives you a gorgeous look on everyday wear and specially for semi-casual wears.",
-      "price": 79,
-      "discountPercentage": 16.88,
-      "rating": 4.03,
-      "stock": 2,
-      "brand": "Ghazi Fabric",
-      "category": "womens-dresses",
-      "thumbnail": "https://i.dummyjson.com/data/products/44/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/44/1.jpg",
-        "https://i.dummyjson.com/data/products/44/2.jpg",
-        "https://i.dummyjson.com/data/products/44/3.jpg",
-        "https://i.dummyjson.com/data/products/44/4.jpg",
-        "https://i.dummyjson.com/data/products/44/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 45,
-      "title": "Malai Maxi Dress",
-      "description": "Ready to wear, Unique design according to modern standard fashion, Best fitting ,Imported stuff",
-      "price": 50,
-      "discountPercentage": 5.07,
-      "rating": 4.67,
-      "stock": 96,
-      "brand": "IELGY",
-      "category": "womens-dresses",
-      "thumbnail": "https://i.dummyjson.com/data/products/45/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/45/1.jpg",
-        "https://i.dummyjson.com/data/products/45/2.webp",
-        "https://i.dummyjson.com/data/products/45/3.jpg",
-        "https://i.dummyjson.com/data/products/45/4.jpg",
-        "https://i.dummyjson.com/data/products/45/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 46,
-      "title": "women's shoes",
-      "description": "Close: Lace, Style with bottom: Increased inside, Sole Material: Rubber",
-      "price": 40,
-      "discountPercentage": 16.96,
-      "rating": 4.14,
-      "stock": 72,
-      "brand": "IELGY fashion",
-      "category": "womens-shoes",
-      "thumbnail": "https://i.dummyjson.com/data/products/46/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/46/1.webp",
-        "https://i.dummyjson.com/data/products/46/2.jpg",
-        "https://i.dummyjson.com/data/products/46/3.jpg",
-        "https://i.dummyjson.com/data/products/46/4.jpg",
-        "https://i.dummyjson.com/data/products/46/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 47,
-      "title": "Sneaker shoes",
-      "description": "Synthetic Leather Casual Sneaker shoes for Women/girls Sneakers For Women",
-      "price": 120,
-      "discountPercentage": 10.37,
-      "rating": 4.19,
-      "stock": 50,
-      "brand": "Synthetic Leather",
-      "category": "womens-shoes",
-      "thumbnail": "https://i.dummyjson.com/data/products/47/thumbnail.jpeg",
-      "images": [
-        "https://i.dummyjson.com/data/products/47/1.jpg",
-        "https://i.dummyjson.com/data/products/47/2.jpg",
-        "https://i.dummyjson.com/data/products/47/3.jpg",
-        "https://i.dummyjson.com/data/products/47/thumbnail.jpeg"
-      ]
-    },
-    {
-      "id": 48,
-      "title": "Women Strip Heel",
-      "description": "Features: Flip-flops, Mid Heel, Comfortable, Striped Heel, Antiskid, Striped",
-      "price": 40,
-      "discountPercentage": 10.83,
-      "rating": 4.02,
-      "stock": 25,
-      "brand": "Sandals Flip Flops",
-      "category": "womens-shoes",
-      "thumbnail": "https://i.dummyjson.com/data/products/48/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/48/1.jpg",
-        "https://i.dummyjson.com/data/products/48/2.jpg",
-        "https://i.dummyjson.com/data/products/48/3.jpg",
-        "https://i.dummyjson.com/data/products/48/4.jpg",
-        "https://i.dummyjson.com/data/products/48/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": 49,
-      "title": "Chappals & Shoe Ladies Metallic",
-      "description": "Womens Chappals & Shoe Ladies Metallic Tong Thong Sandal Flat Summer 2020 Maasai Sandals",
-      "price": 23,
-      "discountPercentage": 2.62,
-      "rating": 4.72,
-      "stock": 107,
-      "brand": "Maasai Sandals",
-      "category": "womens-shoes",
-      "thumbnail": "https://i.dummyjson.com/data/products/49/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/49/1.jpg",
-        "https://i.dummyjson.com/data/products/49/2.jpg",
-        "https://i.dummyjson.com/data/products/49/3.webp",
-        "https://i.dummyjson.com/data/products/49/thumbnail.jpg"
-      ]
-    },
-    {
-      "title": "new",
-      "description": "new",
-      "brand": "Dermive",
-      "category": "motorcycle",
-      "price": 1,
-      "discountPercentage": 1,
-      "stock": 1,
-      "thumbnail": "        https://i.dummyjson.com/data/products/49/1.jpg",
-      "images": [
-        "        https://i.dummyjson.com/data/products/49/1.jpg",
-        "        https://i.dummyjson.com/data/products/49/1.jpg",
-        "        https://i.dummyjson.com/data/products/49/1.jpg",
-        "        https://i.dummyjson.com/data/products/49/1.jpg"
-      ],
-      "rating": 0,
-      "id": 50,
-      "deleted": true
-    }
-  ],
-  "brands": [
-    {
-      "value": "Apple",
-      "label": "Apple",
-      "checked": false
-    },
-    {
-      "value": "Samsung",
-      "label": "Samsung",
-      "checked": false
-    },
-    {
-      "value": "OPPO",
-      "label": "OPPO",
-      "checked": false
-    },
-    {
-      "value": "Huawei",
-      "label": "Huawei",
-      "checked": false
-    },
-    {
-      "value": "Microsoft Surface",
-      "label": "Microsoft Surface",
-      "checked": false
-    },
-    {
-      "value": "Infinix",
-      "label": "Infinix",
-      "checked": false
-    },
-    {
-      "value": "HP Pavilion",
-      "label": "HP Pavilion",
-      "checked": false
-    },
-    {
-      "value": "Impression of Acqua Di Gio",
-      "label": "Impression of Acqua Di Gio",
-      "checked": false
-    },
-    {
-      "value": "Royal_Mirage",
-      "label": "Royal_Mirage",
-      "checked": false
-    },
-    {
-      "value": "Fog Scent Xpressio",
-      "label": "Fog Scent Xpressio",
-      "checked": false
-    },
-    {
-      "value": "Al Munakh",
-      "label": "Al Munakh",
-      "checked": false
-    },
-    {
-      "value": "Lord - Al-Rehab",
-      "label": "Lord   Al Rehab",
-      "checked": false
-    },
-    {
-      "value": "L'Oreal Paris",
-      "label": "L'Oreal Paris",
-      "checked": false
-    },
-    {
-      "value": "Hemani Tea",
-      "label": "Hemani Tea",
-      "checked": false
-    },
-    {
-      "value": "Dermive",
-      "label": "Dermive",
-      "checked": false
-    },
-    {
-      "value": "ROREC White Rice",
-      "label": "ROREC White Rice",
-      "checked": false
-    },
-    {
-      "value": "Fair & Clear",
-      "label": "Fair & Clear",
-      "checked": false
-    },
-    {
-      "value": "Saaf & Khaas",
-      "label": "Saaf & Khaas",
-      "checked": false
-    },
-    {
-      "value": "Bake Parlor Big",
-      "label": "Bake Parlor Big",
-      "checked": false
-    },
-    {
-      "value": "Baking Food Items",
-      "label": "Baking Food Items",
-      "checked": false
-    },
-    {
-      "value": "fauji",
-      "label": "fauji",
-      "checked": false
-    },
-    {
-      "value": "Dry Rose",
-      "label": "Dry Rose",
-      "checked": false
-    },
-    {
-      "value": "Boho Decor",
-      "label": "Boho Decor",
-      "checked": false
-    },
-    {
-      "value": "Flying Wooden",
-      "label": "Flying Wooden",
-      "checked": false
-    },
-    {
-      "value": "LED Lights",
-      "label": "LED Lights",
-      "checked": false
-    },
-    {
-      "value": "luxury palace",
-      "label": "luxury palace",
-      "checked": false
-    },
-    {
-      "value": "Golden",
-      "label": "Golden",
-      "checked": false
-    },
-    {
-      "value": "Furniture Bed Set",
-      "label": "Furniture Bed Set",
-      "checked": false
-    },
-    {
-      "value": "Ratttan Outdoor",
-      "label": "Ratttan Outdoor",
-      "checked": false
-    },
-    {
-      "value": "Kitchen Shelf",
-      "label": "Kitchen Shelf",
-      "checked": false
-    },
-    {
-      "value": "Multi Purpose",
-      "label": "Multi Purpose",
-      "checked": false
-    },
-    {
-      "value": "AmnaMart",
-      "label": "AmnaMart",
-      "checked": false
-    },
-    {
-      "value": "Professional Wear",
-      "label": "Professional Wear",
-      "checked": false
-    },
-    {
-      "value": "Soft Cotton",
-      "label": "Soft Cotton",
-      "checked": false
-    },
-    {
-      "value": "Top Sweater",
-      "label": "Top Sweater",
-      "checked": false
-    },
-    {
-      "value": "RED MICKY MOUSE..",
-      "label": "RED MICKY MOUSE..",
-      "checked": false
-    },
-    {
-      "value": "Digital Printed",
-      "label": "Digital Printed",
-      "checked": false
-    },
-    {
-      "value": "Ghazi Fabric",
-      "label": "Ghazi Fabric",
-      "checked": false
-    },
-    {
-      "value": "IELGY",
-      "label": "IELGY",
-      "checked": false
-    },
-    {
-      "value": "IELGY fashion",
-      "label": "IELGY fashion",
-      "checked": false
-    },
-    {
-      "value": "Synthetic Leather",
-      "label": "Synthetic Leather",
-      "checked": false
-    },
-    {
-      "value": "Sandals Flip Flops",
-      "label": "Sandals Flip Flops",
-      "checked": false
-    },
-    {
-      "value": "Maasai Sandals",
-      "label": "Maasai Sandals",
-      "checked": false
-    },
-    {
-      "value": "Arrivals Genuine",
-      "label": "Arrivals Genuine",
-      "checked": false
-    },
-    {
-      "value": "Vintage Apparel",
-      "label": "Vintage Apparel",
-      "checked": false
-    },
-    {
-      "value": "FREE FIRE",
-      "label": "FREE FIRE",
-      "checked": false
-    },
-    {
-      "value": "The Warehouse",
-      "label": "The Warehouse",
-      "checked": false
-    },
-    {
-      "value": "Sneakers",
-      "label": "Sneakers",
-      "checked": false
-    },
-    {
-      "value": "Rubber",
-      "label": "Rubber",
-      "checked": false
-    },
-    {
-      "value": "Naviforce",
-      "label": "Naviforce",
-      "checked": false
-    },
-    {
-      "value": "SKMEI 9117",
-      "label": "SKMEI 9117",
-      "checked": false
-    },
-    {
-      "value": "Strap Skeleton",
-      "label": "Strap Skeleton",
-      "checked": false
-    },
-    {
-      "value": "Stainless",
-      "label": "Stainless",
-      "checked": false
-    },
-    {
-      "value": "Eastern Watches",
-      "label": "Eastern Watches",
-      "checked": false
-    },
-    {
-      "value": "Luxury Digital",
-      "label": "Luxury Digital",
-      "checked": false
-    },
-    {
-      "value": "Watch Pearls",
-      "label": "Watch Pearls",
-      "checked": false
-    },
-    {
-      "value": "Bracelet",
-      "label": "Bracelet",
-      "checked": false
-    },
-    {
-      "value": "LouisWill",
-      "label": "LouisWill",
-      "checked": false
-    },
-    {
-      "value": "Copenhagen Luxe",
-      "label": "Copenhagen Luxe",
-      "checked": false
-    },
-    {
-      "value": "Steal Frame",
-      "label": "Steal Frame",
-      "checked": false
-    },
-    {
-      "value": "Darojay",
-      "label": "Darojay",
-      "checked": false
-    },
-    {
-      "value": "Fashion Jewellery",
-      "label": "Fashion Jewellery",
-      "checked": false
-    },
-    {
-      "value": "Cuff Butterfly",
-      "label": "Cuff Butterfly",
-      "checked": false
-    },
-    {
-      "value": "Designer Sun Glasses",
-      "label": "Designer Sun Glasses",
-      "checked": false
-    },
-    {
-      "value": "mastar watch",
-      "label": "mastar watch",
-      "checked": false
-    },
-    {
-      "value": "Car Aux",
-      "label": "Car Aux",
-      "checked": false
-    },
-    {
-      "value": "W1209 DC12V",
-      "label": "W1209 DC12V",
-      "checked": false
-    },
-    {
-      "value": "TC Reusable",
-      "label": "TC Reusable",
-      "checked": false
-    },
-    {
-      "value": "Neon LED Light",
-      "label": "Neon LED Light",
-      "checked": false
-    },
-    {
-      "value": "METRO 70cc Motorcycle - MR70",
-      "label": "METRO 70cc Motorcycle   MR70",
-      "checked": false
-    },
-    {
-      "value": "BRAVE BULL",
-      "label": "BRAVE BULL",
-      "checked": false
-    },
-    {
-      "value": "shock absorber",
-      "label": "shock absorber",
-      "checked": false
-    },
-    {
-      "value": "JIEPOLLY",
-      "label": "JIEPOLLY",
-      "checked": false
-    },
-    {
-      "value": "Xiangle",
-      "label": "Xiangle",
-      "checked": false
-    },
-    {
-      "value": "lightingbrilliance",
-      "label": "lightingbrilliance",
-      "checked": false
-    },
-    {
-      "value": "Ifei Home",
-      "label": "Ifei Home",
-      "checked": false
-    },
-    {
-      "value": "DADAWU",
-      "label": "DADAWU",
-      "checked": false
-    },
-    {
-      "value": "YIOSI",
-      "label": "YIOSI",
-      "checked": false
-    }
-  ],
-  "categories": [
-    {
-      "value": "smartphones",
-      "label": "smartphones",
-      "checked": false
-    },
-    {
-      "value": "laptops",
-      "label": "laptops",
-      "checked": false
-    },
-    {
-      "value": "fragrances",
-      "label": "fragrances",
-      "checked": false
-    },
-    {
-      "value": "skincare",
-      "label": "skincare",
-      "checked": false
-    },
-    {
-      "value": "groceries",
-      "label": "groceries",
-      "checked": false
-    },
-    {
-      "value": "home-decoration",
-      "label": "home decoration",
-      "checked": false
-    },
-    {
-      "value": "furniture",
-      "label": "furniture",
-      "checked": false
-    },
-    {
-      "value": "tops",
-      "label": "tops",
-      "checked": false
-    },
-    {
-      "value": "womens-dresses",
-      "label": "womens dresses",
-      "checked": false
-    },
-    {
-      "value": "womens-shoes",
-      "label": "womens shoes",
-      "checked": false
-    },
-    {
-      "value": "mens-shirts",
-      "label": "mens shirts",
-      "checked": false
-    },
-    {
-      "value": "mens-shoes",
-      "label": "mens shoes",
-      "checked": false
-    },
-    {
-      "value": "mens-watches",
-      "label": "mens watches",
-      "checked": false
-    },
-    {
-      "value": "womens-watches",
-      "label": "womens watches",
-      "checked": false
-    },
-    {
-      "value": "womens-bags",
-      "label": "womens bags",
-      "checked": false
-    },
-    {
-      "value": "womens-jewellery",
-      "label": "womens jewellery",
-      "checked": false
-    },
-    {
-      "value": "sunglasses",
-      "label": "sunglasses",
-      "checked": false
-    },
-    {
-      "value": "automotive",
-      "label": "automotive",
-      "checked": false
-    },
-    {
-      "value": "motorcycle",
-      "label": "motorcycle",
-      "checked": false
-    },
-    {
-      "value": "lighting",
-      "label": "lighting",
-      "checked": false
-    }
-  ],
-  "users": [
-    {
-      "email": "test@gmail.com",
-      "password": "Qwerty123",
-      "role": "user",
-      "id": 1,
-      "addresses": [
-        {
-          "name": "Abhishek R",
-          "email": "test@gmail.com",
-          "phone": "1234567788",
-          "street": "11th Main",
-          "city": "Banaglore",
-          "state": "Karnataka",
-          "pinCode": "560034"
-        }
-      ]
-    },
-    {
-      "email": "Haseeb@gmail.com",
-      "password": "Saadjaan786",
-      "role": "admin",
-      "id": 3,
-      "addresses": []
-    },
-    {
-      "email": "Saad@gmail.com",
-      "password": "Qwerty123",
-      "role": "user",
-      "id": 5,
-      "addresses": [
-        {
-          "name": "Saad",
-          "email": "Saad@gmail.com",
-          "phone": "1234567788",
-          "street": "11th Main",
-          "city": "Banaglore",
-          "state": "Karnataka",
-          "pinCode": "560034"
-        }
-      ]
-    },
-    {
-      "email": "Wajeeha@gmail.com",
-      "password": "Qwerty123",
-      "role": "user",
-      "id": 6,
-      "addresses": []
-    }
-  ],
-  "cart": [
-    {
-      "id": 3,
-      "title": "Samsung Universe 9",
-      "description": "Samsung's new variant which goes beyond Galaxy to the Universe",
-      "price": 1249,
-      "discountPercentage": 15.46,
-      "rating": 4.09,
-      "stock": 36,
-      "brand": "Samsung",
-      "category": "smartphones",
-      "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/3/1.jpg"
-      ],
-      "quantity": 1,
-      "user": 2
-    },
-    {
-      "id": 18,
-      "title": "Oil Free Moisturizer 100ml",
-      "description": "Dermive Oil Free Moisturizer with SPF 20 is specifically formulated with ceramides, hyaluronic acid & sunscreen.",
-      "price": 40,
-      "discountPercentage": 13.1,
-      "rating": 4.56,
-      "stock": 88,
-      "brand": "Dermive",
-      "category": "skincare",
-      "thumbnail": "https://i.dummyjson.com/data/products/18/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/18/1.jpg",
-        "https://i.dummyjson.com/data/products/18/2.jpg",
-        "https://i.dummyjson.com/data/products/18/3.jpg",
-        "https://i.dummyjson.com/data/products/18/4.jpg",
-        "https://i.dummyjson.com/data/products/18/thumbnail.jpg"
-      ],
-      "quantity": 1,
-      "user": 4
-    },
-    {
-      "id": 2,
-      "title": "iPhone X",
-      "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
-      "price": 899,
-      "discountPercentage": 17.94,
-      "rating": 4.44,
-      "stock": 34,
-      "brand": "Apple",
-      "category": "smartphones",
-      "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/2/1.jpg",
-        "https://i.dummyjson.com/data/products/2/2.jpg",
-        "https://i.dummyjson.com/data/products/2/3.jpg",
-        "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
-      ],
-      "quantity": 1,
-      "user": 4
-    },
-    {
-      "title": "iPhone X",
-      "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
-      "price": 899,
-      "discountPercentage": 17.94,
-      "rating": 4.44,
-      "stock": 34,
-      "brand": "Apple",
-      "category": "smartphones",
-      "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/2/1.jpg",
-        "https://i.dummyjson.com/data/products/2/2.jpg",
-        "https://i.dummyjson.com/data/products/2/3.jpg",
-        "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
-      ],
-      "deleted": true,
-      "productId": 2,
-      "quantity": 1,
-      "user": 6,
-      "id": 19
+      "title": "Huawei P20",
+      "price": 40000,
+      "brand": "Huawei",
+      "description": "The Huawei P20 features a 5.8-inch Full HD display and a dual rear camera setup with Leica optics. It offers a sleek design and powerful performance for a premium user experience.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTabvQYYEJlipCjEscVXR0hfPayqwJsNL-Opw&s"
     },
     {
       "title": "Huawei P30",
-      "description": "Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.",
-      "price": 499,
-      "discountPercentage": 10.58,
-      "rating": 4.09,
-      "stock": 32,
+      "price": 50000,
+      "description": "With a 6.1-inch OLED display and a triple rear camera system, the Huawei P30 provides exceptional photography capabilities and vibrant visuals. It includes a powerful Kirin 980 processor.",
       "brand": "Huawei",
-      "category": "smartphones",
-      "thumbnail": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
-      "images": [
-        "https://i.dummyjson.com/data/products/5/1.jpg",
-        "https://i.dummyjson.com/data/products/5/2.jpg",
-        "https://i.dummyjson.com/data/products/5/3.jpg"
-      ],
-      "productId": 5,
-      "quantity": 1,
-      "user": 3,
-      "id": 21
-    }
-  ],
-  "orders": [
-    {
-      "items": [
-        {
-          "id": 1,
-          "title": "iPhone 9",
-          "description": "An apple mobile which is nothing like apple",
-          "price": 549,
-          "discountPercentage": 12.96,
-          "rating": 4.69,
-          "stock": 94,
-          "brand": "Apple",
-          "category": "smartphones",
-          "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
-          "images": [
-            "https://i.dummyjson.com/data/products/1/1.jpg",
-            "https://i.dummyjson.com/data/products/1/2.jpg",
-            "https://i.dummyjson.com/data/products/1/3.jpg",
-            "https://i.dummyjson.com/data/products/1/4.jpg",
-            "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
-          ],
-          "quantity": 2,
-          "user": 3
-        },
-        {
-          "id": 10,
-          "title": "HP Pavilion 15-DK1056WM",
-          "description": "HP Pavilion 15-DK1056WM Gaming Laptop 10th Gen Core i5, 8GB, 256GB SSD, GTX 1650 4GB, Windows 10",
-          "price": 1099,
-          "discountPercentage": 6.18,
-          "rating": 4.43,
-          "stock": 89,
-          "brand": "HP Pavilion",
-          "category": "laptops",
-          "thumbnail": "https://i.dummyjson.com/data/products/10/thumbnail.jpeg",
-          "images": [
-            "https://i.dummyjson.com/data/products/10/1.jpg",
-            "https://i.dummyjson.com/data/products/10/2.jpg",
-            "https://i.dummyjson.com/data/products/10/3.jpg",
-            "https://i.dummyjson.com/data/products/10/thumbnail.jpeg"
-          ],
-          "quantity": 1,
-          "user": 3
-        }
-      ],
-      "totalAmount": 2197,
-      "totalItems": 3,
-      "user": {
-        "email": "Haseeb@gmail.com",
-        "password": "Saadjaan786",
-        "id": 3,
-        "addresses": [
-          {
-            "name": "Haseeb Farrukh",
-            "email": "Muhammad.haseeb26@yahoo.com",
-            "phone": "02345432",
-            "street": "Lalamusa",
-            "city": "Gujrat",
-            "state": "Punjab",
-            "pinCode": "50200"
-          },
-          {
-            "name": "Wajeeha Mehmood",
-            "email": "Wajeeha@gmail.com",
-            "phone": "345",
-            "street": "Lalamusa",
-            "city": "Gujrat",
-            "state": "punjab",
-            "pinCode": "5 0200"
-          }
-        ]
-      },
-      "paymentMethod": "card",
-      "selectedAddress": {
-        "name": "Haseeb Farrukh",
-        "email": "Muhammad.haseeb26@yahoo.com",
-        "phone": "02345432",
-        "street": "Lalamusa",
-        "city": "Gujrat",
-        "state": "Punjab",
-        "pinCode": "50200"
-      },
-      "id": 1,
-      "status": "cancelled"
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh9ilviUSqvQP4uX5En_vYE3T6KEqoTEfHyg&s"
     },
     {
-      "items": [
-        {
-          "id": 1,
-          "title": "iPhone 9",
-          "description": "An apple mobile which is nothing like apple",
-          "price": 549,
-          "discountPercentage": 12.96,
-          "rating": 4.69,
-          "stock": 94,
-          "brand": "Apple",
-          "category": "smartphones",
-          "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
-          "images": [
-            "https://i.dummyjson.com/data/products/1/1.jpg",
-            "https://i.dummyjson.com/data/products/1/2.jpg",
-            "https://i.dummyjson.com/data/products/1/3.jpg",
-            "https://i.dummyjson.com/data/products/1/4.jpg",
-            "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
-          ],
-          "quantity": 2,
-          "user": 3
-        },
-        {
-          "id": 10,
-          "title": "HP Pavilion 15-DK1056WM",
-          "description": "HP Pavilion 15-DK1056WM Gaming Laptop 10th Gen Core i5, 8GB, 256GB SSD, GTX 1650 4GB, Windows 10",
-          "price": 1099,
-          "discountPercentage": 6.18,
-          "rating": 4.43,
-          "stock": 89,
-          "brand": "HP Pavilion",
-          "category": "laptops",
-          "thumbnail": "https://i.dummyjson.com/data/products/10/thumbnail.jpeg",
-          "images": [
-            "https://i.dummyjson.com/data/products/10/1.jpg",
-            "https://i.dummyjson.com/data/products/10/2.jpg",
-            "https://i.dummyjson.com/data/products/10/3.jpg",
-            "https://i.dummyjson.com/data/products/10/thumbnail.jpeg"
-          ],
-          "quantity": 1,
-          "user": 3
-        }
-      ],
-      "totalAmount": 2197,
-      "totalItems": 3,
-      "user": {
-        "email": "Haseeb@gmail.com",
-        "password": "Saadjaan786",
-        "id": 3,
-        "addresses": [
-          {
-            "name": "Haseeb Farrukh",
-            "email": "Muhammad.haseeb26@yahoo.com",
-            "phone": "02345432",
-            "street": "Lalamusa",
-            "city": "Gujrat",
-            "state": "Punjab",
-            "pinCode": "50200"
-          },
-          {
-            "name": "Wajeeha Mehmood",
-            "email": "Wajeeha@gmail.com",
-            "phone": "345",
-            "street": "Lalamusa",
-            "city": "Gujrat",
-            "state": "punjab",
-            "pinCode": "50200"
-          }
-        ]
-      },
-      "paymentMethod": "cash",
-      "selectedAddress": {
-        "name": "Haseeb Farrukh",
-        "email": "Muhammad.haseeb26@yahoo.com",
-        "phone": "02345432",
-        "street": "Lalamusa",
-        "city": "Gujrat",
-        "state": "Punjab",
-        "pinCode": "50200"
-      },
-      "id": 2,
-      "status": "dispatched"
+      "title": "Huawei P40",
+      "brand": "Huawei",
+      "price": 60000,
+      "description": "The Huawei P40 offers a 6.1-inch OLED display and a Leica Quad camera system. It features 5G connectivity and a Kirin 990 chipset for advanced performance and connectivity.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwn7ELmOriXSPQC7GAS2o72x-40YFl64_drw&s"
     },
     {
-      "items": [
-        {
-          "id": 1,
-          "title": "iPhone 9",
-          "description": "An apple mobile which is nothing like apple",
-          "price": 549,
-          "discountPercentage": 12.96,
-          "rating": 4.69,
-          "stock": 94,
-          "brand": "Apple",
-          "category": "smartphones",
-          "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
-          "images": [
-            "https://i.dummyjson.com/data/products/1/1.jpg",
-            "https://i.dummyjson.com/data/products/1/2.jpg",
-            "https://i.dummyjson.com/data/products/1/3.jpg",
-            "https://i.dummyjson.com/data/products/1/4.jpg",
-            "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
-          ],
-          "quantity": 2,
-          "user": 3
-        },
-        {
-          "id": 10,
-          "title": "HP Pavilion 15-DK1056WM",
-          "description": "HP Pavilion 15-DK1056WM Gaming Laptop 10th Gen Core i5, 8GB, 256GB SSD, GTX 1650 4GB, Windows 10",
-          "price": 1099,
-          "discountPercentage": 6.18,
-          "rating": 4.43,
-          "stock": 89,
-          "brand": "HP Pavilion",
-          "category": "laptops",
-          "thumbnail": "https://i.dummyjson.com/data/products/10/thumbnail.jpeg",
-          "images": [
-            "https://i.dummyjson.com/data/products/10/1.jpg",
-            "https://i.dummyjson.com/data/products/10/2.jpg",
-            "https://i.dummyjson.com/data/products/10/3.jpg",
-            "https://i.dummyjson.com/data/products/10/thumbnail.jpeg"
-          ],
-          "quantity": 1,
-          "user": 3
-        }
-      ],
-      "totalAmount": 2197,
-      "totalItems": 3,
-      "user": {
-        "email": "Haseeb@gmail.com",
-        "password": "Saadjaan786",
-        "id": 3,
-        "addresses": [
-          {
-            "name": "Haseeb Farrukh",
-            "email": "Muhammad.haseeb26@yahoo.com",
-            "phone": "02345432",
-            "street": "Lalamusa",
-            "city": "Gujrat",
-            "state": "Punjab",
-            "pinCode": "50200"
-          },
-          {
-            "name": "Wajeeha Mehmood",
-            "email": "Wajeeha@gmail.com",
-            "phone": "345",
-            "street": "Lalamusa",
-            "city": "Gujrat",
-            "state": "punjab",
-            "pinCode": "50200"
-          }
-        ]
-      },
-      "paymentMethod": "cash",
-      "selectedAddress": {
-        "name": "Haseeb Farrukh",
-        "email": "Muhammad.haseeb26@yahoo.com",
-        "phone": "02345432",
-        "street": "Lalamusa",
-        "city": "Gujrat",
-        "state": "Punjab",
-        "pinCode": "50200"
-      },
-      "id": 3,
-      "status": "delivered"
+      "title": "Huawei Mate 20",
+      "brand": "Huawei",
+      "price": 55000,
+      "description": "Featuring a 6.53-inch display and a triple rear camera system, the Huawei Mate 20 provides impressive photography and a large screen for immersive experiences. It includes a powerful Kirin 980 processor.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6kqOIeTQlxp4fuKiNlrFfR3ffonC8Ni6TEg&s"
     },
     {
-      "items": [
-        {
-          "id": 1,
-          "title": "iPhone 9",
-          "description": "An apple mobile which is nothing like apple",
-          "price": 549,
-          "discountPercentage": 12.96,
-          "rating": 4.69,
-          "stock": 94,
-          "brand": "Apple",
-          "category": "smartphones",
-          "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
-          "images": [
-            "https://i.dummyjson.com/data/products/1/1.jpg",
-            "https://i.dummyjson.com/data/products/1/2.jpg",
-            "https://i.dummyjson.com/data/products/1/3.jpg",
-            "https://i.dummyjson.com/data/products/1/4.jpg",
-            "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
-          ],
-          "quantity": 2,
-          "user": 3
-        },
-        {
-          "id": 10,
-          "title": "HP Pavilion 15-DK1056WM",
-          "description": "HP Pavilion 15-DK1056WM Gaming Laptop 10th Gen Core i5, 8GB, 256GB SSD, GTX 1650 4GB, Windows 10",
-          "price": 1099,
-          "discountPercentage": 6.18,
-          "rating": 4.43,
-          "stock": 89,
-          "brand": "HP Pavilion",
-          "category": "laptops",
-          "thumbnail": "https://i.dummyjson.com/data/products/10/thumbnail.jpeg",
-          "images": [
-            "https://i.dummyjson.com/data/products/10/1.jpg",
-            "https://i.dummyjson.com/data/products/10/2.jpg",
-            "https://i.dummyjson.com/data/products/10/3.jpg",
-            "https://i.dummyjson.com/data/products/10/thumbnail.jpeg"
-          ],
-          "quantity": 1,
-          "user": 3
-        }
-      ],
-      "totalAmount": 2197,
-      "totalItems": 3,
-      "user": {
-        "email": "Haseeb@gmail.com",
-        "password": "Saadjaan786",
-        "id": 3,
-        "addresses": [
-          {
-            "name": "Haseeb Farrukh",
-            "email": "Muhammad.haseeb26@yahoo.com",
-            "phone": "02345432",
-            "street": "Lalamusa",
-            "city": "Gujrat",
-            "state": "Punjab",
-            "pinCode": "50200"
-          },
-          {
-            "name": "Wajeeha Mehmood",
-            "email": "Wajeeha@gmail.com",
-            "phone": "345",
-            "street": "Lalamusa",
-            "city": "Gujrat",
-            "state": "punjab",
-            "pinCode": "50200"
-          }
-        ]
-      },
-      "paymentMethod": "cash",
-      "selectedAddress": null,
-      "status": "pending",
-      "id": 4
+      "title": "Huawei Mate 30",
+      "price": 65000,
+      "brand": "Huawei",
+      "description": "The Huawei Mate 30 features a 6.62-inch OLED display and a Leica Quad camera setup. It supports 5G connectivity and is powered by the Kirin 990 chipset, offering high performance and connectivity.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRT7kw3eU8sT-HtIt92GuLnHJ36J4LLZg-mRA&s"
     },
     {
-      "items": [
-        {
-          "id": 48,
-          "title": "Women Strip Heel",
-          "description": "Features: Flip-flops, Mid Heel, Comfortable, Striped Heel, Antiskid, Striped",
-          "price": 40,
-          "discountPercentage": 10.83,
-          "rating": 4.02,
-          "stock": 25,
-          "brand": "Sandals Flip Flops",
-          "category": "womens-shoes",
-          "thumbnail": "https://i.dummyjson.com/data/products/48/thumbnail.jpg",
-          "images": [
-            "https://i.dummyjson.com/data/products/48/1.jpg",
-            "https://i.dummyjson.com/data/products/48/2.jpg",
-            "https://i.dummyjson.com/data/products/48/3.jpg",
-            "https://i.dummyjson.com/data/products/48/4.jpg",
-            "https://i.dummyjson.com/data/products/48/thumbnail.jpg"
-          ],
-          "quantity": 1,
-          "user": 1
-        }
-      ],
-      "totalAmount": 40,
-      "totalItems": 1,
-      "user": {
-        "email": "test@gmail.com",
-        "password": "Qwerty123",
-        "id": 1,
-        "addresses": [
-          {
-            "name": "Abhishek R",
-            "email": "test@gmail.com",
-            "phone": "1234567788",
-            "street": "11th Main",
-            "city": "Banaglore",
-            "state": "Karnataka",
-            "pinCode": "560034"
-          }
-        ]
-      },
-      "paymentMethod": "cash",
-      "selectedAddress": null,
-      "status": "pending",
-      "id": 5
+      "title": "Huawei Nova 5",
+      "price": 35000,
+      "brand": "Huawei",
+      "description": "With a 6.39-inch AMOLED display and a quad-camera system, the Huawei Nova 5 offers a stylish design and powerful performance. It includes a Kirin 980 processor and a large battery for extended use.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD8H0OoFIJIMc9tEiDzX9jsJSvsrATQ_SbDQ&s"
     },
     {
-      "items": [
-        {
-          "id": 25,
-          "title": "Gulab Powder 50 Gram",
-          "description": "Dry Rose Flower Powder Gulab Powder 50 Gram • Treats Wounds",
-          "price": 70,
-          "discountPercentage": 13.58,
-          "rating": 4.87,
-          "stock": 47,
-          "brand": "Dry Rose",
-          "category": "groceries",
-          "thumbnail": "https://i.dummyjson.com/data/products/25/thumbnail.jpg",
-          "images": [
-            "https://i.dummyjson.com/data/products/25/1.png",
-            "https://i.dummyjson.com/data/products/25/2.jpg",
-            "https://i.dummyjson.com/data/products/25/3.png",
-            "https://i.dummyjson.com/data/products/25/4.jpg",
-            "https://i.dummyjson.com/data/products/25/thumbnail.jpg"
-          ],
-          "quantity": 1,
-          "user": 3
-        }
-      ],
-      "totalAmount": 70,
-      "totalItems": 1,
-      "user": {
-        "email": "Haseeb@gmail.com",
-        "password": "Saadjaan786",
-        "id": 3,
-        "addresses": [
-          {
-            "name": "Haseeb Farrukh",
-            "email": "Muhammad.haseeb26@yahoo.com",
-            "phone": "02345432",
-            "street": "Lalamusa",
-            "city": "Gujrat",
-            "state": "Punjab",
-            "pinCode": "50200"
-          },
-          {
-            "name": "Wajeeha Mehmood",
-            "email": "Wajeeha@gmail.com",
-            "phone": "345",
-            "street": "Lalamusa",
-            "city": "Gujrat",
-            "state": "punjab",
-            "pinCode": "50200"
-          }
-        ]
-      },
-      "paymentMethod": "card",
-      "selectedAddress": {
-        "name": "Haseeb Farrukh",
-        "email": "Muhammad.haseeb26@yahoo.com",
-        "phone": "02345432",
-        "street": "Lalamusa",
-        "city": "Gujrat",
-        "state": "Punjab",
-        "pinCode": "50200"
-      },
-      "status": "pending",
-      "id": 6
+      "title": "Huawei Nova 6",
+      "price": 40000,
+      "description": "The Huawei Nova 6 features a 6.57-inch display and a dual front camera setup. It offers 5G connectivity and a powerful Kirin 990 processor for high-speed performance and connectivity.",
+      "brand": "Huawei",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbvSwHo4dWpM4k_mLGR7cuYGApmjpqTRePpQ&s"
     },
     {
-      "items": [
-        {
-          "id": 13,
-          "title": "Fog Scent Xpressio Perfume",
-          "description": "Product details of Best Fog Scent Xpressio Perfume 100ml For Men cool long lasting perfumes for Men",
-          "price": 13,
-          "discountPercentage": 8.14,
-          "rating": 4.59,
-          "stock": 61,
-          "brand": "Fog Scent Xpressio",
-          "category": "fragrances",
-          "thumbnail": "https://i.dummyjson.com/data/products/13/thumbnail.webp",
-          "images": [
-            "https://i.dummyjson.com/data/products/13/1.jpg",
-            "https://i.dummyjson.com/data/products/13/2.png",
-            "https://i.dummyjson.com/data/products/13/3.jpg",
-            "https://i.dummyjson.com/data/products/13/4.jpg",
-            "https://i.dummyjson.com/data/products/13/thumbnail.webp"
-          ],
-          "quantity": 1,
-          "user": 1
-        }
-      ],
-      "totalAmount": 13,
-      "totalItems": 1,
-      "user": {
-        "email": "test@gmail.com",
-        "password": "Qwerty123",
-        "id": 1,
-        "addresses": [
-          {
-            "name": "Abhishek R",
-            "email": "test@gmail.com",
-            "phone": "1234567788",
-            "street": "11th Main",
-            "city": "Banaglore",
-            "state": "Karnataka",
-            "pinCode": "560034"
-          }
-        ]
-      },
-      "paymentMethod": "cash",
-      "selectedAddress": {
-        "name": "Abhishek R",
-        "email": "test@gmail.com",
-        "phone": "1234567788",
-        "street": "11th Main",
-        "city": "Banaglore",
-        "state": "Karnataka",
-        "pinCode": "560034"
-      },
-      "status": "pending",
-      "id": 7
+      "title": "Nokia 6.1",
+      "price": 25000,
+      "description": "The Nokia 6.1 features a 5.5-inch Full HD display and a 16 MP rear camera. It offers a clean Android experience and a durable build, suitable for everyday use.",
+      "brand": "Nokia",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjQqahif4Rf4WPY4PqvYY8X9mwGthl0p5oBw&s"
     },
     {
-      "items": [
-        {
-          "id": 1,
-          "title": "iPhone 9",
-          "description": "An apple mobile which is nothing like apple",
-          "price": 549,
-          "discountPercentage": 12.96,
-          "rating": 4.69,
-          "stock": 94,
-          "brand": "Apple",
-          "category": "smartphones",
-          "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
-          "images": [
-            "https://i.dummyjson.com/data/products/1/1.jpg",
-            "https://i.dummyjson.com/data/products/1/2.jpg",
-            "https://i.dummyjson.com/data/products/1/3.jpg",
-            "https://i.dummyjson.com/data/products/1/4.jpg",
-            "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
-          ],
-          "quantity": 1,
-          "user": 5
-        }
-      ],
-      "totalAmount": 549,
-      "totalItems": 1,
-      "user": {
-        "email": "Saad@gmail.com",
-        "password": "Qwerty123",
-        "id": 5,
-        "addresses": [
-          {
-            "name": "Saad",
-            "email": "Saad@gmail.com",
-            "phone": "1234567788",
-            "street": "11th Main",
-            "city": "Banaglore",
-            "state": "Karnataka",
-            "pinCode": "560034"
-          }
-        ]
-      },
-      "paymentMethod": "cash",
-      "selectedAddress": {
-        "name": "Saad",
-        "email": "Saad@gmail.com",
-        "phone": "1234567788",
-        "street": "11th Main",
-        "city": "Banaglore",
-        "state": "Karnataka",
-        "pinCode": "560034"
-      },
-      "status": "delivered",
-      "id": 8
+      "title": "Nokia 7.1",
+      "price": 30000,
+      "description": "With a 5.84-inch Full HD+ display and a dual-camera setup, the Nokia 7.1 offers excellent performance and a high-quality screen. It includes a Snapdragon 636 processor for smooth operation.",
+      "brand": "Nokia",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTev6RaCdbZN6nUfnuavmt1HwtiPiFpL7cIxg&s"
     },
     {
-      "items": [
-        {
-          "id": 10,
-          "title": "HP Pavilion 15-DK1056WM",
-          "description": "HP Pavilion 15-DK1056WM Gaming Laptop 10th Gen Core i5, 8GB, 256GB SSD, GTX 1650 4GB, Windows 10",
-          "price": 1099,
-          "discountPercentage": 6.18,
-          "rating": 4.43,
-          "stock": 89,
-          "brand": "HP Pavilion",
-          "category": "laptops",
-          "thumbnail": "https://i.dummyjson.com/data/products/10/thumbnail.jpeg",
-          "images": [
-            "https://i.dummyjson.com/data/products/10/1.jpg",
-            "https://i.dummyjson.com/data/products/10/2.jpg",
-            "https://i.dummyjson.com/data/products/10/3.jpg",
-            "https://i.dummyjson.com/data/products/10/thumbnail.jpeg"
-          ],
-          "quantity": 1,
-          "user": 6
-        }
-      ],
-      "totalAmount": 1099,
-      "totalItems": 1,
-      "user": {
-        "email": "Wajeeha@gmail.com",
-        "password": "Qwerty123",
-        "id": 6,
-        "addresses": [
-          {
-            "name": "Wajeeha",
-            "email": "Wajeeha@gmail.com",
-            "phone": "03234",
-            "street": "asdf",
-            "city": "wer",
-            "state": "sd",
-            "pinCode": "asd"
-          }
-        ]
-      },
-      "paymentMethod": "cash",
-      "selectedAddress": {
-        "name": "Wajeeha",
-        "email": "Wajeeha@gmail.com",
-        "phone": "03234",
-        "street": "asdf",
-        "city": "wer",
-        "state": "sd",
-        "pinCode": "asd"
-      },
-      "status": "pending",
-      "id": 9
+      "title": "Nokia 8.1",
+      "price": 40000,
+      "brand": "Nokia",
+      "description": "The Nokia 8.1 features a 6.18-inch Full HD+ display and a dual rear camera system with ZEISS optics. It is powered by the Snapdragon 710 chipset and provides a smooth user experience.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzGayRHaf9F1y1o71xxojZGXSqNZIvfyQybQ&s"
+    },
+    {
+      "title": "Nokia 9 PureView",
+      "price": 60000,
+      "brand": "Nokia",
+      "description": "Featuring a 5.99-inch QHD+ display and a unique five-camera setup, the Nokia 9 PureView offers advanced photography capabilities. It includes a Snapdragon 845 processor for powerful performance.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6_DcsEpxhbB-0NBEJmdREb2fjAP6xZalzWQ&s"
+    },
+    {
+      "title": "Nokia X20",
+      "price": 55000,
+      "brand": "Nokia",
+      "description": "The Nokia X20 boasts a 6.67-inch Full HD+ display and a quad-camera setup. It supports 5G connectivity and features a durable design, making it a solid choice for modern users.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGjIFBFA2rWHxdBERsIV79mbD3WADiieIx2Q&s"
+    },
+    {
+      "title": "Honor 10 Lite",
+      "price": 25000,
+      "brand": "Honor",
+      "description": "The Honor 10 Lite features a 6.21-inch Full HD display and a 24 MP front camera. It offers a sleek design and good performance for everyday tasks.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGjIFBFA2rWHxdBERsIV79mbD3WADiieIx2Q&s"
+    },
+    {
+      "title": "Honor 20",
+      "price": 35000,
+      "brand": "Honor",
+      "description": "With a 6.26-inch Full HD display and a quad-camera system, the Honor 20 provides excellent photo quality and performance. It includes a powerful Kirin 980 processor.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLHZm353XZL1i1WPoMVEVUz-vztfqqyEghrw&s"
+    },
+    {
+      "title": "Honor 30",
+      "price": 45000,
+      "brand": "Honor",
+      "description": "The Honor 30 features a 6.53-inch OLED display and a triple-camera setup. It supports 5G connectivity and offers top-notch performance with its Kirin 985 chipset.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6VxGXt1Sz1JhYMIDbtdUXq_vR6vMZX6jNYQ&s"
+    },
+    {
+      "title": "Honor X10",
+      "price": 40000,
+      "brand": "Honor",
+      "description": "The Honor X10 comes with a 6.63-inch Full HD+ display and a 40 MP triple-camera system. It includes a pop-up selfie camera and 5G support for future-proof connectivity.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDti91Qn1xMUjxOQXt2-uqMc51LztEZ2Ce2w&s"
+    },
+    {
+      "title": "Honor V40",
+      "price": 60000,
+      "brand": "Honor",
+      "description": "Featuring a 6.72-inch OLED display and a 50 MP quad-camera setup, the Honor V40 offers advanced photography and high performance with its MediaTek Dimensity 1000+ processor.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_2uTbXeEvlR0BUrcmYnrhmdlz8xpbbNwSSQ&s"
+    },
+    {
+      "title": "Xiaomi Mi A3",
+      "price": 25000,
+      "brand": "Xiaomi",
+      "description": "The Xiaomi Mi A3 features a 6.08-inch AMOLED display and a triple-camera system. It offers a clean Android experience and a powerful Snapdragon 665 processor.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoQsUgmLL2YnO1orEx5e9YEI5fr6RLF3lC5A&s"
+    },
+    {
+      "title": "Xiaomi Redmi Note 9",
+      "price": 30000,
+      "brand": "Xiaomi",
+      "description": "With a 6.53-inch Full HD+ display and a quad-camera setup, the Xiaomi Redmi Note 9 offers excellent performance and battery life with its 5020 mAh battery.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ3ZVLlubC0c8qe4CDBszIgyIy_SYnBKBXwA&s"
+    },
+    {
+      "title": "Xiaomi Mi 10",
+      "price": 50000,
+      "brand": "Xiaomi",
+      "description": "The Xiaomi Mi 10 features a 6.67-inch AMOLED display and a 108 MP quad-camera system. It includes a Snapdragon 865 processor and 5G support for high-speed connectivity.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1W8736QgS0_fWNbfMSki2zTIMJ1A-XcVzhA&s"
+    },
+    {
+      "title": "Xiaomi Poco X3",
+      "price": 35000,
+      "brand": "Xiaomi",
+      "description": "The Poco X3 offers a 6.67-inch Full HD+ display with a 120 Hz refresh rate and a 64 MP quad-camera setup. It provides strong performance with its Snapdragon 732G chipset.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiPUa608JNDQmzQaPalI8fpo94yN8-ZTIUvg&s"
+    },
+    {
+      "title": "Xiaomi Redmi K40",
+      "price": 60000,
+      "brand": "Xiaomi",
+      "description": "Featuring a 6.67-inch AMOLED display and a 48 MP triple-camera system, the Xiaomi Redmi K40 offers high performance with its Snapdragon 888 processor and 5G support.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1JqvEiTdOrftr8KR7uEx12hwUoad45bC7xw&s"
+    },
+    {
+      "title": "Motorola Moto G8",
+      "price": 22000,
+      "brand": "Motorola",
+      "description": "The Motorola Moto G8 features a 6.4-inch Full HD display and a triple-camera setup. It offers a clean Android experience and a large 4000 mAh battery.",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRMYRUHbc9-5Rx95PoUmMiszoBhitYmm8ipA&s"
+    },
+    {
+      "title": "Motorola Moto G Power",
+      "price": 28000,
+      "description": "With a 6.4-inch Full HD+ display and a 16 MP triple-camera system, the Moto G Power includes a massive 5000 mAh battery for extended use and a Snapdragon 665 processor.",
+      "brand": "Motorola",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpmaUqF0Dk05AcmxXoCYRop69NJ-UG4gyswA&s"
+    },
+    {
+      "title": "Motorola Moto Edge",
+      "price": 45000,
+      "description": "The Motorola Moto Edge offers a 6.7-inch OLED display with a 90 Hz refresh rate and a 64 MP triple-camera setup. It includes a Snapdragon 765G processor and 5G support.",
+      "brand": "Motorola",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTYxClmpejvNnW_9QbLKfphiLQ7VB6XqRdvQ&s"
+    },
+    {
+      "title": "Motorola Moto Razr",
+      "price": 60000,
+      "description": "The Motorola Moto Razr features a 6.2-inch foldable OLED display and a 48 MP rear camera. It combines classic design with modern technology, including a Snapdragon 710 processor.",
+      "brand": "Motorola",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT14Neav4EylNUi8iulmBHnrO5mHnM1s_w1Tg&s"
+    },
+    {
+      "title": "Motorola Moto G Stylus",
+      "price": 32000,
+      "description": "Featuring a 6.4-inch Full HD+ display and a 48 MP quad-camera system, the Moto G Stylus includes a built-in stylus for note-taking and creative tasks, powered by a Snapdragon 665 chipset.",
+      "brand": "Motorola",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTruCgSSFow67hmXQn3JO5XeX1_jmKxshIiaQ&s"
     }
   ]
 }
