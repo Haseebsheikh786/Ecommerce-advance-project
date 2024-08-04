@@ -20,7 +20,7 @@ let transporter = nodemailer.createTransport({
 
 exports.sendMail = async function ({ to, subject, text, html }) {
   let info = await transporter.sendMail({
-    from: '"Auth Checking" <haseeb99sh@gmail.com>',
+    from: '"E-Shop" <haseeb99sh@gmail.com>',
     to,
     subject,
     text,

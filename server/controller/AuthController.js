@@ -66,7 +66,7 @@ const VerifyEmail = asyncHandler(async (req, res) => {
     throw new Error("Verification code has expired");
   }
   const subject = "Verify Email";
-  const html = `<p>Your account has been successfully activated. </p>`;
+  const html = `<p>Your account has been successfully verified. </p>`;
   const response = await sendMail({ to: email, subject, html });
 
   userAvailable.Isverified = true;
@@ -367,7 +367,7 @@ const resetPassword = asyncHandler(async (req, res) => {
     user.password = hashedPassword;
     await user.save();
     const subject = "Password Reset Request";
-    const html = `<p>Your password has been successfully reset.</p>`;
+    const html = `<p>Your password has been successfully changed.</p>`;
     if (email) {
       const response = await sendMail({ to: email, subject, html });
       res.status(200).json({ message: "password change successfully" });
