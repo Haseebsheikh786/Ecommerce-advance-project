@@ -7,6 +7,7 @@ import { selectUserInfo } from "../../pages/auth/authSlice";
 import { useSelector } from "react-redux";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import io from "socket.io-client";
+import { LoaderCircle } from "lucide-react";
 
 const Chat = () => {
   const user = useSelector(selectUserInfo);
@@ -17,6 +18,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [chats, setChats] = useState([]);
   const socketRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
@@ -28,20 +30,26 @@ const Chat = () => {
   };
 
   const sendMessage = async (e) => {
-    if (e.key === "Enter" && newMessage.trim()) {
-      const data = {
-        sender: user._id,
-        content: newMessage,
-        chat: chatId,
-        sender_name: user.userName,
-        sender_role: user.role,
-      };
+    // Handle message sending on both Enter key press and button click
+    if (e.key === "Enter" || e.type === "click") {
+      if (newMessage.trim()) {
+        // Only send non-empty messages
+        const data = {
+          sender: user._id,
+          content: newMessage,
+          chat: chatId,
+          sender_name: user.userName,
+          sender_role: user.role,
+        };
 
-      // Emit the message through the socket
-
-      await axiosInstance.post("api/message", data);
-      setNewMessage("");
-      socketRef.current.emit("new_message", data);
+        try {
+          setNewMessage(""); // Clear input field after successful message sending
+          socketRef.current.emit("new_message", data); // Emit the message through the socket
+          await axiosInstance.post("api/message", data);
+        } catch (error) {
+          console.error("Error sending message:", error);
+        }
+      }
     }
   };
 
@@ -57,9 +65,11 @@ const Chat = () => {
   }, [user]);
 
   const fetchMessages = async (chat) => {
+    setLoading(true);
     setChatId(chat);
     const res = await axiosInstance.get(`api/chat/${chat._id}`);
     setMessages(res.data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -100,7 +110,7 @@ const Chat = () => {
           <button className="bg-blue-500 text-white p-2 rounded-full shadow-lg hover:bg-blue-600">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-             className="h-8 w-8"
+              className="h-8 w-8"
               viewBox="0 0 16 16"
             >
               <g fill="currentColor">
@@ -116,7 +126,7 @@ const Chat = () => {
       {isChatOpen && !chatId._id && (
         <div className="fixed inset-0 z-50 flex justify-end">
           <div className="fixed inset-0 " onClick={toggleChat}></div>
-          <Card className="fixed bottom-0 z-50 right-4 w-96 bg-background h-[500px] rounded-lg transition-transform transform translate-y-0">
+          <Card className="fixed bottom-0 z-50 sm:right-4 sm:w-96 w-screen bg-background h-[500px] rounded-lg transition-transform transform translate-y-0">
             <div className="bg-blue-500 text-white p-2 flex justify-between items-center">
               <h3 className="text-lg">Chats </h3>
               <button onClick={toggleChat} className="text-white">
@@ -171,7 +181,7 @@ const Chat = () => {
       {isChatOpen && chatId._id && (
         <div className="fixed inset-0 z-50 flex justify-end">
           <div className="fixed inset-0 " onClick={toggleChat}></div>
-          <Card className="fixed bottom-0 z-50 right-4 w-96 bg-background h-[500px] rounded-lg transition-transform transform translate-y-0">
+          <Card className="fixed bottom-0 z-50 sm:right-4 w-screen sm:w-96 bg-background h-[500px] rounded-lg transition-transform transform translate-y-0">
             <div className="bg-blue-500 text-white p-2 flex justify-between items-center">
               <button onClick={changeChat}>
                 <svg
@@ -216,35 +226,51 @@ const Chat = () => {
                 msOverflowStyle: "auto", // Default for IE and Edge
               }}
             >
-              {messages.map((message, index) => (
-                <div key={message.id} className="mb-2">
-                  {message.sender_role === "user" ? (
-                    <div className="flex items-center">
-                      <div className="bg-card shadow border rounded-md p-2">
-                        <p className="pr-6">{message.content}</p>
-                        <p className="text-xs text-muted-foreground text-end">
-                          {new Date(message.created_at).toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-end justify-end space-x-2 my-2">
-                      <div className="bg-muted shadow border rounded-md p-2">
-                        <p className="pr-6">{message.content}</p>
-                        <p className="text-xs text-muted-foreground text-end">
-                          {new Date(message.created_at).toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                        </p>
-                      </div>
-                    </div>
-                  )}
+              {loading ? (
+                <div className="flex justify-center items-center h-full">
+                  <LoaderCircle class="mr-2 h-8 w-8 animate-spin" />
                 </div>
-              ))}
+              ) : messages.length === 0 ? (
+                <div className="flex justify-center items-center h-full">
+                  Start a conversation by sending a message
+                </div>
+              ) : (
+                messages.map((message, index) => (
+                  <div key={message.id} className="mb-2">
+                    {message.sender_role === "user" ? (
+                      <div className="flex items-center">
+                        <div className="bg-card shadow border rounded-md p-2">
+                          <p className="pr-6">{message.content}</p>
+                          <p className="text-xs text-muted-foreground text-end">
+                            {new Date(message.created_at).toLocaleTimeString(
+                              [],
+                              {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              }
+                            )}
+                          </p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-end justify-end space-x-2 my-2">
+                        <div className="bg-muted shadow border rounded-md p-2">
+                          <p className="pr-6">{message.content}</p>
+                          <p className="text-xs text-muted-foreground text-end">
+                            {new Date(message.created_at).toLocaleTimeString(
+                              [],
+                              {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              }
+                            )}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))
+              )}
             </div>
             <div className="border-t relative">
               <Input
@@ -257,7 +283,7 @@ const Chat = () => {
               />
               <div
                 onClick={sendMessage}
-                className="absolute right-0 top-3 right-2 "
+                className="absolute cursor-pointer right-0 top-3 right-2 "
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

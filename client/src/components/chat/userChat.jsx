@@ -21,20 +21,24 @@ const Chat = () => {
   };
 
   const sendMessage = async (e) => {
-    if (e.key === "Enter" && newMessage.trim()) {
-      const data = {
-        sender: user._id,
-        content: newMessage,
-        chat: chatId,
-        sender_name: user.userName,
-        sender_role: user.role,
-      };
+    if (e.key === "Enter" || e.type === "click") {
+      if (newMessage.trim()) {
+        const data = {
+          sender: user._id,
+          content: newMessage,
+          chat: chatId,
+          sender_name: user.userName,
+          sender_role: user.role,
+        };
 
-      // Emit the message through the socket
-
-      await axiosInstance.post("api/message", data);
-      setNewMessage("");
-      socketRef.current.emit("new_message", data);
+        try {
+          await axiosInstance.post("api/message", data);
+          setNewMessage("");
+          socketRef.current.emit("new_message", data);
+        } catch (error) {
+          console.error("Error sending message:", error);
+        }
+      }
     }
   };
 
@@ -112,7 +116,7 @@ const Chat = () => {
       {isChatOpen && (
         <div className="fixed inset-0 z-50 flex justify-end">
           <div className="fixed inset-0 " onClick={toggleChat}></div>
-          <Card className="fixed bottom-0 z-50 right-4 w-96 bg-background h-[500px] rounded-lg transition-transform transform translate-y-0">
+          <Card className="fixed bottom-0 z-50 sm:right-4 w-screen sm:w-96 bg-background h-[500px] rounded-lg transition-transform transform translate-y-0">
             <div className="bg-blue-500 text-white p-2 flex justify-between items-center">
               <h3 className="text-lg">Contact Support </h3>
               <button onClick={toggleChat} className="text-white">
@@ -141,36 +145,51 @@ const Chat = () => {
                 msOverflowStyle: "auto",
               }}
             >
-              {messages.map((message, index) => (
-                <div key={message.id} className="mb-2">
-                  {message.sender_id !== user?._id ? (
-                    <div className="flex items-center">
-                      <div className="bg-card shadow border rounded-md p-2">
-                        <p className="pr-6">{message.content}</p>
-                        <p className="text-xs text-muted-foreground text-end">
-                          {new Date(message.created_at).toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-end justify-end space-x-2 my-2">
-                      <div className="bg-muted shadow border rounded-md p-2">
-                        <p className="pr-6">{message.content}</p>
-                        <p className="text-xs text-muted-foreground text-end">
-                          {new Date(message.created_at).toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                        </p>
-                      </div>
-                    </div>
-                  )}
+              {messages.length === 0 ? (
+                <div className="flex justify-center items-center h-full">
+                  Start a conversation by sending a message
                 </div>
-              ))}
+              ) : (
+                <>
+                  {messages.map((message, index) => (
+                    <div key={message.id} className="mb-2">
+                      {message.sender_id !== user?._id ? (
+                        <div className="flex items-center">
+                          <div className="bg-card shadow border rounded-md p-2">
+                            <p className="pr-6">{message.content}</p>
+                            <p className="text-xs text-muted-foreground text-end">
+                              {new Date(message.created_at).toLocaleTimeString(
+                                [],
+                                {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                }
+                              )}
+                            </p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col items-end justify-end space-x-2 my-2">
+                          <div className="bg-muted shadow border rounded-md p-2">
+                            <p className="pr-6">{message.content}</p>
+                            <p className="text-xs text-muted-foreground text-end">
+                              {new Date(message.created_at).toLocaleTimeString(
+                                [],
+                                {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                }
+                              )}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
+
             <div className="border-t relative">
               <Input
                 value={newMessage}
@@ -182,7 +201,7 @@ const Chat = () => {
               />
               <div
                 onClick={sendMessage}
-                className="absolute right-0 top-3 right-2"
+                className="absolute right-0 top-3 cursor-pointer right-2"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

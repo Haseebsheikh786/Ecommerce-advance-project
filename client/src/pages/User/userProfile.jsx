@@ -95,19 +95,22 @@ export default function UserProfile() {
   return (
     <>
       <Card className="my-8 mx-4">
-        <div className="flex justify-between items-center ">
+        <div className="sm:flex justify-between items-center ">
           <CardHeader>
             <CardTitle>{userInfo?.userName}</CardTitle>
             <CardDescription>{userInfo?.email}</CardDescription>
           </CardHeader>
-          <Button
-            className="mx-4"
-            size="sm"
-            onClick={() => setShowDialog(true)}
-          >
-            Add Address
-          </Button>
+          <div className="text-end mb-3 sm:mb-0 sm:mt-3">
+            <Button
+              className="mx-4"
+              size="sm"
+              onClick={() => setShowDialog(true)}
+            >
+              Add Address
+            </Button>
+          </div>
         </div>
+       
         <CardContent>
           <Table>
             <TableHeader>
@@ -131,7 +134,7 @@ export default function UserProfile() {
                     <TableCell className="">{address.city}</TableCell>
                     <TableCell className="">{address.street}</TableCell>
                     <TableCell className="">{address.zip}</TableCell>
-                    <TableCell class="border-b cursor-pointer">
+                    <TableCell class="border-b cursor-pointer px-8">
                       <DropdownMenu>
                         <DropdownMenuTrigger as-child>
                           <div class="cursor-pointer">
@@ -230,10 +233,10 @@ export default function UserProfile() {
       <AlertDialog open={showAlertDialog} onOpenChange={setShowAlertDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Confirm Item Deletion</AlertDialogTitle>
+            <AlertDialogTitle>Confirm Address Deletion</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete this item from your cart? This
-              action cannot be undone.
+              Are you sure you want to delete this address from your profile?
+              This action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

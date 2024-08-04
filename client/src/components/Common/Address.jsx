@@ -14,6 +14,8 @@ import { Label } from "../../components/ui/label";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserAsync } from "../../pages/auth/authSlice";
 import { useToast } from "../../components/ui/use-toast";
+import ValidationIcon from "../../components/ValidationIcon";
+
 export function Address({
   showDialog,
   setShowDialog,
@@ -32,8 +34,18 @@ export function Address({
   const [city, setCity] = useState("");
   const [street, setStreet] = useState("");
   const [zip, setZip] = useState("");
+  const [error, setError] = useState(false);
 
   const handleAdd = () => {
+    if (!name || !email || !phone || !city || !street || !zip) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh!",
+        description: "All fields are required",
+      });
+      setError(true);
+      return;
+    }
     const address = {
       name: name,
       email: email,
@@ -74,6 +86,7 @@ export function Address({
     setStreet("");
     setZip("");
     setShowDialog(false);
+    setError(false);
     if (editAbleData?.name) {
       setEditAbleData({});
     }
@@ -104,11 +117,15 @@ export function Address({
               <DialogDescription>Kindly Fill All the details</DialogDescription>
             </DialogHeader>
 
-            <div className="grid grid-cols-2 gap-2">
-              <div>
-                <Label htmlFor="name" className="text-right">
-                  Name
-                </Label>
+            <div className="grid grid-cols-2 gap-2  ">
+              <div className="space-y-1">
+                {error && !name ? (
+                  <Label class="text-red-600">
+                    Name <ValidationIcon />
+                  </Label>
+                ) : (
+                  <Label>Name</Label>
+                )}
                 <Input
                   id="name"
                   placeholder="name..."
@@ -116,10 +133,14 @@ export function Address({
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
-              <div>
-                <Label htmlFor="email" className="text-right">
-                  Email
-                </Label>
+              <div className="space-y-1">
+                {error && !email ? (
+                  <Label class="text-red-600">
+                    Email <ValidationIcon />
+                  </Label>
+                ) : (
+                  <Label>Email</Label>
+                )}
                 <Input
                   type="email"
                   id="email"
@@ -128,10 +149,15 @@ export function Address({
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <div>
-                <Label htmlFor="phone" className="text-right">
-                  Phone
-                </Label>
+              <div className="space-y-1">
+                {error && !phone ? (
+                  <Label class="text-red-600">
+                    Phone <ValidationIcon />
+                  </Label>
+                ) : (
+                  <Label>Phone</Label>
+                )}
+
                 <Input
                   id="phone"
                   type="number"
@@ -140,10 +166,14 @@ export function Address({
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
-              <div>
-                <Label htmlFor="city" className="text-right">
-                  City
-                </Label>
+              <div className="space-y-1">
+                {error && !city ? (
+                  <Label class="text-red-600">
+                    City <ValidationIcon />
+                  </Label>
+                ) : (
+                  <Label>City</Label>
+                )}
                 <Input
                   id="city"
                   placeholder="city..."
@@ -151,10 +181,14 @@ export function Address({
                   onChange={(e) => setCity(e.target.value)}
                 />
               </div>
-              <div>
-                <Label htmlFor="street" className="text-right">
-                  Street
-                </Label>
+              <div className="space-y-1">
+                {error && !street ? (
+                  <Label class="text-red-600">
+                    Street <ValidationIcon />
+                  </Label>
+                ) : (
+                  <Label>Street</Label>
+                )}
                 <Input
                   id="street"
                   placeholder="street..."
@@ -162,10 +196,14 @@ export function Address({
                   onChange={(e) => setStreet(e.target.value)}
                 />
               </div>
-              <div>
-                <Label htmlFor="zip" className="text-right">
-                  Zip
-                </Label>
+              <div className="space-y-1">
+                {error && !zip ? (
+                  <Label class="text-red-600">
+                    Zip <ValidationIcon />
+                  </Label>
+                ) : (
+                  <Label>Zip</Label>
+                )}
                 <Input
                   id="zip"
                   type="number"

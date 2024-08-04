@@ -21,7 +21,7 @@ import { ITEMS_PER_PAGE } from "../../app/constants";
 import PaginationComponent from "../../components/Common/Pagination";
 import { Link } from "react-router-dom";
 import { LoaderCircle } from "lucide-react";
- const priceRanges = [
+const priceRanges = [
   { label: "Below Rs. 15,000", minPrice: 0, maxPrice: 15000 },
   { label: "Rs. 15,000 - Rs. 25,000", minPrice: 15000, maxPrice: 25000 },
   { label: "Rs. 25,000 - Rs. 40,000", minPrice: 25000, maxPrice: 40000 },
@@ -118,6 +118,10 @@ const ProductList = () => {
     setPage(page);
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  };
+
   useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
@@ -133,9 +137,7 @@ const ProductList = () => {
       );
       setIsLoading(false);
     };
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = 0;
-    }
+    scrollToTop();
 
     fetchProducts();
   }, [dispatch, filter, sort, page, search, selectedPriceRange]);
