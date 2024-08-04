@@ -152,7 +152,7 @@ const ProductList = () => {
 
   return (
     <>
-      <div className=" my-4 pt-3 mx-4">
+      <div className=" my-5 mx-4">
         <div className="">
           <div className="grid lg:grid-cols-5">
             <div className="border shadow py-6 hidden lg:block">

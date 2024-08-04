@@ -47,7 +47,7 @@ export default function UserOrder() {
 
   return (
     <>
-      <Card className="my-8 mx-4">
+      <Card className="my-5 mx-4">
         <div className="flex justify-between items-center ">
           <CardHeader>
             <CardTitle> orders</CardTitle>

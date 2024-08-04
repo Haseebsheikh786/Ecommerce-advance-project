@@ -88,7 +88,7 @@ const ShoppingCart = () => {
     <>
       {items.length > 0 ? (
         <>
-          <div className="flex justify-center items-center mx-4 my-4">
+          <div className="flex justify-center items-center mx-4 my-5">
             <Card className="w-full sm:w-[600px] sm:mx-auto px-3 sm:px-4 py-8  ">
               <CardTitle className="text-3xl mb-10 text-center">
                 Shopping Cart
@@ -220,8 +220,8 @@ const ShoppingCart = () => {
           </div>
         </>
       ) : (
-        <div className="flex justify-center items-center mx-4">
-          <Card className="w-full sm:w-[600px] sm:mx-auto px-3 sm:px-4 py-8 my-10">
+        <div className="flex justify-center items-center mx-4 my-5">
+          <Card className="w-full sm:w-[600px] sm:mx-auto px-3 sm:px-4 py-8">
             <CardTitle className="sm:text-3xl mb-10 text-center">
               Your Shopping Cart is Empty
             </CardTitle>

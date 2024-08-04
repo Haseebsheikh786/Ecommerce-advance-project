@@ -76,7 +76,7 @@ const ProductDetail = () => {
   return (
     <div>
       {loading ? (
-        <div class="grid sm:grid-cols-2 sm:space-x-5 p-5">
+        <div class="grid sm:grid-cols-2 sm:space-x-5 my-5 mx-4">
           <div className="hidden sm:inline-block">
             <Skeleton className="h-screen w-auto rounded-lg" />
           </div>
@@ -111,9 +111,9 @@ const ProductDetail = () => {
         </div>
       ) : (
         product && (
-          <Card class=" sm:p-4 py-4 px-2">
+          <Card class=" my-5 sm:mx-4">
             <div class="flex flex-col lg:flex-row">
-              <div class="w-full lg:w-1/2 p-4 hidden lg:flex">
+              <div class="w-full lg:w-1/2 px-4 hidden lg:flex">
                 <img
                   src={product.thumbnail}
                   alt="Basic Tee"
@@ -121,7 +121,7 @@ const ProductDetail = () => {
                 />
               </div>
 
-              <div class="w-full lg:w-1/2 p-4">
+              <div class="w-full lg:w-1/2 px-4">
                 <div class="flex justify-between items-center">
                   <CardTitle class=" sm:text-xl">{product.title}</CardTitle>
                   <CardTitle class="sm:text-xl ">${product.price}</CardTitle>
