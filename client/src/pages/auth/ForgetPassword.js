@@ -167,6 +167,15 @@ const ForgetPassword = () => {
       setLoading(false);
       setError(true);
       return;
+    } else if (Password.length < 8 || confirmPassword.length < 8) {
+      toast({
+        variant: "destructive",
+        title: "Weak Password",
+        description: "Password must be at least 8 characters long",
+      });
+      setError(true);
+      setLoading(false);
+      return;
     }
     if (Password !== confirmPassword) {
       toast("Passwords do not match");
@@ -375,7 +384,7 @@ const ForgetPassword = () => {
                     <form onSubmit={handleCHangePassword}>
                       <div class="grid gap-4">
                         <div class="grid gap-2">
-                          {error && !Password ? (
+                          {error && Password.length < 8 ? (
                             <Label class="text-red-600">
                               Password <ValidationIcon />
                             </Label>
@@ -425,7 +434,7 @@ const ForgetPassword = () => {
                           </div>
                         </div>
                         <div class="grid gap-2">
-                          {error && !confirmPassword ? (
+                          {error && confirmPassword.length < 8 ? (
                             <Label class="text-red-600">
                               Confirm Password <ValidationIcon />
                             </Label>

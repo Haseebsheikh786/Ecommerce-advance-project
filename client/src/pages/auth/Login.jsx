@@ -34,6 +34,26 @@ const AuthPage = ({}) => {
     setShowPassword(!showPassword);
   };
 
+  const handleAdminClick = async () => {
+    const obj = {
+      email: "admin@gmail.com",
+      password: "1",
+    };
+    setLoading(true);
+    await dispatch(login(obj));
+    setLoading(false);
+  };
+
+  const handleUserClick = async () => {
+    const obj = {
+      email: "user@gmail.com",
+      password: "1",
+    };
+    setLoading(true);
+    await dispatch(login(obj));
+    setLoading(false);
+  };
+
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -48,8 +68,17 @@ const AuthPage = ({}) => {
       if (!email || !password || !userName) {
         toast({
           variant: "destructive",
-          title: " Uh oh!",
+          title: "Uh oh!",
           description: "All fields are required",
+        });
+        setError(true);
+        setLoading(false);
+        return;
+      } else if (password.length < 8) {
+        toast({
+          variant: "destructive",
+          title: "Weak Password",
+          description: "Password must be at least 8 characters long",
         });
         setError(true);
         setLoading(false);
@@ -82,13 +111,23 @@ const AuthPage = ({}) => {
       if (!email || !password) {
         toast({
           variant: "destructive",
-          title: " Uh oh!",
+          title: "Uh oh!",
           description: "All fields are required",
         });
         setError(true);
         setLoading(false);
         return;
+      } else if (password.length < 8) {
+        toast({
+          variant: "destructive",
+          title: "Weak Password",
+          description: "Password must be at least 8 characters long",
+        });
+        setError(true);
+        setLoading(false);
+        return;
       }
+
       try {
         const response = await dispatch(login(obj));
         if (response?.payload === "User is not verified") {
@@ -150,6 +189,32 @@ const AuthPage = ({}) => {
                   </div>
                   <form onSubmit={handleSubmit}>
                     <div class="grid gap-4">
+                      <div className="grid grid-cols-2 gap-6">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={handleAdminClick}
+                        >
+                          Admin
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={handleUserClick}
+                        >
+                          User
+                        </Button>
+                      </div>
+                      <div className="relative">
+                        <div className="absolute inset-0 flex items-center">
+                          <span className="w-full border-t" />
+                        </div>
+                        <div className="relative flex justify-center text-xs uppercase">
+                          <span className="bg-background px-2 text-muted-foreground">
+                            Or continue with
+                          </span>
+                        </div>
+                      </div>
                       {auth && (
                         <div class="grid gap-2">
                           {error && !userName ? (
@@ -192,7 +257,7 @@ const AuthPage = ({}) => {
                       </div>
 
                       <div className="grid gap-2 relative">
-                        {error && !password ? (
+                        {error && password.length < 8 ? (
                           <Label className="text-red-600">
                             Password <ValidationIcon />
                           </Label>
