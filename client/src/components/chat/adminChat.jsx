@@ -24,7 +24,7 @@ const Chat = () => {
   };
   const changeChat = () => {
     setChatId({});
-    setMessages([])
+    setMessages([]);
   };
 
   const sendMessage = async (e) => {
@@ -38,7 +38,7 @@ const Chat = () => {
       };
 
       // Emit the message through the socket
-      
+
       await axiosInstance.post("api/message", data);
       setNewMessage("");
       socketRef.current.emit("new_message", data);
@@ -100,13 +100,13 @@ const Chat = () => {
           <button className="bg-blue-500 text-white p-2 rounded-full shadow-lg hover:bg-blue-600">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8"
-              viewBox="0 0 24 24"
+             className="h-8 w-8"
+              viewBox="0 0 16 16"
             >
-              <path
-                fill="currentColor"
-                d="M6.5 13.5h7v-1h-7zm0-3h11v-1h-11zm0-3h11v-1h-11zM3 20.077V4.616q0-.691.463-1.153T4.615 3h14.77q.69 0 1.152.463T21 4.616v10.769q0 .69-.463 1.153T19.385 17H6.077zM5.65 16h13.735q.23 0 .423-.192t.192-.423V4.615q0-.23-.192-.423T19.385 4H4.615q-.23 0-.423.192T4 4.615v13.03zM4 16V4z"
-              />
+              <g fill="currentColor">
+                <path d="M5 8a1 1 0 1 1-2 0a1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0a1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2a1 1 0 0 0 0 2" />
+                <path d="m2.165 15.803l.02-.004c1.83-.363 2.948-.842 3.468-1.105A9 9 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7s-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.4 10.4 0 0 1-.524 2.318l-.003.011a11 11 0 0 1-.244.637c-.079.186.074.394.273.362a22 22 0 0 0 .693-.125m.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6s-3.004 6-7 6a8 8 0 0 1-2.088-.272a1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a11 11 0 0 0 .398-2" />
+              </g>
             </svg>
           </button>
         </div>

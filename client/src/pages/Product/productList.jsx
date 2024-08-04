@@ -1,5 +1,4 @@
 import { Separator } from "../../components/ui/separator";
-import { cn } from "../../lib/utils";
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 import {
@@ -9,7 +8,7 @@ import {
   SheetFooter,
   SheetTrigger,
 } from "../../components/ui/sheet";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchProductsByFiltersAsync,
@@ -22,8 +21,7 @@ import { ITEMS_PER_PAGE } from "../../app/constants";
 import PaginationComponent from "../../components/Common/Pagination";
 import { Link } from "react-router-dom";
 import { LoaderCircle } from "lucide-react";
-import { Skeleton } from "../../components/ui/skeleton";
-const priceRanges = [
+ const priceRanges = [
   { label: "Below Rs. 15,000", minPrice: 0, maxPrice: 15000 },
   { label: "Rs. 15,000 - Rs. 25,000", minPrice: 15000, maxPrice: 25000 },
   { label: "Rs. 25,000 - Rs. 40,000", minPrice: 25000, maxPrice: 40000 },
@@ -45,6 +43,7 @@ const ProductList = () => {
   const [page, setPage] = useState(1);
   const [selectedPriceRange, setSelectedPriceRange] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const scrollAreaRef = useRef(null);
 
   const [sortOptions, setSortOptions] = useState([
     { name: "Price: Low to High", sort: "price", order: "asc", current: false },
@@ -134,6 +133,9 @@ const ProductList = () => {
       );
       setIsLoading(false);
     };
+    if (scrollAreaRef.current) {
+      scrollAreaRef.current.scrollTop = 0;
+    }
 
     fetchProducts();
   }, [dispatch, filter, sort, page, search, selectedPriceRange]);
@@ -145,6 +147,7 @@ const ProductList = () => {
   useEffect(() => {
     dispatch(fetchBrandsAsync());
   }, []);
+
   return (
     <>
       <div className=" my-4 pt-3 mx-4">
@@ -221,26 +224,23 @@ const ProductList = () => {
                 </div>
                 <Separator className="mb-4 mt-3" />
                 {!isLoading ? (
-                  <div className="relative">
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8 ">
-                      {products.map((album, index) => (
+                  <div ref={scrollAreaRef} className="relative">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8">
+                      {products.map((album) => (
                         <Link
                           key={album.id}
                           to={`product-detail/${album.id}`}
-                          className={cn("space-y-3 sm:border sm:p-4 ")}
+                          className="space-y-3 sm:border sm:p-4"
                         >
-                          <div className="rounded-md  overflow-hidden">
+                          <div className="rounded-md overflow-hidden aspect-square">
                             <img
                               src={album.thumbnail}
                               alt={album.name}
-                              className={cn(
-                                "h-auto w-auto object-cover transition-all hover:scale-105",
-                                "aspect-square"
-                              )}
+                              className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
                             />
                           </div>
-                          <div className="space-y-1  text-xs sm:text-md pt-2">
-                            <h3 className="font-medium leading-none">
+                          <div className="space-y-1 text-xs sm:text-md pt-2">
+                            <h3 className="font-medium leading-none truncate">
                               {album.title}
                             </h3>
                             <p className="text-xs sm:text-sm text-muted-foreground">
@@ -250,6 +250,7 @@ const ProductList = () => {
                         </Link>
                       ))}
                     </div>
+
                     <PaginationComponent
                       totalItems={totalItems}
                       page={page}
