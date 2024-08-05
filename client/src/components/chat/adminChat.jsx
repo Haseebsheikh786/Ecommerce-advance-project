@@ -238,7 +238,7 @@ const Chat = () => {
                 messages.map((message, index) => (
                   <div key={message.id} className="mb-2">
                     {message.sender_role === "user" ? (
-                      <div className="flex items-center">
+                      <div className="flex items-center mr-10">
                         <div className="bg-card shadow border rounded-md p-2">
                           <p className="pr-6">{message.content}</p>
                           <p className="text-xs text-muted-foreground text-end">
@@ -253,7 +253,7 @@ const Chat = () => {
                         </div>
                       </div>
                     ) : (
-                      <div className="flex flex-col items-end justify-end space-x-2 my-2">
+                      <div className="flex flex-col items-end justify-end space-x-2 my-2 ml-10" >
                         <div className="bg-muted shadow border rounded-md p-2">
                           <p className="pr-6">{message.content}</p>
                           <p className="text-xs text-muted-foreground text-end">

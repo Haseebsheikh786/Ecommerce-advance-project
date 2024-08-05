@@ -38,6 +38,24 @@ const Chat = () => {
         } catch (error) {
           console.error("Error sending message:", error);
         }
+
+        // Check if the message is the first one
+        if (messages.length === 0) {
+          const autoResponse = {
+            sender: "66aa9fbf32e607ab2bfa089e",
+            content: "We’re currently offline. Leave your message, and we’ll reply soon.",
+            chat: chatId,
+            sender_name: "Admin",
+            sender_role: "admin",
+          };
+
+          try {
+            await axiosInstance.post("api/message", autoResponse);
+            socketRef.current.emit("new_message", autoResponse);
+          } catch (error) {
+            console.error("Error sending auto-response:", error);
+          }
+        }
       }
     }
   };
@@ -154,7 +172,7 @@ const Chat = () => {
                   {messages.map((message, index) => (
                     <div key={message.id} className="mb-2">
                       {message.sender_id !== user?._id ? (
-                        <div className="flex items-center">
+                        <div className="flex items-center mr-10">
                           <div className="bg-card shadow border rounded-md p-2">
                             <p className="pr-6">{message.content}</p>
                             <p className="text-xs text-muted-foreground text-end">
@@ -169,7 +187,7 @@ const Chat = () => {
                           </div>
                         </div>
                       ) : (
-                        <div className="flex flex-col items-end justify-end space-x-2 my-2">
+                        <div className="flex flex-col items-end justify-end space-x-2 my-2 ml-10">
                           <div className="bg-muted shadow border rounded-md p-2">
                             <p className="pr-6">{message.content}</p>
                             <p className="text-xs text-muted-foreground text-end">
