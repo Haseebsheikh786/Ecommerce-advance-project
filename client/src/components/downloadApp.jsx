@@ -5,23 +5,38 @@ import mobile from "../assets/images/mobile.png";
 import darkLogo from "../assets/images/White Modern Minimal E-Commerce Logo (1).png";
 import lightLogo from "../assets/images/White Modern Minimal E-Commerce Logo.png";
 import { selectedMode, toggleSelectedMode } from "../app/toggleSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectDeferredPrompt, setDeferredPrompt } from "../app/pwaSlice";
+import { selectUserInfo } from "../pages/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const user = useSelector(selectUserInfo);
+  const deferredPrompt = useSelector(selectDeferredPrompt);
+ 
   const themeMode = useSelector(selectedMode);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const install = () => {
-    // Handle install logic here
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+          console.log("User accepted the A2HS prompt");
+        } else {
+          console.log("User dismissed the A2HS prompt");
+        }
+        dispatch(setDeferredPrompt(null)); // Clear the prompt after use
+      });
+    }
   };
-
   const login = () => {
-    // Handle login logic here
+    navigate("/login");
   };
 
   const redirectToDashboard = () => {
-    // Handle redirection to dashboard
+    navigate("/");
   };
 
   return (
@@ -36,23 +51,22 @@ const App = () => {
           Experience the power of the
         </h1>
         <h1 className="text-2xl sm:text-4xl font-bold mb-4 text-center sm:text-start">
-          AlojatePro app today
+          E-Shop app today
         </h1>
         <p className="mb-6 text-center sm:text-start">
-          Streamline your business operations effortlessly.
+          Enjoy a seamless shopping experience.
           <br />
-          Stay connected and manage everything on the go.
+          Stay connected and shop from anywhere.{" "}
         </p>
         <div className="flex space-x-4 justify-center">
           <Button
-            disabled={!deferredPrompt}
             variant="outline"
             onClick={install}
+            disabled={!deferredPrompt}
           >
-            {/* <Icon icon="octicon:download-16" className="mr-2 h-4 w-4" /> */}
             Download
           </Button>
-          {!isLoggedIn ? (
+          {!user ? (
             <Button variant="default" onClick={login}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

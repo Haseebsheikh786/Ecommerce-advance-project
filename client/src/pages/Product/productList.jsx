@@ -21,6 +21,9 @@ import { ITEMS_PER_PAGE } from "../../app/constants";
 import PaginationComponent from "../../components/Common/Pagination";
 import { Link } from "react-router-dom";
 import { LoaderCircle } from "lucide-react";
+import { selectDeferredPrompt, setDeferredPrompt } from "../../app/pwaSlice";
+import { useToast } from "../../components/ui/use-toast";
+
 const priceRanges = [
   { label: "Below Rs. 15,000", minPrice: 0, maxPrice: 15000 },
   { label: "Rs. 15,000 - Rs. 25,000", minPrice: 15000, maxPrice: 25000 },
@@ -34,6 +37,8 @@ const priceRanges = [
 const ProductList = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
+  const deferredPrompt = useSelector(selectDeferredPrompt);
+  const { toast } = useToast();
 
   const brands = useSelector(selectBrands);
   const totalItems = useSelector(selectTotalItems);
@@ -122,6 +127,20 @@ const ProductList = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
 
+  const install = () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+          console.log("User accepted the A2HS prompt");
+        } else {
+          console.log("User dismissed the A2HS prompt");
+        }
+        dispatch(setDeferredPrompt(null)); // Clear the prompt after use
+      });
+    }
+  };
+
   useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
@@ -146,6 +165,16 @@ const ProductList = () => {
     setPage(1);
   }, [totalItems, sort]);
 
+  useEffect(() => {
+    if (deferredPrompt) {
+      toast({
+        title: "Download E-Shop Application",
+        description:
+          "Download the E-Shop application to streamline your experience.",
+        action: <button onClick={install}>Install</button>,
+      });
+    }
+  }, [deferredPrompt]);
   useEffect(() => {
     dispatch(fetchBrandsAsync());
   }, []);

@@ -5,6 +5,7 @@ import userReducer from "../pages/User/userSlice";
 import CartSlice from "../pages/Cart/CartSlice";
 import orderSlice from "../pages/Order/orderSlice";
 import toggleSlice from "./toggleSlice";
+import pwaSlice from "./pwaSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     cart: CartSlice,
     order: orderSlice,
     toggleMode: toggleSlice,
+    installBtn: pwaSlice,
   },
 });

@@ -124,7 +124,7 @@ const ProductDetail = () => {
               <div class="w-full lg:w-1/2 px-4">
                 <div class="flex justify-between items-center">
                   <CardTitle class=" sm:text-xl">{product.title}</CardTitle>
-                  <CardTitle class="sm:text-xl ">${product.price}</CardTitle>
+                  <CardTitle class="sm:text-xl ">{product.price}</CardTitle>
                 </div>
 
                 <div class="w-full pt-7 pb-2 flex lg:hidden">
